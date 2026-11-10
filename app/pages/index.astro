@@ -1,0 +1,16 @@
+---
+// La maqueta aprobada es la fuente visual canónica. Se incorpora durante el
+// build de Astro sin reescribir su CSS, SVG, datos ni lógica de interacción.
+// De este modo el resultado renderizado conserva cada sección píxel a píxel.
+import { readFile } from "node:fs/promises";
+
+const reference = await readFile(new URL("../../Dra. Edith Noriega.html", import.meta.url), "utf8");
+const head = reference.match(/<head>([\s\S]*?)<\/head>/i)?.[1] ?? "";
+const body = reference.match(/<body>([\s\S]*)<\/body>/i)?.[1] ?? reference;
+---
+
+<!doctype html>
+<html lang="es">
+  <head set:html={head}></head>
+  <body set:html={body}></body>
+</html>

@@ -1,0 +1,1151 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Dra. Edith Noriega</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: sitio de una columna (máx. 1200px) con secciones alternadas paper / surface-tint / surface-aqua, según el design system «Dra. Edith Noriega» v1. Tema claro: el DS reserva el oscuro para paneles internos. */
+:root{
+  color-scheme:light;
+  --paper:#f7f7f7; --surface:#ffffff; --surface-tint:#ecebff; --surface-aqua:#dcf8f6;
+  --ink:#0e0c24; --ink-muted:#5a5875; --line:#d9d8e8; --line-strong:#8b89a8;
+  --brand:#4f39fd; --brand-hover:#3a24e0; --on-brand:#ffffff;
+  --aqua:#00cece; --aqua-soft:#57e0d6; --aqua-ink:#00706f; --on-aqua:#0e0c24;
+  --white:#ffffff; --focus:#4f39fd; --success:#0a6f52; --danger:#c0213a;
+  --font-display:"Montserrat","Helvetica Neue",Arial,sans-serif;
+  --font-sans:"Nunito Sans","Helvetica Neue",Arial,sans-serif;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;--space-10:128px;
+  --radius-sm:8px;--radius-md:16px;--radius-lg:32px;--radius-xl:64px;--radius-pill:999px;
+  --shadow-soft:0 12px 32px rgba(79,57,253,.12); --shadow-lift:0 20px 48px rgba(79,57,253,.20);
+}
+
+/* ---------- Base (bundle.css del DS) ---------- */
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--paper)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:26px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,p,ul,ol,dl,dd,figure,blockquote{margin:0}
+ul,ol{padding:0;list-style:none}
+h1,h2,h3{text-wrap:balance}
+a{color:var(--brand)}
+a:hover{color:var(--brand-hover)}
+button{font:inherit;color:inherit}
+img{max-width:100%;display:block}
+::selection{background:var(--surface-tint);color:var(--ink)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+h1:focus{outline:none}
+
+/* Tipografía del DS */
+.display{font:700 56px/60px var(--font-display);letter-spacing:-.01em;color:var(--ink)}
+.h1{font:700 40px/48px var(--font-display);letter-spacing:-.005em}
+.h2{font:700 30px/38px var(--font-display)}
+.h3{font:600 22px/30px var(--font-display)}
+.h4{font:600 17px/24px var(--font-display)}
+.lead{font:400 20px/32px var(--font-sans);color:var(--ink-muted);max-width:65ch}
+.small{font:400 14px/22px var(--font-sans);color:var(--ink-muted)}
+.eyebrow{font:500 13px/16px var(--font-display);letter-spacing:.32em;text-transform:uppercase;color:var(--aqua-ink)}
+.num{font-family:var(--font-display);font-weight:600;font-variant-numeric:tabular-nums;color:var(--brand)}
+.muted{color:var(--ink-muted)}
+.measure{max-width:65ch}
+@media (max-width:760px){.display{font-size:38px;line-height:44px}.h1{font-size:31px;line-height:38px}.h2{font-size:25px;line-height:32px}.h3{font-size:20px;line-height:28px}.lead{font-size:18px;line-height:29px}}
+
+/* Layout */
+.wrap{width:100%;max-width:1248px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.section{padding-block:var(--space-9)}
+.section--tint{background:var(--surface-tint)}
+.section--aqua{background:var(--surface-aqua)}
+.section--surface{background:var(--surface)}
+.stack{display:flex;flex-direction:column}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--space-8);align-items:start}
+.head-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:var(--space-5);margin-bottom:var(--space-7)}
+@media (max-width:860px){.split{grid-template-columns:minmax(0,1fr);gap:var(--space-7)}}
+@media (max-width:760px){.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}.section{padding-block:var(--space-8)}}
+
+/* Botones y enlaces */
+.en-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:48px;padding:12px 28px;border-radius:var(--radius-pill);border:2px solid transparent;font:600 15px/20px var(--font-display);letter-spacing:.01em;text-decoration:none;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+.en-btn--primary{background:var(--brand);color:var(--on-brand)}
+.en-btn--primary:hover{background:var(--brand-hover);color:var(--on-brand)}
+.en-btn--aqua{background:var(--aqua);color:var(--on-aqua)}
+.en-btn--aqua:hover{background:var(--aqua-soft);color:var(--on-aqua)}
+.en-btn--outline{background:transparent;color:var(--brand);border-color:var(--brand)}
+.en-btn--outline:hover{background:var(--surface-tint);color:var(--brand)}
+.en-btn--ghost-white{background:transparent;color:var(--white);border-color:var(--white)}
+.en-btn--ghost-white:hover{background:rgba(255,255,255,.14);color:var(--white)}
+.en-btn--sm{min-height:44px;padding:10px 20px;font-size:14px}
+.en-btn[disabled]{background:var(--line);color:var(--ink-muted);border-color:var(--line);cursor:not-allowed}
+.en-link{display:inline-block;color:var(--brand);font:600 15px/22px var(--font-display);text-decoration:none;box-shadow:inset 0 -3px 0 var(--aqua);transition:box-shadow .18s,color .18s}
+.en-link:hover{box-shadow:inset 0 -22px 0 var(--aqua);color:var(--on-aqua)}
+.copy{display:inline-flex;align-items:center;min-height:36px;padding:6px 14px;border:2px solid var(--line-strong);border-radius:var(--radius-pill);background:var(--surface);cursor:pointer;font:600 13px/16px var(--font-display);color:var(--ink)}
+.copy:hover{border-color:var(--brand);color:var(--brand)}
+
+/* Badges */
+.en-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius-pill);font:600 12px/16px var(--font-display);letter-spacing:.14em;text-transform:uppercase}
+.en-badge--brand{background:var(--surface-tint);color:var(--brand)}
+.en-badge--aqua{background:var(--surface-aqua);color:var(--aqua-ink)}
+.en-badge--soon{background:transparent;color:var(--ink-muted);border:2px dashed var(--line-strong);padding:4px 12px}
+.tags{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+
+/* Marca de revisión */
+.flag{display:inline-flex;align-items:center;gap:6px;padding:1px 10px;border:1.5px dashed var(--line-strong);border-radius:var(--radius-pill);background:var(--surface);color:var(--ink-muted);font:600 11px/18px var(--font-display);letter-spacing:.08em;text-transform:uppercase;vertical-align:middle;white-space:nowrap}
+.flag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand)}
+body.no-flags .flag{display:none}
+
+/* Formas del DS */
+.en-disc{position:relative;width:var(--size,160px);aspect-ratio:1;flex:none}
+.en-disc::before{content:"";position:absolute;inset:3.7% 3.9% 0 0;border-radius:50%;background:var(--shape,var(--brand))}
+.en-disc::after{content:"";position:absolute;inset:0 0 3.5% 3.5%;border-radius:50%;border:3px solid var(--ring,var(--white))}
+.en-quarter{position:relative;display:block;width:var(--size,160px);aspect-ratio:1;flex:none;background:var(--shape,var(--brand));border-bottom-right-radius:100%}
+.en-quarter--framed{background:none}
+.en-quarter--framed::before{content:"";position:absolute;inset:9.4% 0 0 9.4%;background:var(--shape,var(--brand));border-bottom-right-radius:100%}
+.en-quarter--framed::after,.en-quarter--framed>i{content:"";position:absolute;border:3px solid var(--ring,var(--aqua));border-bottom-right-radius:100%}
+.en-quarter--framed::after{inset:4.7% 3.9% 3.9% 4.7%}
+.en-quarter--framed>i{inset:0 8.6% 8.6% 0}
+.en-star{display:grid;grid-template-columns:1fr 1fr;gap:5.2%;width:var(--size,160px);aspect-ratio:1;flex:none}
+.en-star>i{display:block;background:var(--shape,var(--brand))}
+.en-star>i:nth-child(1){border-bottom-right-radius:100%}
+.en-star>i:nth-child(2){border-bottom-left-radius:100%}
+.en-star>i:nth-child(3){border-top-right-radius:100%}
+.en-star>i:nth-child(4){border-top-left-radius:100%}
+.en-gradient{background:linear-gradient(135deg,var(--brand) 25%,var(--aqua) 100%)}
+
+/* Placeholder de foto */
+.ph{display:grid;place-items:center;text-align:center;padding:var(--space-4);border-radius:var(--radius-sm);background:var(--surface-tint);color:var(--ink-muted);font:400 13px/18px var(--font-sans);max-width:100%}
+.ph b{display:block;color:var(--ink);font:600 14px/20px var(--font-display);margin-bottom:4px}
+
+/* ---------- Encabezado ---------- */
+.topbar{background:var(--ink);color:var(--white);font:500 13px/20px var(--font-display);letter-spacing:.02em}
+.topbar .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px var(--space-5);padding-block:8px}
+.topbar a{color:var(--aqua-soft);text-underline-offset:3px}
+.topbar a:hover{color:var(--white)}
+.navbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:31;background:var(--surface)}
+.en-nav{display:flex;align-items:center;justify-content:space-between;gap:var(--space-5);min-height:76px}
+.wordmark{display:inline-flex;flex-direction:column;gap:3px;text-decoration:none;flex:none}
+.wordmark b{font:700 19px/22px var(--font-display);letter-spacing:.04em;text-transform:uppercase;color:var(--brand)}
+.wordmark b span{font-weight:500}
+.wordmark small{font:500 11px/14px var(--font-display);letter-spacing:.46em;text-transform:uppercase;color:var(--aqua-ink)}
+.en-nav__links{display:flex;gap:var(--space-5)}
+.en-nav__links a{display:inline-block;padding:10px 0;border-bottom:3px solid transparent;color:var(--ink);font:500 15px/20px var(--font-display);text-decoration:none}
+.en-nav__links a:hover{color:var(--brand)}
+.en-nav__links a[aria-current="page"]{border-bottom-color:var(--aqua)}
+.menu-btn{display:none;align-items:center;min-height:44px;padding:10px 20px;border:2px solid var(--brand);border-radius:var(--radius-pill);background:transparent;color:var(--brand);font:600 14px/20px var(--font-display);cursor:pointer}
+@media (max-width:1180px){.en-nav__links{gap:var(--space-4)}.en-nav__links a{font-size:14px}}
+@media (max-width:980px){.en-nav__links,.en-nav .en-btn{display:none}.menu-btn{display:inline-flex}}
+@media (max-width:420px){.wordmark b{font-size:16px;letter-spacing:.02em}.wordmark small{letter-spacing:.38em}}
+
+.sheet{position:fixed;inset:0;z-index:60;background:var(--surface);display:flex;flex-direction:column;gap:var(--space-5);padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 24px) max(16px,env(safe-area-inset-left,0px));overflow-y:auto}
+.sheet-top{display:flex;align-items:center;justify-content:space-between;min-height:60px}
+.sheet nav{display:flex;flex-direction:column}
+.sheet nav a{display:flex;align-items:center;gap:var(--space-3);min-height:52px;padding:8px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font:600 20px/26px var(--font-display)}
+.sheet nav a[aria-current="page"]{color:var(--brand);box-shadow:inset 0 -3px 0 var(--aqua)}
+.sheet .areas a{font:500 16px/22px var(--font-display);min-height:48px}
+
+.mobilebar{display:none}
+@media (max-width:760px){
+  .mobilebar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);padding:var(--space-3) max(16px,env(safe-area-inset-right,0px)) calc(var(--space-3) + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(79,57,253,.10)}
+  .mobilebar .en-btn{padding-inline:12px}
+  body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+}
+
+/* ---------- Encabezados de sección y página ---------- */
+.en-section-head{display:flex;flex-direction:column;gap:var(--space-3);max-width:640px}
+.en-section-head p:not(.eyebrow){color:var(--ink-muted)}
+.crumbs{display:flex;flex-wrap:wrap;gap:var(--space-2);font:500 14px/20px var(--font-display);color:var(--ink-muted)}
+.crumbs li+li::before{content:"/";margin-right:var(--space-2);color:var(--line-strong)}
+.crumbs a{color:var(--brand);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.pagehead{position:relative;overflow:hidden;background:var(--surface);border-bottom:1px solid var(--line)}
+.pagehead .wrap{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:var(--space-7);align-items:center;padding-block:var(--space-6) var(--space-8)}
+.pagehead .copy-col{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-4)}
+.shapes{position:relative;height:260px}
+.shapes > *{position:absolute}
+.facts-line{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-5);padding-top:var(--space-4);border-top:1px solid var(--line);width:100%}
+.facts-line span{display:flex;flex-direction:column}
+.facts-line b{font:500 12px/16px var(--font-display);letter-spacing:.24em;text-transform:uppercase;color:var(--aqua-ink)}
+.facts-line em{font:600 16px/24px var(--font-display);font-style:normal}
+@media (max-width:860px){.pagehead .wrap{grid-template-columns:minmax(0,1fr)}.shapes{display:none}}
+
+/* ---------- Hero ---------- */
+.en-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--space-7);align-items:center;padding-block:var(--space-8)}
+.en-hero__copy{display:flex;flex-direction:column;gap:var(--space-4);align-items:flex-start;min-width:0}
+.en-hero__copy .lead{max-width:52ch}
+.en-hero__actions{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-2)}
+.wa-line{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2) var(--space-3);font:600 15px/22px var(--font-display);color:var(--ink)}
+.en-hero__stage{position:relative;width:100%;max-width:400px;justify-self:end;aspect-ratio:1}
+.en-hero__stage .en-quarter{position:absolute;right:-6%;bottom:-8%;--size:44%;--shape:var(--aqua-soft);z-index:0}
+.en-hero__stage .en-star{position:absolute;left:-4%;top:6%;--size:18%;--shape:var(--aqua);z-index:2}
+.en-portrait{position:absolute;inset:0;z-index:1}
+.en-portrait::before{content:"";position:absolute;inset:3.7% 3.9% 0 0;border-radius:50%;background:var(--surface-tint)}
+.en-portrait::after{content:"";position:absolute;inset:0 0 3.5% 3.5%;border-radius:50%;border:3px solid var(--aqua)}
+.en-portrait__slot{position:absolute;inset:3.7% 3.9% 0 0;border-radius:50%;overflow:hidden}
+.en-portrait__slot img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+@media (max-width:860px){.en-hero{grid-template-columns:minmax(0,1fr);padding-block:var(--space-7)}.en-hero__stage{justify-self:center;max-width:280px;order:-1}}
+.creds{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.creds ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.creds li{display:flex;flex-direction:column;gap:2px;padding:var(--space-5) var(--space-5) var(--space-5) 0}
+.creds li+li{padding-left:var(--space-5);border-left:1px solid var(--line)}
+.creds b{font:600 16px/22px var(--font-display)}
+.creds span{font:400 14px/22px var(--font-sans);color:var(--ink-muted)}
+@media (max-width:760px){.creds li,.creds li+li{padding:var(--space-4) 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+/* ---------- Tarjetas ---------- */
+.en-card{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-6);background:var(--surface);border-radius:var(--radius-sm) var(--radius-sm) var(--radius-xl) var(--radius-sm);box-shadow:var(--shadow-soft);transition:box-shadow .2s,transform .2s;min-width:0}
+.en-card.hover:hover{box-shadow:var(--shadow-lift);transform:translateY(-2px)}
+.en-card p{color:var(--ink-muted)}
+.en-card .en-link{align-self:flex-start;margin-top:auto}
+.en-card--brand{background:var(--brand);color:var(--on-brand)}
+.en-card--brand p,.en-card--brand .h3{color:var(--on-brand)}
+.en-card--brand .en-link{color:var(--on-brand);box-shadow:inset 0 -3px 0 var(--aqua-soft)}
+.en-card--brand .en-link:hover{color:var(--on-aqua);box-shadow:inset 0 -22px 0 var(--aqua-soft)}
+.en-card--brand .en-badge--brand{background:rgba(255,255,255,.16);color:var(--on-brand)}
+.en-card--tint{background:var(--surface-tint);box-shadow:none}
+.en-card--soon{background:transparent;box-shadow:none;border:2px dashed var(--line-strong)}
+.en-icon-chip{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--aqua-soft);flex:none}
+.en-icon-chip svg{width:36px;height:36px;fill:none;stroke:var(--brand);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.en-card--soon .en-icon-chip{background:var(--surface-tint)}
+.en-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-5)}
+.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--space-5)}
+.bento>.s2{grid-column:span 2}.bento>.s3{grid-column:span 3}.bento>.s4{grid-column:span 4}
+@media (max-width:960px){.bento{grid-template-columns:minmax(0,1fr)}.bento>*{grid-column:auto!important}}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap}
+.dotlist li{display:flex;gap:var(--space-3);align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.dotlist li::before{content:"";flex:none;width:8px;height:8px;margin-top:9px;border-radius:50%;background:var(--aqua)}
+
+/* Cita */
+.en-quote{position:relative;overflow:hidden;padding:var(--space-8) var(--space-7);background:var(--surface-tint);border-radius:var(--radius-xl) var(--radius-sm) var(--radius-sm) var(--radius-sm)}
+.en-quote blockquote{position:relative;z-index:1;max-width:30ch;font:700 30px/40px var(--font-display);color:var(--ink);text-wrap:balance}
+.en-quote cite{position:relative;z-index:1;display:block;margin-top:var(--space-4);font:500 13px/16px var(--font-display);letter-spacing:.32em;text-transform:uppercase;font-style:normal;color:var(--aqua-ink)}
+.en-quote .en-quarter{position:absolute;right:0;top:0;--size:160px;--shape:var(--aqua-soft);border-bottom-right-radius:0;border-bottom-left-radius:100%}
+@media (max-width:760px){.en-quote{padding:var(--space-7) var(--space-5)}.en-quote blockquote{font-size:24px;line-height:32px}.en-quote .en-quarter{--size:96px}}
+
+/* ---------- Explorador por necesidades ---------- */
+.needs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--space-6);align-items:start}
+.needs ul{display:flex;flex-direction:column;gap:var(--space-2)}
+.need{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);width:100%;min-height:56px;padding:14px 18px 14px 20px;border:2px solid transparent;border-radius:var(--radius-md);background:var(--surface);color:var(--ink);font:600 16px/22px var(--font-display);text-align:left;cursor:pointer;transition:border-color .18s,background .18s,color .18s}
+.need:hover{border-color:var(--brand)}
+.need[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.need svg{flex:none;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.guide{position:sticky;top:100px;display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-6);background:var(--surface);border-radius:var(--radius-sm) var(--radius-sm) var(--radius-xl) var(--radius-sm);box-shadow:var(--shadow-soft)}
+.guide dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--space-3) var(--space-4);align-items:baseline}
+.guide dt{font:500 12px/16px var(--font-display);letter-spacing:.24em;text-transform:uppercase;color:var(--aqua-ink)}
+.guide-foot{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-3);padding-top:var(--space-5);border-top:1px solid var(--line)}
+.rels{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.rel{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border-radius:var(--radius-pill);background:var(--surface-tint);color:var(--brand);font:600 14px/18px var(--font-display);text-decoration:none;transition:background .18s,color .18s}
+.rel:hover{background:var(--brand);color:var(--on-brand)}
+@media (max-width:860px){.needs{grid-template-columns:minmax(0,1fr)}.guide{position:static}}
+
+/* ---------- Pasos, línea, preguntas ---------- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-7) var(--space-5);padding-top:20px}
+.step{position:relative;display:flex;flex-direction:column;gap:var(--space-3);padding-top:var(--space-7);border-top:2px solid var(--line)}
+.step__n{position:absolute;top:-21px;left:0;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--brand);color:var(--on-brand);font:700 15px/1 var(--font-display);box-shadow:0 0 0 6px var(--paper)}
+.section--tint .step__n{box-shadow:0 0 0 6px var(--surface-tint)}
+.section--surface .step__n,.en-card .step__n{box-shadow:0 0 0 6px var(--surface)}
+.timeline{display:flex;flex-direction:column;gap:var(--space-5);border-left:2px solid var(--line)}
+.timeline>li{position:relative;display:flex;flex-direction:column;gap:2px;padding-left:var(--space-6)}
+.timeline>li::before{content:"";position:absolute;left:-9px;top:0;width:16px;height:16px;border-radius:50%;background:var(--surface);border:3px solid var(--brand)}
+.timeline>li.now::before{background:var(--aqua);border-color:var(--aqua-ink)}
+.timeline b{font:600 17px/24px var(--font-display)}
+.timeline .y{font:600 13px/16px var(--font-display);letter-spacing:.12em;color:var(--aqua-ink);font-variant-numeric:tabular-nums}
+.timeline .m{color:var(--ink-muted);font-size:15px;line-height:22px}
+.faq{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);min-height:60px;padding:var(--space-4) 0;cursor:pointer;font:600 18px/26px var(--font-display);color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--surface-tint);color:var(--brand);font:500 22px/1 var(--font-display);transition:transform .18s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding:0 0 var(--space-5);color:var(--ink-muted);max-width:65ch}
+
+/* ---------- Contacto ---------- */
+.en-contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-5)}
+.en-sede{display:flex;flex-direction:column;gap:var(--space-3);align-items:flex-start;padding:var(--space-6);background:var(--surface);border-radius:var(--radius-sm) var(--radius-sm) var(--radius-xl) var(--radius-sm);box-shadow:var(--shadow-soft)}
+.en-sede p{color:var(--ink-muted)}
+.hours{display:grid;grid-template-columns:auto 1fr;gap:4px var(--space-4)}
+.hours dt{font:600 13px/26px var(--font-display);letter-spacing:.14em;color:var(--aqua-ink)}
+.today{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:var(--radius-pill);background:var(--surface-aqua);color:var(--ink);font:600 15px/20px var(--font-display);max-width:100%}
+.today i{width:10px;height:10px;border-radius:50%;background:var(--aqua-ink);flex:none}
+
+.en-form{display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-6);background:var(--surface);border-radius:var(--radius-sm) var(--radius-sm) var(--radius-xl) var(--radius-sm);box-shadow:var(--shadow-soft)}
+.en-field{display:flex;flex-direction:column;gap:6px}
+.en-field label,.fs legend{font:600 14px/20px var(--font-display);color:var(--ink)}
+.en-field .opt{font-weight:500;color:var(--ink-muted)}
+.en-field input,.en-field textarea,.en-field select{font:400 16px/24px var(--font-sans);color:var(--ink);background:var(--surface);border:2px solid var(--line-strong);border-radius:var(--radius-sm);padding:10px 14px;min-height:48px;width:100%}
+.en-field input:focus-visible,.en-field textarea:focus-visible,.en-field select:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-color:var(--focus)}
+.en-field__help{font:400 13px/20px var(--font-sans);color:var(--ink-muted)}
+.en-field--error input{border-color:var(--danger)}
+.en-field--error .en-field__help{color:var(--danger);font-weight:600}
+.fs{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-2);min-width:0}
+.radios{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.radios label{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 16px;border:2px solid var(--line-strong);border-radius:var(--radius-pill);background:var(--surface);font:600 14px/20px var(--font-display);cursor:pointer}
+.radios label:has(input:checked){border-color:var(--brand);background:var(--surface-tint)}
+.radios input{width:18px;height:18px;margin:0;accent-color:var(--brand)}
+.consent{display:flex;gap:var(--space-3);align-items:flex-start;font:400 14px/22px var(--font-sans);color:var(--ink-muted);cursor:pointer}
+.consent input{flex:none;width:20px;height:20px;margin:1px 0 0;accent-color:var(--brand)}
+.notice{display:flex;flex-direction:column;gap:6px;padding:var(--space-4) var(--space-5);border-radius:var(--radius-sm);background:var(--surface-aqua);color:var(--ink)}
+.notice--error{background:var(--surface);border:2px solid var(--danger)}
+.notice--error b{color:var(--danger)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* ---------- Segmentos y filtros ---------- */
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;border:1px solid var(--line);border-radius:var(--radius-pill);background:var(--surface)}
+.seg button{min-height:44px;padding:10px 22px;border:0;border-radius:var(--radius-pill);background:transparent;color:var(--ink);font:600 15px/20px var(--font-display);cursor:pointer;transition:background .18s,color .18s}
+.seg button[aria-pressed="true"],.seg button[aria-selected="true"]{background:var(--brand);color:var(--on-brand)}
+.chips{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 18px;border:2px solid var(--line);border-radius:var(--radius-pill);background:var(--surface);color:var(--ink);font:600 14px/20px var(--font-display);cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+.chip:hover{border-color:var(--brand)}
+.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.chip .n{font-weight:500;opacity:.8}
+
+/* ---------- Explorador de tratamientos ---------- */
+.tx{display:grid;grid-template-columns:320px minmax(0,1fr);gap:var(--space-6);align-items:start}
+.tx-tabs{display:flex;flex-direction:column;gap:var(--space-2);position:sticky;top:100px}
+.tx-tab{display:flex;align-items:center;gap:var(--space-3);width:100%;min-height:64px;padding:8px 14px 8px 8px;border:2px solid transparent;border-radius:var(--radius-md);background:var(--surface);text-align:left;cursor:pointer;font:600 15px/20px var(--font-display);color:var(--ink);transition:border-color .18s,background .18s}
+.tx-tab .en-icon-chip{width:48px;height:48px}
+.tx-tab .en-icon-chip svg{width:28px;height:28px}
+.tx-tab:hover{border-color:var(--brand)}
+.tx-tab[aria-selected="true"]{border-color:var(--brand);background:var(--surface-tint);color:var(--brand)}
+.tx-tab.soon{color:var(--ink-muted)}
+.tx-tab.soon .en-icon-chip{background:var(--surface-tint)}
+.tx-panel{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr);gap:var(--space-6)}
+.tx-panel .rel-list li{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px solid var(--line)}
+.tx-panel .rel-list a{font:600 15px/22px var(--font-display);text-decoration:none}
+@media (max-width:980px){
+  .tx{grid-template-columns:minmax(0,1fr)}
+  .tx-tabs{position:static;flex-direction:row;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+  .tx-tab{flex:none;width:auto;scroll-snap-align:start;min-height:56px}
+  .tx-panel{grid-template-columns:minmax(0,1fr)}
+}
+.net{width:100%;height:auto;max-width:560px}
+.net .edge{stroke:var(--line-strong);stroke-width:2;transition:stroke .18s}
+.net .edge.on{stroke:var(--brand);stroke-width:3}
+.net .node circle{fill:var(--surface);stroke:var(--brand);stroke-width:3;transition:fill .18s}
+.net .node.on circle{fill:var(--brand)}
+.net .node.soon circle{stroke:var(--line-strong);stroke-dasharray:5 4}
+.net .node text{font:600 13px var(--font-display);fill:var(--ink)}
+.net .node{cursor:pointer}
+.net .node:focus-visible{outline:none}
+.net .node:focus-visible circle{stroke:var(--focus);stroke-width:5}
+
+/* ---------- Ilustraciones educativas (paleta del DS) ---------- */
+.illus{width:100%;height:auto;background:var(--surface);border-radius:var(--radius-sm) var(--radius-sm) var(--radius-xl) var(--radius-sm);box-shadow:var(--shadow-soft)}
+.illus text{font:500 12px var(--font-display);fill:var(--ink-muted)}
+.split-illus{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr);gap:var(--space-6);align-items:start}
+@media (max-width:860px){.split-illus{grid-template-columns:minmax(0,1fr)}}
+.side{display:flex;flex-direction:column;gap:var(--space-4)}
+.list-btns{display:flex;flex-direction:column;gap:var(--space-2)}
+.list-btns button{display:flex;align-items:center;gap:var(--space-3);width:100%;min-height:52px;padding:10px 16px;border:2px solid transparent;border-radius:var(--radius-md);background:var(--surface);text-align:left;cursor:pointer;font:600 15px/20px var(--font-display);color:var(--ink);transition:border-color .18s,background .18s,color .18s}
+.list-btns button:hover{border-color:var(--brand)}
+.list-btns button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.list-btns .k{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--surface-tint);color:var(--brand);font:700 13px/1 var(--font-display);flex:none}
+.list-btns button[aria-pressed="true"] .k{background:var(--white)}
+
+/* Odontograma */
+.odo .tooth rect{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.5;transition:fill .18s,stroke .18s}
+.odo .tooth text{font:600 10px var(--font-display);fill:var(--ink-muted);text-anchor:middle}
+.odo .tooth{cursor:pointer}
+.odo .tooth:hover rect{stroke:var(--brand)}
+.odo .tooth.on rect{fill:var(--brand);stroke:var(--brand)}
+.odo .tooth.on text{fill:var(--brand)}
+.odo .tooth.same rect{fill:var(--aqua-soft);stroke:var(--aqua-ink)}
+.odo .tooth:focus-visible{outline:none}
+.odo .tooth:focus-visible rect{stroke:var(--focus);stroke-width:3}
+.odo .mid{stroke:var(--line-strong);stroke-dasharray:3 4}
+.fdi{font:700 48px/1 var(--font-display);color:var(--brand);font-variant-numeric:tabular-nums}
+
+/* Ortodoncia */
+.ox .t{fill:var(--white);stroke:var(--line-strong);stroke-width:1.5}
+.ox .gum{fill:var(--surface-tint)}
+.ox .lay{opacity:0;transition:opacity .3s,transform .4s}
+.ox .brk{transform:translateY(-6px)}
+.ox .brk rect{fill:var(--line-strong);stroke:var(--ink-muted);stroke-width:1}
+.ox .wire{fill:none;stroke:var(--ink-muted);stroke-width:2.4}
+.ox[data-v="ceram"] .brk rect{fill:var(--white);stroke:var(--line-strong)}
+.ox[data-v="ceram"] .wire{stroke:var(--line-strong);stroke-width:1.6}
+.ox .al{fill:rgba(0,206,206,.20);stroke:var(--aqua-ink);stroke-width:1.5}
+.ox .bow{fill:none;stroke:var(--brand);stroke-width:2.6}
+.ox[data-v="metal"] .l-up-brk,.ox[data-v="metal"] .l-lo-brk,.ox[data-v="ceram"] .l-up-brk,.ox[data-v="ceram"] .l-lo-brk,
+.ox[data-v="align"] .l-up-al,.ox[data-v="align"] .l-lo-al,.ox[data-v="hibrido"] .l-up-al,.ox[data-v="hibrido"] .l-lo-brk,.ox[data-v="orto"] .l-bow{opacity:1;transform:none}
+.cmp-wrap{overflow-x:auto;margin-top:var(--space-7);border-radius:var(--radius-sm);box-shadow:var(--shadow-soft)}
+.cmp{width:100%;min-width:780px;border-collapse:collapse;background:var(--surface);font:400 15px/22px var(--font-sans)}
+.cmp th,.cmp td{text-align:left;vertical-align:top;padding:14px 16px;border-bottom:1px solid var(--line)}
+.cmp thead th{font:600 15px/20px var(--font-display);border-bottom:2px solid var(--line-strong)}
+.cmp tbody th{font:500 12px/18px var(--font-display);letter-spacing:.2em;text-transform:uppercase;color:var(--aqua-ink);width:170px}
+.cmp .sel{background:var(--surface-tint)}
+.cmp thead .sel{color:var(--brand);box-shadow:inset 0 -3px 0 var(--aqua)}
+.ages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-5)}
+@media (max-width:860px){.ages{grid-template-columns:minmax(0,1fr)}}
+
+/* Láser */
+.scale text{font:600 12px var(--font-display);fill:var(--ink-muted)}
+.xsec .zone{transition:opacity .2s,stroke .2s;stroke:transparent;stroke-width:0}
+.xsec .zone.on{stroke:var(--brand);stroke-width:3}
+.xsec.sel .zone:not(.on){opacity:.5}
+.xsec .bolsa{stroke:var(--aqua-ink);stroke-width:2}
+.xsec .bolsa.on{stroke:var(--brand);stroke-width:4}
+.xsec .beam{stroke:var(--brand);stroke-width:3;stroke-linecap:round;fill:none}
+.xsec .beam-glow{stroke:var(--aqua);stroke-width:12;opacity:.35;fill:none;stroke-linecap:round}
+.xsec .ld{stroke:var(--line-strong);stroke-width:1}
+@media (prefers-reduced-motion:no-preference){.xsec .fire{stroke-dasharray:400;stroke-dashoffset:400;animation:draw .5s ease-out forwards}}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* ATM */
+.atm .bone{fill:var(--surface-tint);stroke:var(--line-strong);stroke-width:1.5}
+.atm .atooth{fill:var(--white);stroke:var(--line-strong);stroke-width:1.2}
+.atm .mus{fill:rgba(87,224,214,.35);stroke:var(--aqua-ink);stroke-width:1.5;stroke-dasharray:5 4}
+.atm .disc{fill:var(--aqua)}
+.atm .nerve{fill:none;stroke:var(--brand);stroke-width:2.5;stroke-dasharray:2 5;stroke-linecap:round;transition:opacity .3s}
+.atm .mand{transform-box:view-box;transform-origin:370px 86px;transition:transform .7s ease}
+.atm.open .mand{transform:translate(-44px,38px) rotate(-16deg)}
+.atm.open .nerve-in{opacity:.25}
+.atm .hit{cursor:pointer}
+.atm .hl.on{stroke:var(--brand);stroke-width:3.5}
+.atm.sel .hl:not(.on){opacity:.6}
+.vs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-5)}
+@media (max-width:860px){.vs{grid-template-columns:minmax(0,1fr)}}
+
+/* Planificación de casos complejos */
+.lanes-wrap{overflow-x:auto;border-radius:var(--radius-sm);background:var(--surface);box-shadow:var(--shadow-soft)}
+.lanes{display:grid;grid-template-columns:210px repeat(6,minmax(100px,1fr));min-width:840px}
+.lanes > *{padding:12px 10px;border-bottom:1px solid var(--line)}
+.lanes .ph-h{min-height:60px;border:0;border-left:1px solid var(--line);border-bottom:1px solid var(--line);background:transparent;text-align:left;cursor:pointer;font:600 13px/18px var(--font-display);color:var(--ink-muted)}
+.lanes .ph-h.on{background:var(--surface-tint);color:var(--brand)}
+.lanes .lane-h{font:600 15px/20px var(--font-display)}
+.lanes .lane-h small{display:block;font:400 13px/18px var(--font-sans);color:var(--ink-muted)}
+.lanes .cell{border-left:1px solid var(--line);display:flex;align-items:center}
+.lanes .cell.on{background:var(--surface-tint)}
+.lanes .bar{height:14px;width:100%;border-radius:var(--radius-pill);background:var(--brand)}
+.lanes .bar.ext{background:transparent;border:2px dashed var(--brand)}
+.lanes .bar.aq{background:var(--aqua)}
+.stepper{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--space-5);align-items:end;margin-top:var(--space-6)}
+.step-ctrl{display:flex;gap:var(--space-2);align-items:center}
+.step-ctrl .count{font:600 14px var(--font-display);color:var(--ink-muted);min-width:56px;text-align:center;font-variant-numeric:tabular-nums}
+@media (max-width:760px){.stepper{grid-template-columns:minmax(0,1fr)}}
+
+/* La doctora: línea a escala */
+.tl-wrap{overflow-x:auto;padding-bottom:6px}
+.tl{min-width:780px;background:var(--surface);border-radius:var(--radius-sm);box-shadow:var(--shadow-soft);padding:var(--space-5)}
+.tl-row{display:grid;grid-template-columns:180px 1fr;align-items:center;border-bottom:1px solid var(--line)}
+.tl-row > b{font:600 14px/20px var(--font-display);padding:10px 12px 10px 0}
+.tl-track{position:relative;height:var(--h,52px)}
+.tl-bar{position:absolute;height:20px;border-radius:var(--radius-pill);border:2px solid var(--brand);background:var(--brand);cursor:pointer;min-width:16px;padding:0}
+.tl-bar.aq{background:var(--aqua);border-color:var(--aqua-ink)}
+.tl-bar.out{background:var(--surface)}
+.tl-bar.now{background:var(--surface);border-style:dashed;border-color:var(--aqua-ink)}
+.tl-bar[aria-pressed="true"]{box-shadow:0 0 0 3px var(--surface),0 0 0 6px var(--aqua)}
+.tl-axis{position:relative;height:30px;margin-left:180px}
+.tl-axis span{position:absolute;top:8px;transform:translateX(-50%);font:600 12px var(--font-display);color:var(--ink-muted)}
+.tl-row.hidden{display:none}
+.tl-legend{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-5);margin-top:var(--space-3)}
+.tl-legend span{display:inline-flex;align-items:center;gap:8px;font:500 13px var(--font-display);color:var(--ink-muted)}
+.tl-legend i{width:22px;height:10px;border-radius:999px;border:2px solid var(--brand);background:var(--brand)}
+.tl-list li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:var(--space-4);padding:14px 0;border-bottom:1px solid var(--line)}
+
+/* Casos */
+.case{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:var(--space-6)}
+.case + .case{margin-top:var(--space-5)}
+.en-case__pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2)}
+.en-case__photo{position:relative;display:grid;place-items:center;aspect-ratio:4/3;background:var(--surface-tint);border-radius:var(--radius-sm);color:var(--ink-muted);font:400 13px/18px var(--font-sans);text-align:center;padding:var(--space-3)}
+.en-case__photo b{position:absolute;left:var(--space-2);top:var(--space-2);padding:2px 10px;border-radius:var(--radius-pill);background:var(--surface);color:var(--ink);font:600 11px/16px var(--font-display);letter-spacing:.14em;text-transform:uppercase}
+.en-case__note{font:400 13px/20px var(--font-sans);color:var(--ink-muted)}
+.facts2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-4) var(--space-5)}
+.facts2 dt{font:500 12px/16px var(--font-display);letter-spacing:.24em;text-transform:uppercase;color:var(--aqua-ink)}
+.facts2 dd{margin-top:4px;color:var(--ink);font:400 15px/24px var(--font-sans)}
+.ctl{position:relative;height:52px}
+.ctl .base{position:absolute;left:0;right:0;top:20px;height:2px;background:var(--line)}
+.ctl .sg{position:absolute;top:14px;height:14px;border-radius:999px;background:var(--surface-tint);border:2px solid var(--brand)}
+.ctl .ms{position:absolute;top:14px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--brand);border:3px solid var(--surface)}
+.ctl .yl{position:absolute;top:34px;transform:translateX(-50%);font:600 11px var(--font-display);color:var(--ink-muted)}
+.stages li{font:400 14px/22px var(--font-sans);color:var(--ink-muted)}
+.stages b{font:600 13px var(--font-display);color:var(--brand);font-variant-numeric:tabular-nums}
+.cmp-check{display:inline-flex;align-items:center;gap:10px;min-height:44px;cursor:pointer;font:600 14px var(--font-display)}
+.cmp-check input{width:20px;height:20px;accent-color:var(--brand)}
+.compare{margin-top:var(--space-6)}
+.compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-5)}
+.empty{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-3);padding:var(--space-7);border:2px dashed var(--line-strong);border-radius:var(--radius-sm) var(--radius-sm) var(--radius-xl) var(--radius-sm);background:var(--surface)}
+@media (max-width:860px){.case,.compare-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Primera consulta */
+.journey{display:grid;grid-template-columns:280px minmax(0,1fr);gap:var(--space-6);align-items:start}
+.j-steps{display:flex;flex-direction:column;gap:var(--space-2)}
+.j-step{display:flex;align-items:center;gap:var(--space-3);min-height:56px;padding:8px 14px 8px 8px;border:2px solid transparent;border-radius:var(--radius-md);background:var(--surface);text-align:left;cursor:pointer;font:600 15px/20px var(--font-display);color:var(--ink-muted)}
+.j-step .k{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--surface-tint);color:var(--brand);font:700 14px/1 var(--font-display);flex:none}
+.j-step.done{color:var(--ink)}
+.j-step.done .k{background:var(--aqua-soft);color:var(--on-aqua)}
+.j-step[aria-current="step"]{border-color:var(--brand);color:var(--brand)}
+.j-step[aria-current="step"] .k{background:var(--brand);color:var(--on-brand)}
+.progress{height:6px;border-radius:999px;background:var(--surface-tint);overflow:hidden}
+.progress i{display:block;height:100%;background:var(--aqua);transition:width .3s}
+.checklist label{display:flex;gap:var(--space-3);align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.checklist input{width:22px;height:22px;margin-top:2px;accent-color:var(--brand);flex:none}
+.checklist input:checked + span{color:var(--ink-muted);text-decoration:line-through;text-decoration-color:var(--aqua)}
+@media (max-width:860px){.journey{grid-template-columns:minmax(0,1fr)}.j-steps{flex-direction:row;overflow-x:auto;padding-bottom:6px}.j-step{flex:none}}
+
+/* Llamado a la acción */
+.en-cta{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-4);padding:var(--space-8) var(--space-7);background:var(--brand);color:var(--on-brand);border-radius:var(--radius-sm) var(--radius-sm) var(--radius-xl) var(--radius-sm)}
+.en-cta .h2,.en-cta p{position:relative;z-index:1;color:var(--on-brand)}
+.en-cta .h2{max-width:24ch}
+.en-cta p{max-width:56ch}
+.en-cta__actions{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-2)}
+.en-cta .en-quarter{position:absolute;right:0;top:0;--size:200px;--shape:var(--aqua-soft);border-bottom-right-radius:0;border-bottom-left-radius:100%}
+@media (max-width:760px){.en-cta{padding:var(--space-7) var(--space-5)}.en-cta .en-quarter{--size:96px}}
+
+.nextnav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-5)}
+.nextnav a{display:flex;flex-direction:column;gap:6px;padding:var(--space-5) var(--space-6);background:var(--surface);border-radius:var(--radius-sm) var(--radius-sm) var(--radius-xl) var(--radius-sm);box-shadow:var(--shadow-soft);color:var(--ink);text-decoration:none;transition:box-shadow .2s,transform .2s}
+.nextnav a:hover{box-shadow:var(--shadow-lift);transform:translateY(-2px);color:var(--ink)}
+.nextnav a + a{text-align:right;align-items:flex-end}
+@media (max-width:620px){.nextnav{grid-template-columns:minmax(0,1fr)}.nextnav a + a{text-align:left;align-items:flex-start}}
+
+/* Pie */
+.en-footer{background:var(--brand);color:var(--on-brand)}
+.en-footer .wrap{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.2fr;gap:var(--space-7);padding-block:var(--space-8) var(--space-6)}
+.en-footer a{color:var(--on-brand);text-decoration:underline;text-decoration-color:var(--aqua-soft);text-decoration-thickness:2px;text-underline-offset:4px}
+.en-footer a.wordmark{text-decoration:none}
+.en-footer .wordmark b,.en-footer .wordmark small{color:var(--white)}
+.en-footer ul{display:flex;flex-direction:column;gap:var(--space-2)}
+.en-footer h2{font:500 13px/16px var(--font-display);letter-spacing:.32em;text-transform:uppercase;margin-bottom:var(--space-3)}
+.en-footer p{color:var(--on-brand)}
+.en-footer__legal{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-3);padding-top:var(--space-5);border-top:1px solid var(--on-brand);font:400 13px/20px var(--font-sans)}
+.en-footer .flag{background:transparent;color:var(--white);border-color:var(--white)}
+.en-footer .flag::before{background:var(--aqua-soft)}
+.toggle{display:inline-flex;align-items:center;gap:10px;min-height:44px;cursor:pointer}
+.toggle input{width:20px;height:20px;accent-color:var(--aqua)}
+@media (max-width:860px){.en-footer .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.en-footer .wrap{grid-template-columns:minmax(0,1fr)}}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:70;padding:12px 20px;border-radius:var(--radius-pill);background:var(--ink);color:var(--white);font:600 14px var(--font-display);box-shadow:var(--shadow-lift)}
+@media (max-width:760px){.toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+}
+</style>
+
+<div class="topbar"><div class="wrap"><span>Consultorios en La Plata y Quilmes</span><span>Turnos por WhatsApp: <a href="https://wa.me/5492213185753" target="_blank" rel="noopener">+54 9 221 318-5753</a></span></div></div>
+<header class="navbar">
+  <nav class="wrap en-nav" aria-label="Principal">
+    <a class="wordmark" href="#inicio" aria-label="Dra. Edith Noriega, ortodoncista. Ir al inicio"><b><span>Dra.</span> Edith Noriega</b><small>Ortodoncista</small></a>
+    <ul class="en-nav__links" id="nav"></ul>
+    <a class="en-btn en-btn--primary en-btn--sm" href="#contacto">Pedí tu turno</a>
+    <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="sheet">Menú</button>
+  </nav>
+</header>
+
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-label="Menú">
+  <div class="sheet-top"><span class="wordmark"><b><span>Dra.</span> Edith Noriega</b><small>Ortodoncista</small></span><button type="button" class="en-btn en-btn--outline en-btn--sm" id="closeSheet">Cerrar</button></div>
+  <nav aria-label="Menú principal" id="sheetNav"></nav>
+  <div class="stack" style="gap:var(--space-2)"><p class="eyebrow">Tratamientos</p><nav class="areas" aria-label="Áreas" id="sheetAreas"></nav></div>
+  <div class="stack" style="gap:var(--space-3)"><a class="en-btn en-btn--primary" href="#contacto">Pedí tu turno</a><p class="small">WhatsApp +54 9 221 318-5753</p></div>
+</div>
+
+<main id="main" tabindex="-1"></main>
+
+<footer class="en-footer">
+  <div class="wrap">
+    <div class="stack" style="gap:var(--space-4)">
+      <a class="wordmark" href="#inicio"><b><span>Dra.</span> Edith Noriega</b><small>Ortodoncista</small></a>
+      <p>Odontóloga especialista jerarquizada en ortodoncia y diplomada en tecnología láser.</p>
+      <p style="font-size:14px">Matrícula profesional <span class="flag">A confirmar</span></p>
+    </div>
+    <nav aria-label="Sitio"><h2>Sitio</h2><ul id="footNav"></ul></nav>
+    <nav aria-label="Tratamientos"><h2>Tratamientos</h2><ul id="footAreas"></ul></nav>
+    <div><h2>Contacto</h2><ul>
+      <li>WhatsApp: <a href="https://wa.me/5492213185753" target="_blank" rel="noopener">+54 9 221 318-5753</a></li>
+      <li>consultoriodranoriega@gmail.com</li>
+      <li><a href="https://www.instagram.com/dra.edithnoriega/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/draedithnoriegaortodoncia" target="_blank" rel="noopener">Facebook</a></li>
+      <li>La Plata · Calle 49 n.º 390</li><li>Quilmes · Hipólito Yrigoyen 439</li>
+    </ul></div>
+    <div class="en-footer__legal">
+      <span>© 2026 Dra. Edith Noriega. La información es orientativa y no reemplaza una consulta profesional.</span>
+      <label class="toggle"><input type="checkbox" id="flagsToggle" checked> Mostrar marcas de revisión</label>
+    </div>
+  </div>
+</footer>
+
+<div class="mobilebar"><a class="en-btn en-btn--primary" href="#contacto">Pedí tu turno</a><a class="en-btn en-btn--outline" href="https://wa.me/5492213185753" target="_blank" rel="noopener" style="background:var(--surface)">WhatsApp</a></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+"use strict";
+var PHOTO = "data:image/webp;base64,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";
+var WA = "https://wa.me/5492213185753", WA_TXT = "+54 9 221 318-5753";
+var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var S = { prefArea:"", need:0, txArea:"ortodoncia", txMode:"area", ox:"metal", laser:"tejidos", atmPart:"condilo", atmOpen:false, qx:0, tooth:11, tlCats:{titulo:1,continua:1,ciencia:1,curso:1}, tlSel:"esp", tlView:"", caseArea:"todos", caseTec:"todas", cmp:[], jStep:0, knArea:"todas", checks:{} };
+function $(s,r){ return (r||document).querySelector(s); }
+function $$(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+function esc(t){ return String(t).replace(/[&<>"]/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function F(t){ return '<span class="flag">' + (t||"A validar") + '</span>'; }
+var CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+
+/* ---------- Íconos (trazo continuo, dentro de en-icon-chip) ---------- */
+var IC = {
+  "odontologia-general":'<path d="M7 3C4.8 3 3 4.8 3 7.2c0 2.1.8 3.6 1.4 5.3.6 1.8.7 4 1.2 6.2.3 1.4 1 2.3 1.9 2.3 1.1 0 1.5-1.2 1.8-2.6.3-1.4.6-3 1.7-3s1.4 1.6 1.7 3c.3 1.4.7 2.6 1.8 2.6.9 0 1.6-.9 1.9-2.3.5-2.2.6-4.4 1.2-6.2.6-1.7 1.4-3.2 1.4-5.3C21 4.8 19.2 3 17 3c-1.9 0-3 1-5 1S8.9 3 7 3z"/>',
+  "ortodoncia":'<path d="M3 8c2 6 5.5 9 9 9s7-3 9-9"/><rect x="5.2" y="11" width="2.8" height="2.8" rx=".6"/><rect x="10.6" y="15.6" width="2.8" height="2.8" rx=".6"/><rect x="16" y="11" width="2.8" height="2.8" rx=".6"/>',
+  "laser":'<path d="M3 21l8.5-8.5"/><circle cx="14.5" cy="9.5" r="3"/><path d="M14.5 2.5v2M21.5 9.5h-2M19.5 4.5l-1.4 1.4M19.5 14.5l-1.4-1.4M9.5 4.5l1.4 1.4"/>',
+  "atm":'<path d="M4 7.5C5.5 4.5 8.5 3 12 3"/><circle cx="8" cy="8.5" r="2.5"/><path d="M8 11c0 4.5 2.5 8.5 8 10h4"/><path d="M20 21v-4"/>',
+  "ortodoncia-quirurgica":'<path d="M13 3c-3.3 0-5.5 2.4-5.5 5.6 0 1-1.4 2.6-2.3 4 .8.4 1.8.5 1.8 1.4 0 .8-.6 1.5-.1 2.3.5.9 1.8.4 1.8 1.5 0 1.9.8 3.2 3.3 3.2h1.5"/><path d="M17 3v18" stroke-dasharray="2 3"/><path d="M17 9h3M17 15h3"/>',
+  "posturologia":'<path d="M12 3v14" stroke-dasharray="2 3"/><circle cx="12" cy="19.5" r="2"/>'
+};
+function chip(id){ return '<span class="en-icon-chip"><svg viewBox="0 0 24 24" aria-hidden="true">' + IC[id] + '</svg></span>'; }
+
+/* ---------- Datos ---------- */
+var AREAS = [
+  { id:"odontologia-general", name:"Odontología general", line:"Evaluación, diagnóstico, prevención y seguimiento. También rehabilitación en adultos y adultos mayores.", inc:["Controles, prevención y diagnóstico integral","Tratamientos de conducto","Prótesis removibles y fijas","Implantes, pernos y coronas","Atención adaptada a adultos mayores"] },
+  { id:"ortodoncia", name:"Ortodoncia", line:"Evaluación funcional, planificación y alternativas según la edad: desde la ortopedia en chicos hasta tratamientos en adultos.", inc:["Brackets metálicos","Brackets estéticos (ice, zafiro)","Alineadores transparentes","Tratamientos híbridos","Ortopedia dentomaxilar para chicos"] },
+  { id:"laser", name:"Láser odontológico", line:"Láser de diodo de 980 nm, con aplicaciones distintas entre sí. Cada uso tiene su propia indicación.", inc:["Tejidos blandos: frenectomía, gingivoplastia y coagulación","Aftas y herpes","Descontaminación en endodoncia y periodoncia","Apoyo en ortodoncia (fotobiomodulación)","Blanqueamiento asistido con láser"] },
+  { id:"atm", name:"Neuralgias y ATM", line:"Evaluación de molestias mandibulares y dolor orofacial, con diagnóstico diferencial y trabajo interdisciplinario.", inc:["Evaluación de la ATM (articulación temporomandibular)","Evaluación del dolor orofacial","Diagnóstico diferencial","Tecnología láser cuando está indicada","Trabajo con otros especialistas"] },
+  { id:"ortodoncia-quirurgica", name:"Ortodoncia quirúrgica y malformaciones", line:"Planificación y seguimiento ortodóncico de casos que se resuelven junto a cirugía maxilofacial y otras especialidades.", inc:["Ortodoncia pre y posquirúrgica en cirugía ortognática","Pacientes con fisuras, unilaterales o bilaterales","Pacientes con síndrome de Down u otras condiciones","Coordinación con cirugía, fonoaudiología y técnicos dentales"] },
+  { id:"posturologia", name:"Posturología", soon:true, line:"Formación en desarrollo. Todavía no es un tratamiento disponible en el consultorio." }
+];
+function area(id){ for (var i=0;i<AREAS.length;i++) if (AREAS[i].id===id) return AREAS[i]; return null; }
+var RELS = [
+  ["odontologia-general","ortodoncia","La evaluación general es la puerta de entrada a la ortodoncia."],
+  ["odontologia-general","laser","El láser se usa para descontaminar en endodoncia y periodoncia."],
+  ["ortodoncia","laser","La fotobiomodulación puede sumarse como apoyo en algunos tratamientos."],
+  ["ortodoncia","ortodoncia-quirurgica","La ortodoncia prepara y completa los casos que requieren cirugía."],
+  ["laser","atm","La tecnología láser se considera en algunos casos, según la evaluación."]
+];
+function relsFor(id){ var o=[]; RELS.forEach(function(r){ if(r[0]===id) o.push([r[1],r[2]]); else if(r[1]===id) o.push([r[0],r[2]]); }); return o; }
+var NEEDS = [
+  { t:"Quiero mejorar la alineación de mis dientes", areas:["ortodoncia"], text:"La alineación se evalúa junto con la mordida y la función. Hay alternativas fijas, removibles o combinadas, y cuál conviene se define después de la evaluación.", read:"Explorá las alternativas de ortodoncia", to:"ortodoncia", bring:"Estudios previos y tratamientos de ortodoncia anteriores, si los tuviste." },
+  { t:"Quiero hacer una consulta odontológica general", areas:["odontologia-general"], text:"Es la puerta de entrada: revisión de toda la boca, diagnóstico, prevención y un plan de seguimiento.", read:"Cómo es la primera consulta", to:"primera-consulta", bring:"Radiografías recientes, si tenés, y la lista de medicamentos que tomás." },
+  { t:"Tengo molestias en la mandíbula", areas:["atm"], text:"Ruidos al abrir la boca, dificultad para masticar o dolor cerca del oído pueden tener causas distintas. La evaluación orienta el diagnóstico y, si hace falta, la consulta con otros profesionales.", read:"Cómo funciona la articulación", to:"atm", bring:"Una descripción de cuándo aparecen las molestias y desde cuándo." },
+  { t:"Quiero consultar por dolor orofacial", areas:["atm","laser"], text:"Una neuralgia y un trastorno de la ATM no son lo mismo, aunque a veces se relacionen. El primer paso es una evaluación detallada, sin suponer la causa.", read:"Neuralgia y ATM, lado a lado", to:"atm", bring:"Estudios o informes médicos previos relacionados con el dolor." },
+  { t:"Necesito una evaluación ortodóncica para mi hijo o hija", areas:["ortodoncia"], text:"Con dientes de leche o en recambio, la evaluación permite seguir el crecimiento de los maxilares y decidir si conviene intervenir o esperar.", read:"Ortodoncia según la edad", to:"ortodoncia", bring:"Que venga acompañado por un adulto responsable." },
+  { t:"Necesito información sobre un caso complejo", areas:["ortodoncia-quirurgica"], text:"Cuando hay alteraciones de los maxilares o malformaciones, la ortodoncia se planifica junto a cirugía maxilofacial y otras especialidades.", read:"Cómo se planifica un caso complejo", to:"ortodoncia-quirurgica", bring:"Estudios e informes de otros profesionales que te hayan atendido." },
+  { t:"Quiero conocer las aplicaciones del láser", areas:["laser"], text:"El láser tiene usos diferentes entre sí: tejidos blandos, apoyo en ortodoncia, endodoncia y periodoncia. Ninguno reemplaza la evaluación.", read:"Las aplicaciones del láser", to:"laser", bring:"Nada en especial. Contá qué te interesa consultar." }
+];
+var CASES = [
+  { id:"apinamiento", areas:["ortodoncia"], tec:["brackets"], title:"Apiñamiento severo con brackets metálicos", tags:[["Ortodoncia","brand"],["Brackets metálicos","aqua"]],
+    sit:"Apiñamiento dentario severo y mordida alterada. La paciente buscaba mejorar la estética y lograr una masticación equilibrada.",
+    obj:"Corregir el apiñamiento y las rotaciones, lograr una oclusión funcional y estable y mejorar la estética de la sonrisa.",
+    abo:"Brackets metálicos con técnica de arco recto: alineación, nivelación, cierre de espacios y finalización, con controles periódicos.",
+    con:"La evolución dependió de la planificación, los controles y el compromiso de la paciente.",
+    ms:[["2022-12","Consulta inicial"],["2023-04","Etapa 1: alineación y nivelación"],["2023-12","Etapa 2: corrección del apiñamiento"],["2025-03","Etapa 3: consolidación"]], segs:[], consent:"Publicado con consentimiento escrito de la paciente, protegiendo su identidad." },
+  { id:"clase3", areas:["ortodoncia"], tec:["brackets"], title:"Clase III con canino retenido", tags:[["Clase III","brand"],["Canino retenido","aqua"]],
+    sit:"Maloclusión de Clase III (los dientes inferiores quedan adelantados respecto de los superiores), apiñamiento y un canino superior retenido.",
+    obj:"Lograr la erupción y alineación del canino, corregir la relación entre arcadas y alinear ambas.",
+    abo:"Brackets metálicos con técnica de arco recto para traccionar el canino, con control radiográfico periódico.",
+    con:"Los dientes retenidos requieren diagnóstico preciso y seguimiento radiográfico durante todo el tratamiento.",
+    ms:[["2023-11","Inicio: aparatología fija"],["2023-12","Etapa 1: alineación"],["2024-05","Etapa 2: consolidación"],["2024-12","Etapa 3: control radiográfico"]], segs:[], consent:"Publicado con consentimiento escrito del paciente, protegiendo su identidad." },
+  { id:"clase2", areas:["ortodoncia","laser"], tec:["brackets","alineadores","hibrido","laser"], title:"Clase II con apiñamiento anterior: ortodoncia híbrida con láser", tags:[["Clase II","brand"],["Híbrido","aqua"],["Láser","aqua"]],
+    sit:"Paciente adulta con Clase II del lado derecho, incisivos superiores adelantados, inferiores retraídos y apiñamiento. Había consultado antes sin encontrar una alternativa.",
+    obj:"Expandir ambas arcadas, corregir apiñamientos y protrusiones y mejorar la relación entre arcadas.",
+    abo:"Brackets metálicos abajo y alineadores arriba, con fotobiomodulación con láser de diodo de 980 nm en cada recambio.",
+    con:"La fotobiomodulación se indicó como apoyo en este caso puntual. No anticipa los tiempos de otros pacientes.",
+    ms:[["2023-07","Brackets inferiores"]], segs:[["2023-10","2024-02","Etapa 1 de alineadores"],["2024-03","2024-07","Etapa 2 de alineadores"],["2024-09","2024-12","Etapa 3 de alineadores"]],
+    flag:"El caso original indica 13 y 17 meses y compara con un tratamiento sin láser: revisar antes de publicar duraciones.", consent:"Publicado con consentimiento escrito de la paciente, protegiendo su identidad." }
+];
+var TL = [
+  { id:"odo", cat:"titulo", lane:0, a:1988, b:1993, t:"Odontología", i:"Facultad de Odontología, Universidad Nacional de La Plata" },
+  { id:"esp", cat:"titulo", lane:0, a:1995, b:2000, t:"Especialista en Ortodoncia", i:"Facultad de Odontología, Universidad Nacional de La Plata" },
+  { id:"lin", cat:"titulo", lane:0, a:2008, b:2008.6, t:"Especialista en Ortodoncia Lingual", i:"Sociedad Argentina de Ortodoncia Lingual" },
+  { id:"pq", cat:"titulo", lane:0, a:2011, b:2021, t:"Ortodoncia pre y posquirúrgica en cirugía ortognática", i:"Hospital Piñero, Sociedad Argentina de Ortodoncia" },
+  { id:"doc", cat:"continua", lane:0, a:2019, b:2020, t:"Diplomatura en Docencia para Ciencias de la Salud", i:"Universidad Favaloro", flag:"Confirmar año" },
+  { id:"mic", cat:"continua", lane:1, a:2019, b:2020, t:"Curso workshop de microimplantes y prótesis", i:"Institución a confirmar", flag:"Confirmar año" },
+  { id:"las", cat:"continua", lane:0, a:2021, b:2022, t:"Diplomatura en Odontología Láser y Ciencias de la Salud", i:"Universidad Abierta Interamericana" },
+  { id:"ali", cat:"continua", lane:0, a:2023, b:2024, t:"Diplomatura Universitaria en Alineadores Clínico y Diseño", i:"Universidad Católica de La Plata y Sociedad Argentina de Ortodoncia" },
+  { id:"sao", cat:"ciencia", lane:0, a:2024.5, b:2024.75, t:"Ponente · Congreso de Invierno 2024, SAO", i:"Terapia (LLT) post cirugía de distracción ósea. Buenos Aires, agosto de 2024. Aprobada por el Comité Científico." },
+  { id:"aca", cat:"ciencia", lane:1, a:2024.55, b:2024.8, t:"Disertante · 4.° Congreso de Odontología Láser, ACALO", i:"Terapia láser en ortodoncia con alineadores. Salta, agosto de 2024." },
+  { id:"atmc", cat:"curso", lane:0, a:2025.2, b:2026.9, open:true, t:"Especialidad en Láser en Ortodoncia y ATM", i:"Universidad Europea Miguel de Cervantes. En curso desde marzo de 2025." },
+  { id:"pos", cat:"curso", lane:1, a:2025.9, b:2026.9, open:true, t:"Posturología", i:"Formación en desarrollo. Todavía no forma parte de los tratamientos del consultorio.", flag:"Confirmar cómo comunicarla" }
+];
+var TLCATS = { titulo:["Títulos y especializaciones",""], continua:["Formación continua","aq"], ciencia:["Actividad científica","out"], curso:["En curso","now"] };
+
+/* ---------- Bloques comunes ---------- */
+function crumbs(items){ return '<nav aria-label="Ruta de navegación"><ol class="crumbs">' + items.map(function(it){ return '<li>' + (it[1] ? '<a href="#' + it[1] + '">' + it[0] + '</a>' : '<span aria-current="page">' + it[0] + '</span>') + '</li>'; }).join("") + '</ol></nav>'; }
+var SHAPES = {
+  "odontologia-general":'<span class="en-disc" style="--size:220px;right:-40px;top:10px"></span><span class="en-star" style="--size:70px;--shape:var(--aqua);right:190px;top:170px"></span>',
+  "ortodoncia":'<span class="en-quarter en-quarter--framed" style="--size:230px;right:-30px;top:0"><i></i></span>',
+  "laser":'<span class="en-star" style="--size:200px;--shape:var(--brand);right:-20px;top:20px"><i></i><i></i><i></i><i></i></span><span class="en-disc" style="--size:80px;--shape:var(--aqua-soft);--ring:var(--brand);right:200px;top:150px"></span>',
+  "atm":'<span class="en-disc" style="--size:220px;--shape:var(--aqua-soft);--ring:var(--brand);right:-40px;top:10px"></span>',
+  "ortodoncia-quirurgica":'<span class="en-quarter" style="--size:220px;--shape:var(--aqua-soft);right:-20px;top:10px"></span><span class="en-quarter" style="--size:90px;right:190px;top:140px"></span>',
+  "default":'<span class="en-quarter" style="--size:200px;--shape:var(--surface-tint);right:-20px;top:20px"></span><span class="en-star" style="--size:64px;--shape:var(--aqua);right:180px;top:40px"><i></i><i></i><i></i><i></i></span>'
+};
+function pageHead(o){
+  return '<section class="pagehead"><div class="wrap"><div class="copy-col">' + crumbs(o.crumbs) + '<p class="eyebrow">' + o.eyebrow + '</p><h1 class="h1" tabindex="-1">' + o.title + '</h1><p class="lead">' + o.lead + '</p>' + (o.extra||"") +
+    (o.facts ? '<div class="facts-line">' + o.facts.map(function(f){ return '<span><b>' + f[0] + '</b><em>' + f[1] + '</em></span>'; }).join("") + '</div>' : '') + '</div><div class="shapes" aria-hidden="true">' + (SHAPES[o.shape] || SHAPES["default"]).replace(/<span class="en-star"([^>]*)><\/span>/g,'<span class="en-star"$1><i></i><i></i><i></i><i></i></span>') + '</div></div></section>';
+}
+function areaHead(id, lead, facts){ var a = area(id); return pageHead({crumbs:[["Inicio","inicio"],["Tratamientos","tratamientos"],[a.name]], eyebrow:"Tratamientos", title:a.name, lead:lead, facts:facts, shape:id}); }
+function cta(title, text, areaId){
+  return '<section class="section" style="padding-top:0"><div class="wrap"><div class="en-cta"><span class="en-quarter" aria-hidden="true"></span><h2 class="h2">' + title + '</h2><p>' + text + '</p><div class="en-cta__actions"><a class="en-btn en-btn--aqua" href="' + WA + '" target="_blank" rel="noopener">Pedí tu turno por WhatsApp</a><button type="button" class="en-btn en-btn--ghost-white" data-consult="' + (areaId||"") + '">Dejar una consulta</button></div></div></div></section>';
+}
+function nextNav(id){
+  var list = AREAS.filter(function(a){ return !a.soon; }), i = 0; list.forEach(function(a,k){ if(a.id===id) i=k; });
+  var p = list[(i-1+list.length)%list.length], n = list[(i+1)%list.length];
+  return '<section class="section" style="padding-top:0"><div class="wrap"><nav class="nextnav" aria-label="Otras áreas"><a href="#' + p.id + '"><span class="eyebrow">Área anterior</span><span class="h3">' + p.name + '</span></a><a href="#' + n.id + '"><span class="eyebrow">Área siguiente</span><span class="h3">' + n.name + '</span></a></nav></div></section>';
+}
+function faq(list){ return '<div class="faq">' + list.map(function(q,i){ return '<details' + (i===0?' open':'') + '><summary>' + q[0] + '</summary><div class="a">' + q[1] + '</div></details>'; }).join("") + '</div>'; }
+function li(t){ return '<li>' + t + '</li>'; }
+function head(eyebrow, title, text){ return '<div class="en-section-head"><p class="eyebrow">' + eyebrow + '</p><h2 class="h2">' + title + '</h2>' + (text ? '<p>' + text + '</p>' : '') + '</div>'; }
+
+/* ---------- Inicio ---------- */
+function pInicio(){
+  var h = '<section><div class="wrap"><div class="en-hero"><div class="en-hero__copy"><p class="eyebrow">Odontóloga · Ortodoncista</p><h1 class="display" tabindex="-1">Experiencia, tecnología y calidez para cuidar tu sonrisa.</h1>' +
+    '<p class="lead">El tratamiento que necesitás para cada etapa de tu vida. Odontología, ortodoncia y tecnología láser con una evaluación integral.</p>' +
+    '<div class="en-hero__actions"><a class="en-btn en-btn--primary" href="#contacto">Pedí tu turno</a><button type="button" class="en-btn en-btn--outline" data-scroll="necesidades">¿Qué te trae a la consulta?</button></div>' +
+    '<p class="wa-line">WhatsApp ' + WA_TXT + ' <button type="button" class="copy" data-copy="' + WA_TXT + '">Copiar número</button></p></div>' +
+    '<div class="en-hero__stage"><span class="en-quarter" aria-hidden="true"></span><div class="en-portrait"><div class="en-portrait__slot"><img src="' + PHOTO + '" alt="Retrato de la Dra. Edith Noriega con ambo blanco"></div></div><span class="en-star" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div></div></section>';
+  h += '<section class="creds" aria-label="Formación destacada"><div class="wrap"><ul><li><b>Especialista en Ortodoncia</b><span>Universidad Nacional de La Plata · 2000</span></li><li><b>Ortodoncia pre y posquirúrgica</b><span>Hospital Piñero · SAO · 2011–2021</span></li><li><b>Diplomada en Odontología Láser</b><span>Universidad Abierta Interamericana · 2022</span></li><li><b>Más de 20 años en ortodoncia</b><span>Consultorios en La Plata y Quilmes ' + F("Confirmar 20 o 25") + '</span></li></ul></div></section>';
+
+  h += '<section class="section section--tint" id="necesidades"><div class="wrap"><div class="head-row">' + head("Empezá por lo que te pasa","¿Qué te trae a la consulta?","Elegí la opción más cercana a tu situación y te mostramos qué leer y qué llevar. No es un diagnóstico.") + '<a class="en-link" href="#tratamientos">Ya sé qué busco: ver tratamientos</a></div>' +
+    '<div class="needs"><ul aria-label="Motivos de consulta">' + NEEDS.map(function(n,i){ return '<li><button type="button" class="need" data-need="' + i + '" aria-pressed="' + (i===S.need) + '"><span>' + n.t + '</span>' + CHEV + '</button></li>'; }).join("") + '</ul><div class="guide" id="guide" aria-live="polite"></div></div></div></section>';
+
+  h += '<section class="section"><div class="wrap"><div class="head-row">' + head("Especialidades","Tratamientos para todas las etapas, desde una temprana edad","") + '<a class="en-btn en-btn--outline" href="#tratamientos">Ver todos los tratamientos</a></div><div class="bento">' +
+    card("odontologia-general","s2") + card("ortodoncia","s4", '<ul class="tags">' + ["Brackets metálicos","Brackets estéticos","Alineadores","Híbridos","Ortopedia infantil"].map(function(t){ return '<li class="en-badge en-badge--brand">' + t + '</li>'; }).join("") + '</ul>') +
+    card("laser","s4 en-card--brand", '<ul class="tags">' + ["Tejidos blandos","Apoyo en ortodoncia","Endodoncia y periodoncia"].map(function(t){ return '<li class="en-badge en-badge--brand">' + t + '</li>'; }).join("") + '</ul>') + card("atm","s2") + card("ortodoncia-quirurgica","s3") +
+    '<article class="en-card en-card--soon s3"><div class="card-top">' + chip("posturologia") + '<span class="en-badge en-badge--soon">Próximamente</span></div><h3 class="h3">Posturología</h3><p>La Dra. está incorporando formación en esta área. Todavía no es un tratamiento disponible.</p></article></div></div></section>';
+
+  h += '<section class="section section--aqua"><div class="wrap"><div class="head-row">' + head("Investigación y actualización constante","Casos reales, explicados paso a paso","Casos documentados y publicaciones que reflejan el trabajo de la Dra. Cada caso es individual y no anticipa el resultado de otro tratamiento.") + '<a class="en-btn en-btn--outline" href="#casos" style="background:var(--surface)">Explorar y comparar casos</a></div>' +
+    '<div class="en-cards" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">' + CASES.map(function(c){ return '<article class="en-card hover"><div class="en-case__pair"><div class="en-case__photo"><b>Antes</b>Foto pendiente</div><div class="en-case__photo"><b>Después</b>Foto pendiente</div></div><div class="tags">' + c.tags.map(function(t){ return '<span class="en-badge en-badge--' + t[1] + '">' + t[0] + '</span>'; }).join("") + '</div><h3 class="h3">' + c.title + '</h3><p class="en-case__note">' + c.consent + '</p><a class="en-link" href="#casos" data-case="' + c.id + '">Ver el caso</a></article>'; }).join("") + '</div>' +
+    '<p class="small" style="margin-top:var(--space-5)">' + F("A confirmar") + ' Que la autorización de los tres casos alcance al nuevo sitio.</p></div></section>';
+
+  h += '<section class="section"><div class="wrap stack" style="gap:var(--space-8)"><div class="en-quote"><span class="en-quarter" aria-hidden="true"></span><blockquote>Un buen diagnóstico integral es la clave para el éxito de todos los tratamientos.</blockquote><cite>Dra. Edith Noriega</cite></div>' +
+    '<div class="split"><div class="en-section-head"><p class="eyebrow">Trayectoria</p><h2 class="h2">Una trayectoria dedicada al avance de la ortodoncia</h2><p>Formación universitaria, especialización hospitalaria y actualización constante en tecnología láser y alineadores.</p><a class="en-link" href="#la-doctora" style="align-self:flex-start">Conocé a la doctora</a></div>' +
+    '<ol class="timeline"><li><span class="y">1988–1993</span><b>Odontología</b><span class="m">Facultad de Odontología, UNLP</span></li><li><span class="y">1995–2000</span><b>Especialista en Ortodoncia</b><span class="m">Facultad de Odontología, UNLP</span></li><li><span class="y">2011–2021</span><b>Ortodoncia pre y posquirúrgica</b><span class="m">Hospital Piñero, Sociedad Argentina de Ortodoncia</span></li><li><span class="y">2021–2022</span><b>Diplomatura en Odontología Láser</b><span class="m">Universidad Abierta Interamericana</span></li><li class="now"><span class="y">2024</span><b>Disertante en congresos de SAO y ACALO</b><span class="m">Terapia láser en ortodoncia</span></li></ol></div></div></section>';
+
+  h += '<section class="section section--surface"><div class="wrap"><div class="head-row">' + head("Tu primera consulta","Qué pasa cuando pedís un turno","No hace falta saber de antemano qué tratamiento necesitás.") + '<a class="en-link" href="#primera-consulta">Ver cómo es una primera consulta</a></div>' +
+    '<ol class="steps"><li class="step"><span class="step__n">1</span><h3 class="h4">Pedís el turno</h3><p class="muted">Por WhatsApp, eligiendo el consultorio de La Plata o el de Quilmes.</p></li><li class="step"><span class="step__n">2</span><h3 class="h4">Evaluación</h3><p class="muted">Conversación sobre el motivo de consulta y revisión clínica.</p></li><li class="step"><span class="step__n">3</span><h3 class="h4">Estudios, si hacen falta</h3><p class="muted">Según el caso, una radiografía panorámica o una cefalometría.</p></li><li class="step"><span class="step__n">4</span><h3 class="h4">Plan y seguimiento</h3><p class="muted">Las alternativas, las etapas y los controles. ' + F() + '</p></li></ol></div></section>';
+
+  h += '<section class="section section--tint"><div class="wrap split"><div class="en-section-head"><p class="eyebrow">Preguntas frecuentes</p><h2 class="h2">Dudas antes de consultar</h2><p>Si tu pregunta no está acá, escribinos por WhatsApp.</p></div>' + faq([
+    ["¿Cómo pido un turno?","Por WhatsApp al " + WA_TXT + ". Contanos tu nombre, el motivo de consulta y en qué consultorio preferís atenderte."],
+    ["¿Dónde atiende la Dra. Noriega?","En La Plata (calle 49 n.º 390, entre 2 y 3) los miércoles, jueves y viernes, y en Quilmes (Hipólito Yrigoyen 439, Clínica CEMEPRO Bristol) los martes."],
+    ["¿Hay una edad para empezar ortodoncia?","No hay una edad límite. En chicos se evalúa el crecimiento de los maxilares y en adultos también hay alternativas."],
+    ["¿El láser reemplaza otros tratamientos?","No. Es un recurso que se suma a algunos tratamientos cuando la evaluación lo indica. " + F()],
+    ["¿Atienden obras sociales o prepagas?", F("A confirmar") + " Información pendiente de la Dra."]]) + '</div></section>';
+  h += sedes();
+  return h;
+}
+function card(id, cls, extra){ var a = area(id); var brand = cls.indexOf("brand")>-1;
+  return '<article class="en-card hover ' + cls + '"><div class="card-top">' + chip(id) + (id==="laser" ? '<span class="en-badge en-badge--brand">980 nm</span>' : '') + '</div><h3 class="h3">' + a.name + '</h3><p>' + a.line + '</p>' + (extra||"") + '<a class="en-link" href="#' + id + '">Conocé ' + (id==="ortodoncia" ? "el tratamiento" : "esta área") + '</a></article>'; }
+function guideHTML(){ var n = NEEDS[S.need];
+  return '<p class="eyebrow">Motivo ' + (S.need+1) + ' de ' + NEEDS.length + '</p><h3 class="h3">' + n.t + '</h3><p class="muted">' + n.text + '</p><dl><dt>Áreas</dt><dd class="rels">' + n.areas.map(function(id){ return '<a class="rel" href="#' + id + '">' + area(id).name + '</a>'; }).join("") + '</dd><dt>Para leer</dt><dd><a class="en-link" href="#' + n.to + '">' + n.read + '</a></dd><dt>Para llevar</dt><dd>' + n.bring + '</dd></dl>' +
+    '<div class="guide-foot"><button type="button" class="en-btn en-btn--primary en-btn--sm" data-consult="' + n.areas[0] + '">Consultar por este tema</button><p class="small">Esto no es un diagnóstico: es una guía para orientarte antes de la consulta.</p></div>'; }
+function today(){ var d = new Date().getDay(), N = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"], M = {2:"Quilmes, de 9 a 16 h",3:"La Plata, de 10 a 18 h",4:"La Plata, de 12 a 19:30 h",5:"La Plata, de 11 a 19 h"};
+  if (M[d]) return '<p class="today"><i></i>Hoy ' + N[d] + ' atiende en ' + M[d] + '</p>';
+  var nx = d; for (var k=1;k<8;k++){ nx=(d+k)%7; if (M[nx]) break; } return '<p class="today"><i></i>Hoy no hay atención. Próximo día: ' + N[nx] + ' en ' + M[nx].split(",")[0] + '</p>'; }
+function sedeCards(){
+  return '<div class="en-sede"><p class="eyebrow">Consultorio La Plata</p><h3 class="h3">Calle 49 n.º 390, entre 2 y 3</h3><dl class="hours"><dt>MIÉ</dt><dd>10 a 18 h</dd><dt>JUE</dt><dd>12 a 19:30 h</dd><dt>VIE</dt><dd>11 a 19 h</dd></dl><p class="small">' + F("A confirmar") + ' Que estos días correspondan a La Plata.</p><a class="en-btn en-btn--aqua" href="' + WA + '" target="_blank" rel="noopener">Pedí tu turno por WhatsApp</a><p class="small">' + WA_TXT + '</p></div>' +
+    '<div class="en-sede"><p class="eyebrow">Consultorio Quilmes</p><h3 class="h3">Hipólito Yrigoyen 439</h3><p>Clínica CEMEPRO Bristol</p><dl class="hours"><dt>MAR</dt><dd>9 a 16 h</dd></dl><a class="en-btn en-btn--aqua" href="' + WA + '" target="_blank" rel="noopener">Pedí tu turno por WhatsApp</a><p class="small">' + WA_TXT + '</p></div>';
+}
+function sedes(){ return '<section class="section"><div class="wrap"><div class="head-row">' + head("Contacto","Pedí tu turno","Los turnos se coordinan por WhatsApp. Elegí el consultorio que te quede más cómodo.") + today() + '</div><div class="en-contact">' + sedeCards() + '<div class="en-sede" style="background:var(--surface-tint);box-shadow:none"><p class="eyebrow">Otra forma de consultar</p><h3 class="h3">Dejanos tu consulta por área</h3><p>Indicá qué área te interesa y te contactamos.</p><a class="en-btn en-btn--outline" href="#contacto">Ir al formulario</a></div></div></div></section>'; }
+
+/* ---------- Tratamientos ---------- */
+function pTratamientos(){
+  var h = pageHead({crumbs:[["Inicio","inicio"],["Tratamientos"]], eyebrow:"Tratamientos", title:"El tratamiento que necesitás para cada etapa de tu vida", lead:"Explorá por área si ya sabés qué buscás, o empezá por lo que te pasa. Los dos caminos llevan a las mismas páginas.",
+    extra:'<div class="seg" role="tablist" aria-label="Forma de explorar"><button type="button" role="tab" id="mode-area" aria-controls="tx-root" aria-selected="' + (S.txMode==="area") + '" data-mode="area">Por área</button><button type="button" role="tab" id="mode-need" aria-controls="tx-root" aria-selected="' + (S.txMode==="need") + '" data-mode="need">Por necesidad</button></div>'});
+  h += '<section class="section" style="padding-top:var(--space-7)"><div class="wrap" id="tx-root" role="tabpanel" aria-labelledby="mode-' + S.txMode + '">' + (S.txMode==="area" ? txArea() : txNeed()) + '</div></section>';
+  h += '<section class="section section--surface"><div class="wrap split" style="align-items:center"><div class="stack" style="gap:var(--space-4)">' + head("Conexiones entre especialidades","Cómo se relacionan las áreas","Algunas áreas trabajan juntas en determinados casos. Tocá un área para ver con cuáles se conecta y por qué.") + '<ul class="dotlist" id="netRels"></ul></div>' + netSVG() + '</div></section>';
+  h += cta("¿No sabés por dónde empezar?","Una primera consulta sirve para evaluar tu situación y explicarte las alternativas.","");
+  return h;
+}
+function txArea(){
+  return '<div class="tx"><div class="tx-tabs" role="tablist" aria-label="Áreas de atención" aria-orientation="vertical">' + AREAS.map(function(a){ return '<button type="button" class="tx-tab' + (a.soon?' soon':'') + '" role="tab" id="tab-' + a.id + '" aria-controls="tx-panel" aria-selected="' + (S.txArea===a.id) + '" tabindex="' + (S.txArea===a.id?0:-1) + '" data-tx="' + a.id + '">' + chip(a.id) + '<span>' + a.name + (a.soon ? '<br><span class="small">En formación</span>' : '') + '</span></button>'; }).join("") +
+    '</div><div id="tx-panel" role="tabpanel" aria-labelledby="tab-' + S.txArea + '">' + txPanel(S.txArea) + '</div></div>';
+}
+function txPanel(id){ var a = area(id);
+  if (a.soon) return '<article class="en-card en-card--soon"><div class="card-top">' + chip(id) + '<span class="en-badge en-badge--soon">Próximamente</span></div><h2 class="h2">Posturología</h2><p>La Dra. está incorporando formación en posturología. Cuando la complete y lo confirme, esta área se sumará al sitio con su propia página. Hasta entonces no se ofrece como tratamiento.</p><p>' + F("Confirmar cómo comunicarla") + '</p><a class="en-link" href="#la-doctora">Ver su formación en curso</a></article>';
+  var rel = relsFor(id);
+  return '<article class="en-card"><div class="tx-panel"><div class="stack" style="gap:var(--space-4)">' + chip(id) + '<h2 class="h2">' + a.name + '</h2><p class="lead" style="font-size:18px;line-height:28px">' + a.line + '</p><ul class="dotlist">' + a.inc.map(li).join("") + '</ul><div class="en-hero__actions"><a class="en-btn en-btn--primary" href="#' + id + '">Ver el área completa</a><button type="button" class="en-btn en-btn--outline" data-consult="' + id + '">Consultar por esta área</button></div></div>' +
+    '<div class="stack" style="gap:var(--space-3)"><p class="eyebrow">Se relaciona con</p><ul class="rel-list">' + rel.map(function(r){ var b = area(r[0]); return '<li><a href="#' + b.id + '">' + b.name + '</a><span class="small">' + r[1] + '</span></li>'; }).join("") + '</ul></div></div></article>';
+}
+function txNeed(){ return '<div class="en-cards" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">' + NEEDS.map(function(n){ return '<article class="en-card"><h2 class="h4">' + n.t + '</h2><p>' + n.text + '</p><div class="rels">' + n.areas.map(function(id){ return '<a class="rel" href="#' + id + '">' + area(id).name + '</a>'; }).join("") + '</div></article>'; }).join("") + '</div>'; }
+function netSVG(){
+  var P = {"odontologia-general":[150,70],"ortodoncia":[330,70],"laser":[390,230],"atm":[250,330],"ortodoncia-quirurgica":[100,230],"posturologia":[460,360]};
+  var s = '<svg class="net" viewBox="0 0 540 420" role="img" aria-label="Mapa de relaciones entre áreas">';
+  RELS.forEach(function(r){ var a=P[r[0]], b=P[r[1]]; s += '<line class="edge" data-a="' + r[0] + '" data-b="' + r[1] + '" x1="' + a[0] + '" y1="' + a[1] + '" x2="' + b[0] + '" y2="' + b[1] + '"/>'; });
+  AREAS.forEach(function(a){ var p = P[a.id], lb = a.id==="ortodoncia-quirurgica" ? "Ortodoncia quirúrgica" : a.name;
+    s += '<g class="node' + (a.soon?' soon':'') + '" data-net="' + a.id + '" tabindex="0" role="button" aria-label="' + a.name + '"><circle cx="' + p[0] + '" cy="' + p[1] + '" r="20"/><text x="' + p[0] + '" y="' + (p[1]+42) + '" text-anchor="middle">' + lb + '</text></g>'; });
+  return s + '</svg>';
+}
+function setNet(id){
+  $$(".net .node").forEach(function(n){ n.classList.toggle("on", n.getAttribute("data-net")===id); });
+  $$(".net .edge").forEach(function(e){ e.classList.toggle("on", e.getAttribute("data-a")===id || e.getAttribute("data-b")===id); });
+  var ul = $("#netRels"); if (!ul) return; var a = area(id), rel = relsFor(id);
+  ul.innerHTML = '<li><span><b class="h4">' + a.name + '</b><br><span class="small">' + (a.soon ? "Formación en desarrollo: todavía sin relaciones clínicas." : rel.length + (rel.length===1?" relación":" relaciones")) + '</span></span></li>' + rel.map(function(r){ var b = area(r[0]); return '<li><span><a class="en-link" href="#' + b.id + '">' + b.name + '</a><br><span class="small">' + r[1] + '</span></span></li>'; }).join("");
+}
+
+/* ---------- Odontología general ---------- */
+var TT = {1:["Incisivo central",.78,"Corta los alimentos."],2:["Incisivo lateral",.64,"Corta los alimentos."],3:["Canino",.72,"Desgarra los alimentos y guía los movimientos laterales de la mandíbula."],4:["Primer premolar",.7,"Tritura y ayuda a desgarrar."],5:["Segundo premolar",.7,"Tritura y ayuda a desgarrar."],6:["Primer molar",1,"Tritura y muele los alimentos."],7:["Segundo molar",.92,"Tritura y muele los alimentos."],8:["Tercer molar",.84,"Es la muela del juicio. Puede no estar presente o no haber salido."]};
+var QN = {1:"superior derecho",2:"superior izquierdo",3:"inferior izquierdo",4:"inferior derecho"};
+function odontogram(){
+  var W = 720, unit = 38, gap = 4, s = '<svg class="illus odo" viewBox="0 0 720 360" role="group" aria-label="Odontograma de dientes permanentes">';
+  function row(nums, up){ var ws = nums.map(function(n){ return TT[n%10][1]*unit; }), tot = ws.reduce(function(a,b){return a+b;},0) + gap*(nums.length-1), x = (W-tot)/2, o = "";
+    nums.forEach(function(n,k){ var w = ws[k], cx = x+w/2, t = (cx-W/2)/(W/2), hh = 54, y = up ? 50 + 64*t*t : 258 - 64*t*t;
+      o += '<g class="tooth" tabindex="0" role="button" data-tooth="' + n + '" aria-label="Pieza ' + n + ', ' + TT[n%10][0].toLowerCase() + ' ' + QN[Math.floor(n/10)] + '"><rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + hh + '" rx="' + (w/3).toFixed(1) + '"/><text x="' + cx.toFixed(1) + '" y="' + (up ? y-8 : y+hh+16).toFixed(1) + '">' + n + '</text></g>'; x += w + gap; });
+    return o; }
+  s += '<line class="mid" x1="360" y1="20" x2="360" y2="350"/><text x="20" y="30">Derecha del paciente</text><text x="700" y="30" text-anchor="end">Izquierda</text><text x="20" y="186">Arcada superior</text><text x="20" y="206">Arcada inferior</text>';
+  return s + row([18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28], true) + row([48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38], false) + '</svg>';
+}
+function toothCard(){ var n = S.tooth, t = TT[n%10], q = Math.floor(n/10);
+  return '<span class="fdi">' + n + '</span><h3 class="h3">' + t[0] + ' ' + QN[q] + '</h3><p class="muted">' + t[2] + '</p><p class="small">En el sistema FDI, el primer dígito indica el cuadrante (' + q + ': ' + QN[q] + ') y el segundo, la pieza contando desde el centro. Las piezas en aqua son del mismo tipo.</p>'; }
+function pGeneral(){
+  var h = areaHead("odontologia-general","La puerta de entrada a la atención. Cada tratamiento empieza por entender cómo funciona toda la boca, y sigue con controles para cuidar lo logrado.",[["Para quién","Todas las edades"],["Empieza con","Evaluación y diagnóstico"],["Continúa con","Controles periódicos"]]);
+  h += '<section class="section section--tint"><div class="wrap"><div class="head-row">' + head("Explorá","Conocé tu boca, pieza por pieza","Cada diente tiene un número. Tocá una pieza para saber cuál es y qué función cumple.") + '</div><div class="split-illus"><div>' + odontogram() + '<p class="small" style="margin-top:var(--space-2)">Vista de frente al paciente: su lado derecho aparece a tu izquierda. Dentición permanente.</p></div><div class="en-card" id="toothCard" aria-live="polite">' + toothCard() + '</div></div></div></section>';
+  h += '<section class="section"><div class="wrap"><div class="head-row">' + head("Continuidad de la atención","Una atención que continúa","Los controles permiten detectar cambios a tiempo y cuidar lo logrado.") + '</div><ol class="steps"><li class="step"><span class="step__n">1</span><h3 class="h4">Control</h3><p class="muted">Se revisa toda la boca, no solo lo que molesta.</p></li><li class="step"><span class="step__n">2</span><h3 class="h4">Diagnóstico</h3><p class="muted">Radiografías u otros estudios según el caso.</p></li><li class="step"><span class="step__n">3</span><h3 class="h4">Tratamiento</h3><p class="muted">Un plan explicado, con alternativas y prioridades.</p></li><li class="step"><span class="step__n">4</span><h3 class="h4">Seguimiento</h3><p class="muted">Prevención y próximo control. La frecuencia depende de cada persona. ' + F() + '</p></li></ol></div></section>';
+  h += '<section class="section section--surface"><div class="wrap"><div class="head-row">' + head("Qué incluye","Prevención, diagnóstico y rehabilitación","") + '</div><div class="en-cards"><article class="en-card"><h3 class="h3">Prevención y diagnóstico</h3><ul class="dotlist">' + ["Controles periódicos","Prevención","Diagnóstico integral"].map(li).join("") + '</ul></article><article class="en-card"><h3 class="h3">Rehabilitación</h3><ul class="dotlist">' + ["Tratamientos de conducto","Prótesis removibles y fijas","Implantes, pernos y coronas"].map(li).join("") + '</ul></article><article class="en-card en-card--tint"><h3 class="h3">Adultos mayores</h3><p>Abordaje integral adaptado a las necesidades funcionales y estéticas de cada paciente.</p></article></div></div></section>';
+  return h + cta("Pedí una consulta general","Es el mejor punto de partida si no sabés qué tratamiento necesitás.","odontologia-general") + nextNav("odontologia-general");
+}
+
+/* ---------- Ortodoncia ---------- */
+var OX = { metal:["Brackets metálicos","Piezas adheridas a cada diente y unidas por un arco. Permiten controlar el movimiento de cada pieza con precisión."], ceram:["Brackets estéticos","Funcionan como los metálicos, con piezas transparentes o del color del diente (ice, zafiro)."], align:["Alineadores transparentes","Placas removibles hechas a medida con diseño digital, que se cambian por etapas. Hay que usarlas las horas indicadas."], hibrido:["Tratamiento híbrido","Combina alineadores en una arcada y brackets en la otra, según lo que necesite cada una."], orto:["Ortopedia dentomaxilar","Aparatología para chicos con dentición temporaria o mixta, que ayuda a guiar el crecimiento de los maxilares. El dibujo es genérico: el aparato depende de cada caso."] };
+function oxSVG(){
+  var up = [[34,60],[34,62],[38,72],[36,66],[44,74],[44,74],[36,66],[38,72],[34,62],[34,60]], lo = [[32,52],[32,54],[34,60],[28,52],[28,52],[28,52],[28,52],[34,60],[32,54],[32,52]];
+  var s = '<svg class="illus ox" id="oxSvg" data-v="' + S.ox + '" viewBox="0 0 520 300" role="img" aria-label="Dibujo de frente de los dientes con la alternativa elegida"><rect class="gum" x="40" y="34" width="440" height="66" rx="33"/><rect class="gum" x="58" y="196" width="404" height="62" rx="31"/>';
+  function rowT(list, upper){ var tot = list.reduce(function(a,b){return a+b[0]+3;},-3), x = 260 - tot/2, o = "", pts = [];
+    list.forEach(function(t){ var w = t[0], hh = t[1], cx = x+w/2, k = (cx-260)/220, top, bot; if (upper){ bot = 152 - 16*k*k; top = bot-hh; } else { top = 156 - 10*k*k; bot = top+hh; }
+      o += '<rect class="t" x="' + x.toFixed(1) + '" y="' + top.toFixed(1) + '" width="' + w + '" height="' + hh + '" rx="' + (w/3).toFixed(1) + '"/>'; pts.push([cx,(top+bot)/2 + (upper?4:-4)]); x += w+3; });
+    return {svg:o, pts:pts}; }
+  var U = rowT(up,true), L = rowT(lo,false);
+  function brk(P){ return P.map(function(p){ return '<rect x="' + (p[0]-7).toFixed(1) + '" y="' + (p[1]-6).toFixed(1) + '" width="14" height="12" rx="2.5"/>'; }).join(""); }
+  function wire(P){ return '<path class="wire" d="M' + P.map(function(p){ return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(" L") + '"/>'; }
+  s += U.svg + L.svg + '<g class="lay l-up-brk brk">' + wire(U.pts) + brk(U.pts) + '</g><g class="lay l-lo-brk brk">' + wire(L.pts) + brk(L.pts) + '</g>';
+  s += '<g class="lay l-up-al"><path class="al" d="M56 74 Q260 66 464 74 L462 144 Q260 164 58 144 Z"/></g><g class="lay l-lo-al"><path class="al" d="M84 150 Q260 162 436 150 L434 214 Q260 230 86 214 Z"/></g>';
+  s += '<g class="lay l-bow"><path class="bow" d="M84 128 C120 128 128 108 140 116 C150 124 140 140 160 140 C220 146 300 146 360 140 C380 140 370 124 380 116 C392 108 400 128 436 128"/><text x="260" y="286" text-anchor="middle">Arco de un aparato removible · ilustración genérica</text></g>';
+  return s + '<text x="40" y="24">Arcada superior</text><text x="58" y="278">Arcada inferior</text></svg>';
+}
+function oxInfo(){ var o = OX[S.ox]; return '<p class="eyebrow">Alternativa</p><h3 class="h3">' + o[0] + '</h3><p class="muted">' + o[1] + '</p>' + (S.ox==="hibrido" ? '<p class="small">Es el abordaje del caso de Clase II publicado en <a href="#casos">Casos clínicos</a>.</p>' : '') + '<p class="small">La alternativa se elige después de la evaluación, según el caso, la edad y tus preferencias.</p>'; }
+function oxTable(){ var cols = ["metal","ceram","align","hibrido","orto"], rows = [["Tipo",["Fijo","Fijo","Removible","Combinado","Según el aparato"]],["Visibilidad",["Visibles","Menos visibles","Placas transparentes","Arriba transparente, abajo visible","Según el aparato"]],["Se retira para comer",["No","No","Sí","Solo los alineadores","Según el aparato"]],["Requiere",["Controles periódicos","Controles periódicos","Uso diario indicado y recambios","Ambas cosas","Controles y uso indicado"]],["Para quién",["Según la evaluación","Según la evaluación","Según la evaluación","Según la evaluación","Chicos con dentición temporaria o mixta"]]];
+  return '<div class="cmp-wrap"><table class="cmp"><caption class="sr">Comparación de alternativas de ortodoncia</caption><thead><tr><th scope="col"><span class="sr">Característica</span></th>' + cols.map(function(c){ return '<th scope="col" class="' + (c===S.ox?'sel':'') + '">' + OX[c][0] + '</th>'; }).join("") + '</tr></thead><tbody>' + rows.map(function(r){ return '<tr><th scope="row">' + r[0] + '</th>' + r[1].map(function(v,i){ return '<td class="' + (cols[i]===S.ox?'sel':'') + '">' + v + '</td>'; }).join("") + '</tr>'; }).join("") + '</tbody></table></div><p class="small" style="margin-top:var(--space-3)">' + F() + ' Las características generales deben revisarse con la Dra.</p>'; }
+function pOrto(){
+  var h = areaHead("ortodoncia","Corrige la posición de los dientes y la relación entre los maxilares. No es solo estética: también tiene que ver con cómo mordés, masticás y hablás.",[["Para quién","Chicos, adolescentes y adultos"],["Alternativas","5"],["Duración","Se estima en cada plan"]]);
+  h += '<section class="section section--tint"><div class="wrap"><div class="head-row">' + head("Explorador de ortodoncia","Compará las alternativas","Elegí una opción y mirá cómo se ve en los dientes. La tabla compara lo que cambia entre una y otra.") + '</div><div class="seg" role="group" aria-label="Alternativas de ortodoncia" style="margin-bottom:var(--space-5)">' + Object.keys(OX).map(function(k){ return '<button type="button" data-ox="' + k + '" aria-pressed="' + (k===S.ox) + '">' + OX[k][0] + '</button>'; }).join("") + '</div>' +
+    '<div class="split-illus"><div>' + oxSVG() + '</div><div class="en-card" id="oxInfo" aria-live="polite">' + oxInfo() + '</div></div><div id="oxTable">' + oxTable() + '</div></div></section>';
+  h += '<section class="section"><div class="wrap"><div class="head-row">' + head("Según la edad","No hay edad para mejorar tu sonrisa","La evaluación cambia con el crecimiento. En todas las etapas empieza por entender la función.") + '</div><div class="ages">' +
+    '<article class="en-card"><p class="eyebrow">Infancia</p><h3 class="h3">Guiar el crecimiento</h3><p>Con dientes de leche o en recambio, la ortopedia dentomaxilar ayuda a guiar el desarrollo de los maxilares.</p></article>' +
+    '<article class="en-card"><p class="eyebrow">Adolescencia</p><h3 class="h3">Ordenar y alinear</h3><p>Con los dientes permanentes se corrigen la posición y la mordida. ' + F() + '</p></article>' +
+    '<article class="en-card"><p class="eyebrow">Adultez</p><h3 class="h3">Alternativas para adultos</h3><p>En adultos también hay alternativas, a veces combinadas con otros tratamientos.</p></article></div></div></section>';
+  h += '<section class="section section--surface"><div class="wrap"><div class="head-row">' + head("Recorrido de atención","Cómo es el proceso","Cada plan es distinto. Estas son las etapas habituales. " + F()) + '</div><ol class="steps"><li class="step"><span class="step__n">1</span><h3 class="h4">Evaluación y estudios</h3><p class="muted">Panorámica, cefalometría o telerradiografía de perfil si hacen falta.</p></li><li class="step"><span class="step__n">2</span><h3 class="h4">Plan</h3><p class="muted">Alternativas, etapas y estimación de tiempos.</p></li><li class="step"><span class="step__n">3</span><h3 class="h4">Inicio</h3><p class="muted">Colocación de la aparatología o primeros alineadores.</p></li><li class="step"><span class="step__n">4</span><h3 class="h4">Controles</h3><p class="muted">Ajustes según la evolución.</p></li><li class="step"><span class="step__n">5</span><h3 class="h4">Contención</h3><p class="muted">Para mantener la posición lograda.</p></li></ol></div></section>';
+  h += '<section class="section section--tint"><div class="wrap split"><div class="en-section-head"><p class="eyebrow">Preguntas frecuentes</p><h2 class="h2">Lo que más se consulta</h2><a class="en-link" href="#casos" style="align-self:flex-start">Ver casos de ortodoncia</a></div>' + faq([
+    ["¿Hay una edad límite?","No. La ortodoncia es para todas las edades."],
+    ["¿Cuánto dura un tratamiento?","Depende del caso. Después de la evaluación se estima la duración de cada etapa y se ajusta según la evolución."],
+    ["¿Molesta usar brackets o alineadores?","Puede haber molestias los primeros días después de cada ajuste o cambio de alineador. En la consulta te explican cómo manejarlas. " + F()],
+    ["¿Cuánto cuesta?","El presupuesto se informa después de la evaluación, según el plan. " + F("A confirmar")]]) + '</div></section>';
+  return h + cta("Pedí una evaluación ortodóncica","Contanos que consultás por ortodoncia o dejá tu consulta con el área ya elegida.","ortodoncia") + nextNav("ortodoncia");
+}
+
+/* ---------- Láser ---------- */
+var LAPPS = [
+  {id:"tejidos", n:"Tejidos blandos", z:"encia", d:"Cirugías mínimamente invasivas en la encía y los frenillos: frenectomía, gingivoplastia y coagulación.", at:[150,206]},
+  {id:"mucosa", n:"Mucosa bucal", z:"mucosa", d:"Tratamiento de aftas y herpes.", at:[52,330]},
+  {id:"endo", n:"Endodoncia", z:"pulpa", d:"Descontaminación del conducto, como complemento del tratamiento de conducto.", at:[214,262]},
+  {id:"perio", n:"Periodoncia", z:"bolsa", d:"Descontaminación de la zona entre la encía y la raíz, como complemento del tratamiento.", at:[184,214]},
+  {id:"orto", n:"Apoyo en ortodoncia", z:"hueso", d:"Fotobiomodulación durante algunos tratamientos de ortodoncia. Su indicación y sus efectos se evalúan caso por caso.", at:[136,330]},
+  {id:"blanq", n:"Blanqueamiento", z:"esmalte", d:"Blanqueamiento dental asistido con láser.", at:[214,46]}
+];
+function scaleSVG(){ var x = function(nm){ return 20 + (nm-300)*0.75; }, s = '<svg class="illus scale" viewBox="0 0 640 130" role="img" aria-label="Escala de 300 a 1100 nanómetros. La luz visible va de 380 a 750 nm. El láser trabaja en 980 nm, en el infrarrojo cercano.">';
+  s += '<rect x="' + x(380) + '" y="44" width="' + (x(750)-x(380)) + '" height="24" rx="12" fill="var(--surface-tint)"/><text x="' + ((x(380)+x(750))/2) + '" y="61" text-anchor="middle" style="fill:var(--brand)">Luz visible · 380 a 750 nm</text>';
+  s += '<rect x="' + x(750) + '" y="44" width="' + (x(1100)-x(750)) + '" height="24" rx="12" fill="var(--surface-aqua)"/><text x="' + x(800) + '" y="61" style="fill:var(--aqua-ink)">Infrarrojo cercano</text>';
+  for (var nm=300; nm<=1100; nm+=100) s += '<line x1="' + x(nm) + '" y1="74" x2="' + x(nm) + '" y2="80" stroke="var(--line-strong)"/><text x="' + x(nm) + '" y="96" text-anchor="middle">' + nm + '</text>';
+  s += '<line x1="' + x(980) + '" y1="30" x2="' + x(980) + '" y2="72" stroke="var(--brand)" stroke-width="3"/><circle cx="' + x(980) + '" cy="30" r="7" fill="var(--brand)"/><text x="' + (x(980)-12) + '" y="34" text-anchor="end" style="fill:var(--brand)">980 nm</text><text x="20" y="120">Nanómetros (nm)</text>';
+  return s + '</svg>'; }
+function xsecSVG(){
+  return '<svg class="illus xsec" id="xsec" viewBox="0 0 420 420" role="img" aria-label="Corte esquemático de un diente con encía, hueso y mucosa">' +
+    '<path class="zone z-mucosa" fill="var(--surface-aqua)" d="M20 420 V300 C30 280 46 270 60 262 L90 244 V420 Z"/>' +
+    '<path class="zone z-hueso" fill="var(--line)" d="M90 420 V244 C130 224 170 226 190 236 C206 230 222 230 238 236 C258 226 298 224 338 244 V420 Z"/>' +
+    '<path class="zone z-encia" fill="var(--aqua-soft)" d="M60 262 C76 214 132 180 178 176 C184 200 186 220 190 236 C170 226 130 224 90 244 Z M368 262 C352 214 296 180 250 176 C244 200 242 220 238 236 C258 226 298 224 338 244 Z"/>' +
+    '<path fill="var(--surface-tint)" stroke="var(--line-strong)" d="M180 182 C178 260 190 340 206 400 C210 412 218 412 222 400 C238 340 250 260 248 182 Z"/>' +
+    '<path class="zone z-esmalte" fill="var(--white)" d="M156 70 C156 40 186 28 214 32 C242 28 272 40 272 70 C274 120 262 160 250 182 L178 182 C166 160 154 120 156 70 Z" style="stroke:var(--line-strong)"/>' +
+    '<path fill="var(--surface-tint)" d="M172 78 C172 56 194 46 214 48 C234 46 256 56 256 78 C258 118 248 150 240 172 L188 172 C180 150 170 118 172 78 Z"/>' +
+    '<path class="zone z-pulpa" fill="var(--aqua)" d="M200 96 C200 86 228 86 228 96 L226 170 C224 250 220 330 215 395 C214 398 212 398 212 395 C208 330 204 250 202 170 Z"/>' +
+    '<path class="zone z-bolsa bolsa" fill="none" stroke-linecap="round" d="M178 182 L186 222 M250 182 L242 222"/>' +
+    '<rect x="14" y="14" width="40" height="16" rx="4" fill="var(--ink-muted)" transform="rotate(35 34 22)"/>' +
+    '<path class="beam-glow" id="beamGlow" d="M50 34 L150 206"/><path class="beam" id="beam" d="M50 34 L150 206"/>' +
+    '<path class="ld" d="M222 128 L292 150"/><text x="290" y="60">Esmalte</text><text x="290" y="110">Dentina</text><text x="296" y="154">Pulpa y conducto</text><text x="372" y="226">Encía</text><text x="344" y="330">Hueso</text><text x="22" y="292">Mucosa</text><text x="64" y="58">Fibra del láser</text></svg>';
+}
+function appCard(){ var a = LAPPS.filter(function(x){ return x.id===S.laser; })[0]; return '<p class="eyebrow">Aplicación</p><h3 class="h3">' + a.n + '</h3><p class="muted">' + a.d + '</p><p class="small">La indicación surge de la evaluación. Las sensaciones durante la aplicación varían según el caso y la zona. ' + F() + '</p>'; }
+function pLaser(){
+  var h = areaHead("laser","El consultorio trabaja con un láser de diodo. Es un recurso con aplicaciones distintas entre sí, y cada una tiene su propia indicación.",[["Equipo","Láser de diodo"],["Longitud de onda","980 nm"],["Aplicaciones","6"]]);
+  h += '<section class="section section--aqua"><div class="wrap split" style="align-items:center">' + head("Tecnología","Dónde está el láser en el espectro","980 nm queda fuera de la luz visible, en el infrarrojo cercano. Por eso el haz de trabajo no se ve a simple vista.") + scaleSVG() + '</div></section>';
+  h += '<section class="section section--tint"><div class="wrap"><div class="head-row">' + head("Aplicaciones","Qué zona trabaja cada aplicación","Elegí una aplicación para verla en el esquema. Es una explicación educativa: la indicación siempre se define en la consulta.") + '</div>' +
+    '<div class="split-illus" style="grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)"><div class="side"><div class="list-btns" role="group" aria-label="Aplicaciones del láser">' + LAPPS.map(function(x,i){ return '<button type="button" data-laser="' + x.id + '" aria-pressed="' + (x.id===S.laser) + '"><span class="k">' + String.fromCharCode(65+i) + '</span>' + x.n + '</button>'; }).join("") + '</div><div class="en-card" id="appCard" aria-live="polite">' + appCard() + '</div></div><div>' + xsecSVG() + '</div></div></div></section>';
+  h += '<section class="section"><div class="wrap split">' + head("Consideraciones","Lo que conviene saber","El láser se suma a un tratamiento cuando aporta algo concreto.") + '<ul class="dotlist">' + ["No reemplaza la evaluación ni otros tratamientos.","Cada aplicación tiene su propia indicación, que no es intercambiable con las demás.","Los tiempos y los resultados dependen de cada caso.","La Dra. tiene una diplomatura en Odontología Láser (UAI, 2021–2022) y cursa la especialidad en Láser en Ortodoncia y ATM desde 2025."].map(li).join("") + '</ul></div></section>';
+  return h + cta("Consultá por el láser","Contanos qué aplicación te interesa y la Dra. te explica si corresponde a tu caso.","laser") + nextNav("laser");
+}
+function fireBeam(){ var a = LAPPS.filter(function(x){ return x.id===S.laser; })[0], d = "M50 34 L" + a.at[0] + " " + a.at[1];
+  ["beam","beamGlow"].forEach(function(id){ var el = document.getElementById(id); if (!el) return; el.setAttribute("d", d); el.classList.remove("fire"); void el.getBoundingClientRect(); el.classList.add("fire"); });
+  var sv = $("#xsec"); if (!sv) return; sv.classList.add("sel"); $$(".zone", sv).forEach(function(z){ z.classList.toggle("on", z.classList.contains("z-" + a.z)); }); }
+
+/* ---------- ATM ---------- */
+var PARTS = [
+  {id:"condilo", n:"Cóndilo mandibular", d:"Es el extremo superior de la mandíbula. Encaja en la fosa del hueso temporal y, cuando abrís grande la boca, gira y se desliza hacia adelante."},
+  {id:"disco", n:"Disco articular", d:"Una lámina de tejido fibroso entre el cóndilo y el hueso temporal. Acompaña el movimiento. Algunos ruidos de la articulación se relacionan con cambios en su posición.", flag:true},
+  {id:"fosa", n:"Fosa y eminencia articular", d:"La superficie del hueso temporal donde se aloja el cóndilo. Al abrir grande, el cóndilo se traslada hacia la eminencia, que está adelante."},
+  {id:"masetero", n:"Músculo masetero", d:"Uno de los músculos que cierran la boca y permiten masticar. En algunos trastornos de la ATM puede sentirse tenso o dolorido.", flag:true},
+  {id:"nervio", n:"Nervio trigémino", d:"Lleva la sensibilidad de la cara. Sus ramas maxilar (V2) y mandibular (V3) recorren el maxilar superior y la mandíbula. La neuralgia del trigémino es un dolor relacionado con este nervio, distinto de un trastorno de la ATM."},
+  {id:"oclusion", n:"Oclusión", d:"La forma en que encajan los dientes de arriba y de abajo. Se evalúa junto con la articulación."}
+];
+function atmSVG(){ var ut = "", lt = ""; for (var i=0;i<10;i++){ ut += '<rect class="atooth" x="' + (96+i*21) + '" y="214" width="18" height="30" rx="5"/>'; lt += '<rect class="atooth" x="' + (100+i*21) + '" y="246" width="18" height="30" rx="5"/>'; }
+  return '<svg class="illus atm' + (S.atmOpen?' open':'') + '" id="atmSvg" viewBox="0 0 520 430" role="img" aria-label="Esquema lateral de la articulación temporomandibular y la mandíbula">' +
+    '<path class="bone" d="M40 40 H480 V104 C452 104 432 102 418 92 C410 86 404 74 394 70 C380 64 366 66 356 76 C346 86 338 104 326 110 C318 114 306 112 296 106 C270 96 200 96 150 100 L40 104 Z"/>' +
+    '<path class="bone" d="M150 108 C190 104 250 104 300 112 L298 126 C250 120 190 120 152 124 Z"/><path class="bone" d="M70 120 C66 160 70 196 84 214 L312 214 C306 180 296 150 290 130 L150 126 C120 122 92 118 70 120 Z"/>' + ut +
+    '<path class="mus hl hit" data-part="masetero" d="M168 124 C210 120 262 122 296 128 L368 300 C340 318 300 320 270 312 Z"/>' +
+    '<path class="hl hit" data-part="fosa" fill="none" stroke="transparent" stroke-width="22" d="M310 106 C330 104 344 74 372 66 C392 64 404 80 414 94"/>' +
+    '<path class="nerve hl" data-part="nervio" d="M300 60 C260 80 200 110 120 136"/><circle cx="300" cy="60" r="5" fill="var(--brand)"/>' +
+    '<g class="mand"><path class="bone" d="M384 94 C396 160 404 230 400 292 C398 314 382 326 358 326 L160 326 C128 326 104 316 98 300 C94 290 94 282 100 272 L318 272 C318 230 312 170 306 132 C314 124 322 128 326 138 C334 154 344 152 352 132 C356 118 356 104 358 94 Z"/>' +
+      '<g class="hl hit" data-part="oclusion">' + lt + '</g><ellipse class="bone hl hit" data-part="condilo" cx="370" cy="86" rx="17" ry="13"/>' +
+      '<path class="disc hl hit" data-part="disco" d="M350 80 C356 60 386 58 392 76 L388 79 C382 70 362 68 354 83 Z"/>' +
+      '<path class="nerve nerve-in hl" data-part="nervio" d="M300 60 C318 90 344 112 372 112 C372 180 356 250 326 292 C290 306 220 304 140 298"/></g>' +
+    '<path class="hit" data-part="nervio" fill="none" stroke="transparent" stroke-width="16" d="M300 60 C260 80 200 110 120 136"/>' +
+    '<text x="40" y="30">Hueso temporal</text><text x="56" y="142">Maxilar</text><text x="410" y="140">Rama</text></svg>'; }
+function partCard(){ var p = PARTS.filter(function(x){ return x.id===S.atmPart; })[0]; return '<p class="eyebrow">Estructura</p><h3 class="h3">' + p.n + '</h3><p class="muted">' + p.d + '</p>' + (p.flag ? '<p>' + F() + '</p>' : ''); }
+function atmMoveText(){ return S.atmOpen ? "Al abrir grande, el cóndilo gira y se desliza hacia adelante, hasta la eminencia articular. El disco lo acompaña." : "Con la boca cerrada, el cóndilo descansa en la fosa del hueso temporal, con el disco por encima."; }
+function pATM(){
+  var h = areaHead("atm","Evaluación de molestias mandibulares y dolor orofacial. Los trastornos de la ATM (articulación temporomandibular) y las neuralgias son condiciones distintas, aunque a veces requieran abordajes complementarios.",[["Empieza con","Evaluación individual"],["Formación","Especialidad en curso"]]);
+  h += '<section class="section section--tint"><div class="wrap"><div class="head-row">' + head("Explorador anatómico","Cómo funciona la articulación","Un esquema educativo para entender de qué se habla en la consulta. Tocá cada estructura y probá abrir la boca.") + '<div class="seg" role="group" aria-label="Posición de la boca"><button type="button" data-atm-open="0" aria-pressed="' + (!S.atmOpen) + '">Boca cerrada</button><button type="button" data-atm-open="1" aria-pressed="' + S.atmOpen + '">Boca abierta</button></div></div>' +
+    '<div class="split-illus"><div>' + atmSVG() + '<p class="small" id="atmMove" style="margin-top:var(--space-3)">' + atmMoveText() + '</p></div><div class="side"><div class="list-btns" role="group" aria-label="Estructuras">' + PARTS.map(function(p,i){ return '<button type="button" data-part-btn="' + p.id + '" aria-pressed="' + (p.id===S.atmPart) + '"><span class="k">' + (i+1) + '</span>' + p.n + '</button>'; }).join("") + '</div><div class="en-card" id="partCard" aria-live="polite">' + partCard() + '</div></div></div></div></section>';
+  h += '<section class="section"><div class="wrap"><div class="head-row">' + head("Diagnóstico diferencial","Dos condiciones distintas","Por eso el primer paso es una evaluación detallada, sin suponer la causa.") + '</div><div class="vs">' +
+    '<article class="en-card"><span class="en-badge en-badge--brand" style="align-self:flex-start">Trastornos de la ATM</span><h3 class="h3">La articulación y sus músculos</h3><p>Pueden aparecer molestias al abrir o cerrar la boca, ruidos en la articulación, dolor al masticar o sensación de mandíbula cansada. ' + F() + '</p></article>' +
+    '<article class="en-card"><span class="en-badge en-badge--aqua" style="align-self:flex-start">Neuralgias</span><h3 class="h3">Un nervio de la cara</h3><p>Dolor relacionado con un nervio, como el trigémino, con características propias. Muchas veces requiere trabajar con otros especialistas. ' + F() + '</p></article></div></div></section>';
+  h += '<section class="section section--surface"><div class="wrap"><div class="head-row">' + head("Recorrido de atención","Cómo se aborda","Cada caso se evalúa de forma individual. Esta información no sirve para autodiagnosticarse. " + F()) + '</div><ol class="steps"><li class="step"><span class="step__n">1</span><h3 class="h4">Evaluación</h3><p class="muted">Historia de las molestias y examen de la articulación, los músculos y la mordida.</p></li><li class="step"><span class="step__n">2</span><h3 class="h4">Estudios complementarios</h3><p class="muted">Solo si hacen falta para decidir.</p></li><li class="step"><span class="step__n">3</span><h3 class="h4">Plan interdisciplinario</h3><p class="muted">Tecnología láser cuando está indicada, y trabajo con otros especialistas según el caso.</p></li></ol>' +
+    '<div class="notice" style="margin-top:var(--space-7)"><b>Formación en curso</b><span>Especialidad en Láser en Ortodoncia y ATM · Universidad Europea Miguel de Cervantes · desde marzo de 2025.</span></div></div></section>';
+  return h + cta("Consultá por molestias mandibulares o dolor facial","Contanos desde cuándo aparecen y en qué momentos. La evaluación orienta el diagnóstico.","atm") + nextNav("atm");
+}
+
+/* ---------- Ortodoncia quirúrgica ---------- */
+var QX = [
+  {n:"Evaluación y estudios", who:["Dra. Noriega"], d:"Evaluación ortodóncica completa, con estudios complementarios para entender la relación entre los maxilares y los dientes."},
+  {n:"Planificación conjunta", who:["Dra. Noriega","Cirugía maxilofacial"], d:"La ortodoncia y la cirugía se planifican juntas: qué se corrige con cada una y en qué orden."},
+  {n:"Ortodoncia prequirúrgica", who:["Dra. Noriega","Técnicos dentales"], d:"Se preparan las arcadas para que, después de la cirugía, los dientes puedan encajar correctamente."},
+  {n:"Cirugía", who:["Cirugía maxilofacial"], d:"La realiza el equipo de cirugía maxilofacial. La Dra. no realiza procedimientos quirúrgicos."},
+  {n:"Ortodoncia posquirúrgica", who:["Dra. Noriega","Fonoaudiología, si hace falta"], d:"Se terminan de ajustar la posición de los dientes y la mordida."},
+  {n:"Contención y seguimiento", who:["Dra. Noriega"], d:"Controles para acompañar la estabilidad de los resultados."}
+];
+function lanes(){ var L = [["Ortodoncia","Dra. Edith Noriega",[1,1,1,0,1,1],""],["Cirugía maxilofacial","Equipo quirúrgico",[0,1,0,1,0,0],"aq"],["Otros profesionales","Fonoaudiología y técnicos, según el caso",[0,0,1,0,1,0],"ext"]];
+  var h = '<div class="lanes-wrap"><div class="lanes" aria-label="Quién participa en cada etapa"><div class="small" style="font-family:var(--font-display);font-weight:600">Etapas</div>';
+  QX.forEach(function(q,i){ h += '<button type="button" class="ph-h' + (i===S.qx?' on':'') + '" data-qx="' + i + '" aria-pressed="' + (i===S.qx) + '">' + (i+1) + '. ' + q.n + '</button>'; });
+  L.forEach(function(l){ h += '<div class="lane-h">' + l[0] + '<small>' + l[1] + '</small></div>'; l[2].forEach(function(v,i){ h += '<div class="cell' + (i===S.qx?' on':'') + '">' + (v ? '<span class="bar ' + l[3] + '"><span class="sr">participa</span></span>' : '') + '</div>'; }); });
+  return h + '</div></div>'; }
+function qxStep(){ var q = QX[S.qx]; return '<p class="eyebrow">Etapa ' + (S.qx+1) + ' de ' + QX.length + '</p><h3 class="h2">' + q.n + '</h3><p class="muted measure">' + q.d + '</p><div class="tags">' + q.who.map(function(w){ return '<span class="en-badge en-badge--brand">' + w + '</span>'; }).join("") + '</div>'; }
+function pQX(){
+  var h = areaHead("ortodoncia-quirurgica","Evaluación, planificación y seguimiento ortodóncico de pacientes con alteraciones dentofaciales y malformaciones. La cirugía la realiza el equipo de cirugía maxilofacial.",[["Formación","Hospital Piñero · SAO · 2011–2021"],["Integra","Clínica de Malformaciones y Quirúrgicos, SAO"]]);
+  h += '<section class="section section--tint"><div class="wrap"><div class="head-row">' + head("Planificación de casos complejos","Cómo se planifica un caso complejo","Recorré las etapas para ver qué pasa en cada una y quién participa. " + F()) + '</div>' + lanes() +
+    '<div class="stepper"><div class="stack" style="gap:var(--space-3)" id="qxBody" aria-live="polite">' + qxStep() + '</div><div class="step-ctrl"><button type="button" class="en-btn en-btn--outline en-btn--sm" data-qx-nav="-1">Anterior</button><span class="count" id="qxCount">' + (S.qx+1) + ' / ' + QX.length + '</span><button type="button" class="en-btn en-btn--primary en-btn--sm" data-qx-nav="1">Siguiente</button></div></div></div></section>';
+  h += '<section class="section"><div class="wrap split">' + head("Para quién","Pacientes que pueden requerir este abordaje","Cada caso se evalúa de forma individual, sin anticipar un tratamiento.") + '<ul class="dotlist">' + ["Alteraciones dentofaciales que requieren cirugía ortognática","Pacientes con fisuras, unilaterales o bilaterales","Pacientes con síndrome de Down u otras condiciones específicas","Casos con intervenciones quirúrgicas previas o planificadas"].map(li).join("") + '</ul></div></section>';
+  return h + cta("Consultá por un caso complejo","Llevá los estudios e informes de otros profesionales que te hayan atendido.","ortodoncia-quirurgica") + nextNav("ortodoncia-quirurgica");
+}
+
+/* ---------- La doctora ---------- */
+function tlView(){ return S.tlView || (window.matchMedia("(max-width:760px)").matches ? "list" : "tl"); }
+function yr(x){ if (x.open) return x.id==="pos" ? "En curso" : "Desde 2025"; var a = Math.floor(x.a), b = Math.floor(x.b); return a===b ? String(a) : a + "–" + b; }
+function tlHTML(){
+  var items = TL.filter(function(x){ return S.tlCats[x.cat]; }), sel = TL.filter(function(x){ return x.id===S.tlSel; })[0];
+  if (tlView()==="list") return '<ul class="tl-list">' + items.map(function(x){ return '<li><span class="num">' + yr(x) + '</span><span><b class="h4" style="display:block">' + x.t + '</b><span class="small">' + x.i + '</span> ' + (x.flag?F(x.flag):'') + '</span></li>'; }).join("") + '</ul>';
+  var X = function(y){ return ((y-1988)/39*100).toFixed(2) + "%"; }, h = '<div class="tl-wrap"><div class="tl">';
+  Object.keys(TLCATS).forEach(function(k){ var n = TL.filter(function(x){return x.cat===k;}).reduce(function(m,x){return Math.max(m,x.lane);},0)+1;
+    h += '<div class="tl-row' + (S.tlCats[k]?'':' hidden') + '"><b>' + TLCATS[k][0] + '</b><div class="tl-track" style="--h:' + (n*30+16) + 'px">';
+    TL.filter(function(x){return x.cat===k;}).forEach(function(x){ h += '<button type="button" class="tl-bar ' + TLCATS[k][1] + '" data-tl="' + x.id + '" aria-pressed="' + (x.id===S.tlSel) + '" aria-label="' + esc(x.t + ", " + yr(x)) + '" style="left:' + X(x.a) + ';width:' + ((x.b-x.a)/39*100).toFixed(2) + '%;top:' + (8+x.lane*30) + 'px"></button>'; });
+    h += '</div></div>'; });
+  h += '<div class="tl-axis">'; for (var y=1990; y<=2025; y+=5) h += '<span style="left:' + X(y) + '">' + y + '</span>'; h += '<span style="left:' + X(2026.2) + '">hoy</span></div></div></div>';
+  if (sel) h += '<article class="en-card" style="margin-top:var(--space-5)" aria-live="polite"><p class="eyebrow">' + TLCATS[sel.cat][0] + ' · ' + yr(sel) + '</p><h3 class="h3">' + sel.t + '</h3><p>' + sel.i + '</p>' + (sel.flag ? '<p>' + F(sel.flag) + '</p>' : '') + '</article>';
+  return h; }
+function pDoctora(){
+  var h = '<section><div class="wrap"><div class="en-hero"><div class="en-hero__copy">' + crumbs([["Inicio","inicio"],["La doctora"]]) + '<p class="eyebrow">Sobre mí</p><h1 class="h1" tabindex="-1">Una trayectoria dedicada al avance de la ortodoncia</h1><p class="lead">Soy Edith Noriega, odontóloga especialista jerarquizada en ortodoncia y diplomada en tecnología láser. Atiendo en La Plata y Quilmes con una mirada integral y multidisciplinaria.</p><p class="small">Matrícula profesional ' + F("A confirmar") + '</p></div>' +
+    '<div class="en-hero__stage"><span class="en-quarter" aria-hidden="true"></span><div class="en-portrait"><div class="en-portrait__slot"><img src="' + PHOTO + '" alt="Retrato de la Dra. Edith Noriega"></div></div><span class="en-star" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></div></div></section>';
+  h += '<section class="section section--surface"><div class="wrap split"><div class="en-quote"><span class="en-quarter" aria-hidden="true"></span><blockquote>La ortodoncia es para todos y para todas las edades.</blockquote><cite>Dra. Edith Noriega</cite></div><div class="stack measure" style="gap:var(--space-4)"><p class="eyebrow">Filosofía de atención</p><p>Me formé en la Universidad Nacional de La Plata y en el Hospital San Martín, en el sector de Odontología. Hice mi posgrado en Ortodoncia en la UNLP y completé mi especialización en el Hospital Piñero de Buenos Aires.</p><p>Me gusta abordar cada tratamiento con una mirada integral: la salud bucal forma parte de la salud general. Trabajo con un enfoque preventivo, tratamientos mínimamente invasivos y planificación digital.</p><p>Me actualizo de forma constante en ortodoncia lingual, alineadores y tecnología láser, para que cada paciente tenga una experiencia más cómoda. ' + F() + '</p></div></div></section>';
+  h += '<section class="section section--tint"><div class="wrap"><div class="head-row">' + head("Ejes de mi práctica","Cada área se apoya en una formación concreta","") + '</div><div class="bento">' +
+    axis("s3","Ortodoncia","ortodoncia",[["1995–2000","Especialista en Ortodoncia, UNLP"],["2008","Especialista en Ortodoncia Lingual"],["2023–2024","Diplomatura en Alineadores, UCALP y SAO"]]) +
+    axis("s3","Cirugía y malformaciones","ortodoncia-quirurgica",[["2011–2021","Ortodoncia pre y posquirúrgica, Hospital Piñero"],["Hoy","Clínica de Malformaciones y Quirúrgicos, SAO"]]) +
+    axis("s4","Tecnología láser","laser",[["2021–2022","Diplomatura en Odontología Láser, UAI"],["2024","Ponente SAO y disertante ACALO"],["Desde 2025","Especialidad en Láser en Ortodoncia y ATM (en curso)"]]) +
+    axis("s2","Docencia","odontologia-general",[["2019–2020","Diplomatura en Docencia, Universidad Favaloro " + F("Confirmar año")]]) + '</div></div></section>';
+  h += '<section class="section"><div class="wrap"><div class="head-row">' + head("Formación","Formación académica, a escala","Cada barra ocupa los años reales. Tocá una para ver el detalle o filtrá por tipo.") + '<div class="seg" role="group" aria-label="Vista"><button type="button" data-tlview="tl" aria-pressed="' + (tlView()==="tl") + '">Línea de tiempo</button><button type="button" data-tlview="list" aria-pressed="' + (tlView()==="list") + '">Lista</button></div></div>' +
+    '<div class="chips" role="group" aria-label="Filtrar formación" style="margin-bottom:var(--space-5)">' + Object.keys(TLCATS).map(function(k){ return '<button type="button" class="chip" data-tlcat="' + k + '" aria-pressed="' + !!S.tlCats[k] + '">' + TLCATS[k][0] + '</button>'; }).join("") + '</div><div id="tlRoot">' + tlHTML() + '</div></div></section>';
+  h += '<section class="section section--aqua"><div class="wrap"><div class="head-row">' + head("Investigación y actualización constante","Actividad científica","Publicaciones y ponencias sobre tecnología láser aplicada a la ortodoncia y la cirugía.") + '</div><div class="en-cards">' +
+    '<article class="en-card"><span class="en-badge en-badge--brand" style="align-self:flex-start">Publicación</span><h3 class="h3">Terapia (LLT) post cirugía de distracción ósea</h3><p>Publicada en ResearchGate.</p><p>' + F("Confirmar enlace y año") + '</p></article>' +
+    '<article class="en-card"><span class="en-badge en-badge--brand" style="align-self:flex-start">Ponencia · agosto 2024</span><h3 class="h3">Congreso de Invierno 2024, SAO</h3><p>Terapia (LLT) post cirugía de distracción ósea. Buenos Aires. Aprobada por el Comité Científico.</p></article>' +
+    '<article class="en-card"><span class="en-badge en-badge--brand" style="align-self:flex-start">Disertación · agosto 2024</span><h3 class="h3">4.° Congreso de Odontología Láser, ACALO</h3><p>Terapia láser en ortodoncia con alineadores. Salta, Argentina.</p></article></div></div></section>';
+  h += '<section class="section"><div class="wrap split">' + head("Equipo","Un equipo de trabajo multidisciplinario","Trabajo junto a profesionales comprometidos con tratamientos integrales e interdisciplinarios. " + F("Confirmar nombres del equipo")) + '<ul class="dotlist">' + ["Cirujanos maxilofaciales: cirugía de los maxilares","Fonoaudiólogos: habla y deglución","Técnicos dentales: aparatología, prótesis y mecánicas de alineadores"].map(li).join("") + '</ul></div></section>';
+  h += '<section class="section" style="padding-top:0"><div class="wrap"><article class="en-card en-card--soon" style="flex-direction:row;flex-wrap:wrap;align-items:center;gap:var(--space-5)">' + chip("posturologia") + '<div class="stack" style="gap:var(--space-2);flex:1 1 320px"><span class="en-badge en-badge--soon" style="align-self:flex-start">Formación en desarrollo</span><h2 class="h3">Posturología</h2><p>Todavía no forma parte de los tratamientos del consultorio. ' + F("Confirmar cómo comunicarla") + '</p></div></article></div></section>';
+  return h;
+}
+function axis(sz, t, ic, items){ return '<article class="en-card ' + sz + '"><div class="card-top">' + chip(ic) + '</div><h3 class="h3">' + t + '</h3><ul class="dotlist">' + items.map(function(i){ return '<li><span><b class="num">' + i[0] + '</b><br>' + i[1] + '</span></li>'; }).join("") + '</ul></article>'; }
+
+/* ---------- Casos ---------- */
+function mm(s){ var p = s.split("-"); return (+p[0])*12 + (+p[1]-1); }
+function caseRange(c){ var v = [].concat(c.ms.map(function(m){return mm(m[0]);}), c.segs.map(function(s){return mm(s[0]);}), c.segs.map(function(s){return mm(s[1]);})); return [Math.min.apply(0,v), Math.max.apply(0,v)]; }
+function caseTL(c, from, to){ var span = to-from, X = function(s){ return ((mm(s)-from)/span*100).toFixed(2) + "%"; }, h = '<div class="ctl" aria-hidden="true"><span class="base"></span>';
+  c.segs.forEach(function(s){ h += '<span class="sg" style="left:' + X(s[0]) + ';width:' + ((mm(s[1])-mm(s[0]))/span*100).toFixed(2) + '%"></span>'; });
+  c.ms.forEach(function(m){ h += '<span class="ms" style="left:' + X(m[0]) + '"></span>'; });
+  for (var y=Math.ceil(from/12); y*12<=to; y++) h += '<span class="yl" style="left:' + ((y*12-from)/span*100).toFixed(2) + '%">' + y + '</span>';
+  return h + '</div>'; }
+function stages(c){ var all = c.ms.map(function(m){ return [m[0], m[1]]; }).concat(c.segs.map(function(s){ return [s[0], s[2] + " (hasta " + s[1] + ")"]; })); all.sort(function(a,b){ return mm(a[0])-mm(b[0]); });
+  return '<ul class="stages">' + all.map(function(a){ return '<li><b>' + a[0] + '</b> · ' + a[1] + '</li>'; }).join("") + '</ul>'; }
+var CAREAS = [["todos","Todas las áreas"],["odontologia-general","Odontología general"],["ortodoncia","Ortodoncia"],["laser","Láser"],["atm","Neuralgias y ATM"],["ortodoncia-quirurgica","Ortodoncia quirúrgica"]];
+var CTECS = [["todas","Todas las técnicas"],["brackets","Brackets"],["alineadores","Alineadores"],["hibrido","Híbrido"],["laser","Láser"]];
+function pCasos(){
+  var h = pageHead({crumbs:[["Inicio","inicio"],["Casos clínicos"]], eyebrow:"Investigación y actualización constante", title:"Casos reales para entender cada abordaje", lead:"Situaciones documentadas, descritas sin datos que identifiquen a los pacientes. Podés filtrarlas y comparar dos casos. Cada caso es individual y no anticipa el resultado de otro tratamiento."});
+  h += '<section class="section" style="padding-top:var(--space-7)"><div class="wrap"><div class="stack" style="gap:var(--space-3);margin-bottom:var(--space-6)"><div class="chips" role="group" aria-label="Filtrar por área" id="caseAreas"></div><div class="chips" role="group" aria-label="Filtrar por técnica" id="caseTecs"></div><p class="small" id="caseCount" aria-live="polite"></p></div><div id="caseList"></div><div id="compare"></div><p class="small" style="margin-top:var(--space-6)">' + F("A confirmar") + ' Que la autorización de los tres casos alcance al nuevo sitio. Faltan las fotos de antes y después.</p></div></section>';
+  return h; }
+function renderCases(){
+  var list = CASES.filter(function(c){ return (S.caseArea==="todos" || c.areas.indexOf(S.caseArea)>-1) && (S.caseTec==="todas" || c.tec.indexOf(S.caseTec)>-1); });
+  $("#caseAreas").innerHTML = CAREAS.map(function(a){ var n = CASES.filter(function(c){ return a[0]==="todos" || c.areas.indexOf(a[0])>-1; }).length; return '<button type="button" class="chip" data-carea="' + a[0] + '" aria-pressed="' + (S.caseArea===a[0]) + '">' + a[1] + ' <span class="n">' + n + '</span></button>'; }).join("");
+  $("#caseTecs").innerHTML = CTECS.map(function(a){ var n = CASES.filter(function(c){ return a[0]==="todas" || c.tec.indexOf(a[0])>-1; }).length; return '<button type="button" class="chip" data-ctec="' + a[0] + '" aria-pressed="' + (S.caseTec===a[0]) + '">' + a[1] + ' <span class="n">' + n + '</span></button>'; }).join("");
+  $("#caseCount").textContent = list.length===1 ? "1 caso" : list.length + " casos";
+  if (!list.length){ var an = CAREAS.filter(function(a){ return a[0]===S.caseArea; })[0][1];
+    $("#caseList").innerHTML = '<div class="empty"><span class="en-badge en-badge--soon">Sin casos publicados</span><h2 class="h3">Todavía no hay casos en ' + an + (S.caseTec!=="todas" ? ' con esa técnica' : '') + '</h2><p class="muted measure">Se suman cuando haya material documentado y autorizado por escrito por el paciente.</p><button type="button" class="en-btn en-btn--outline en-btn--sm" data-case-reset>Ver todos los casos</button></div>'; }
+  else $("#caseList").innerHTML = list.map(function(c){ var r = caseRange(c);
+    return '<article class="en-card case" id="case-' + c.id + '"><div class="stack" style="gap:var(--space-3)"><div class="en-case__pair"><div class="en-case__photo"><b>Antes</b>Foto intraoral inicial · pendiente</div><div class="en-case__photo"><b>Después</b>Misma toma y encuadre · pendiente</div></div><p class="en-case__note">' + c.consent + '</p><label class="cmp-check"><input type="checkbox" data-cmp="' + c.id + '"' + (S.cmp.indexOf(c.id)>-1?' checked':'') + (S.cmp.length>=2 && S.cmp.indexOf(c.id)<0?' disabled':'') + '> Comparar este caso</label></div>' +
+      '<div class="stack" style="gap:var(--space-4);min-width:0"><div class="tags">' + c.tags.map(function(t){ return '<span class="en-badge en-badge--' + t[1] + '">' + t[0] + '</span>'; }).join("") + '</div><h2 class="h3">' + c.title + '</h2><dl class="facts2"><div><dt>Situación inicial</dt><dd>' + c.sit + '</dd></div><div><dt>Objetivos</dt><dd>' + c.obj + '</dd></div><div><dt>Abordaje</dt><dd>' + c.abo + '</dd></div><div><dt>Consideraciones</dt><dd>' + c.con + '</dd></div></dl>' +
+      '<div><p class="eyebrow" style="margin-bottom:var(--space-2)">Evolución documentada</p>' + caseTL(c, r[0]-1, r[1]+1) + stages(c) + '</div>' + (c.flag ? '<p class="small">' + F() + ' ' + c.flag + '</p>' : '') + '</div></article>'; }).join("");
+  renderCompare(); }
+function renderCompare(){ var box = $("#compare"); if (!box) return;
+  if (!S.cmp.length){ box.innerHTML = ""; return; }
+  if (S.cmp.length===1){ box.innerHTML = '<div class="compare notice"><b>Elegí otro caso para comparar</b><span>Seleccionaste «' + CASES.filter(function(c){ return c.id===S.cmp[0]; })[0].title + '».</span></div>'; return; }
+  var cs = S.cmp.map(function(id){ return CASES.filter(function(c){ return c.id===id; })[0]; }), r0 = caseRange(cs[0]), r1 = caseRange(cs[1]), from = Math.min(r0[0],r1[0])-1, to = Math.max(r0[1],r1[1])+1;
+  box.innerHTML = '<section class="compare section--tint en-quote" style="padding:var(--space-6)" aria-label="Comparación de casos"><div class="head-row" style="margin-bottom:var(--space-5)">' + head("Comparación","Dos casos, lado a lado","Las evoluciones usan la misma escala de tiempo.") + '<button type="button" class="en-btn en-btn--outline en-btn--sm" data-cmp-clear>Quitar comparación</button></div><div class="compare-grid">' + cs.map(function(c){ return '<article class="en-card"><h3 class="h3">' + c.title + '</h3>' + caseTL(c, from, to) + '<dl class="facts2" style="grid-template-columns:minmax(0,1fr)"><div><dt>Situación inicial</dt><dd>' + c.sit + '</dd></div><div><dt>Abordaje</dt><dd>' + c.abo + '</dd></div><div><dt>Objetivos</dt><dd>' + c.obj + '</dd></div></dl></article>'; }).join("") + '</div></section>'; }
+
+/* ---------- Primera consulta ---------- */
+var JS = [
+  {n:"Pedís el turno", b:'<p>Escribinos por WhatsApp al <b>' + WA_TXT + '</b>. Contanos tu nombre, el motivo de consulta y en qué consultorio preferís atenderte.</p><ul class="dotlist"><li>La Plata: miércoles, jueves y viernes</li><li>Quilmes: martes de 9 a 16 h</li></ul><p class="small">' + F("A confirmar") + ' Si habrá turnos en línea además de WhatsApp.</p>'},
+  {n:"Primera evaluación", b:'<p>Es una conversación sobre lo que te trae, tus antecedentes y lo que esperás del tratamiento. Después, la Dra. revisa los dientes, la mordida y la función.</p><p class="muted">Si la consulta es por un chico o una chica, también se evalúa cómo vienen creciendo los maxilares.</p>'},
+  {n:"Estudios, si hacen falta", b:'<p>Dependen del motivo y de lo que se observe. En ortodoncia suelen pedirse, por ejemplo, una radiografía panorámica, una cefalometría o una telerradiografía de perfil.</p><p class="muted">No todos los casos los necesitan: se piden cuando aportan información para decidir.</p>'},
+  {n:"Plan de atención", b:'<p>Con la evaluación y los estudios, la Dra. te explica las alternativas, qué implica cada una, las etapas y una estimación de tiempos.</p><p class="muted">Si el caso lo requiere, el plan se coordina con otros profesionales.</p>'},
+  {n:"Seguimiento", b:'<p>Durante el tratamiento hay controles para ver la evolución y hacer ajustes. La frecuencia depende de cada tratamiento. ' + F() + '</p><p class="muted">Al terminar se indican controles y, en ortodoncia, contención para mantener los resultados.</p>'}
+];
+var CHECK = ["Estudios previos: radiografías, tomografías o informes","La lista de medicamentos que tomás","Datos de tratamientos anteriores de ortodoncia u odontología","Credencial de obra social o prepaga (a confirmar si se atienden)"];
+function jPanel(){ var j = JS[S.jStep]; return '<div class="progress" aria-hidden="true"><i style="width:' + ((S.jStep+1)/JS.length*100) + '%"></i></div><p class="eyebrow">Etapa ' + (S.jStep+1) + ' de ' + JS.length + '</p><h2 class="h2">' + j.n + '</h2><div class="stack measure" style="gap:var(--space-3)">' + j.b + '</div>' +
+  '<div class="step-ctrl" style="margin-top:var(--space-3)"><button type="button" class="en-btn en-btn--outline en-btn--sm" data-j-nav="-1"' + (S.jStep===0?' disabled':'') + '>Anterior</button>' + (S.jStep<JS.length-1 ? '<button type="button" class="en-btn en-btn--primary en-btn--sm" data-j-nav="1">Siguiente</button>' : '<a class="en-btn en-btn--primary en-btn--sm" href="#contacto">Pedí tu turno</a>') + '</div>'; }
+function pPrimera(){
+  var h = pageHead({crumbs:[["Inicio","inicio"],["Tu primera consulta"]], eyebrow:"Tu primera consulta", title:"Qué pasa desde que pedís el turno hasta que tenés un plan", lead:"Para que llegues sabiendo qué esperar. No hace falta saber de antemano qué tratamiento necesitás.", extra:'<p class="small">' + F() + ' El recorrido describe un proceso general. La Dra. tiene que confirmar los pasos internos.</p>'});
+  h += '<section class="section section--tint"><div class="wrap journey"><div class="j-steps" aria-label="Etapas">' + JS.map(function(j,i){ return '<button type="button" class="j-step' + (i<S.jStep?' done':'') + '" data-j="' + i + '"' + (i===S.jStep?' aria-current="step"':'') + '><span class="k">' + (i+1) + '</span>' + j.n + '</button>'; }).join("") + '</div><div class="en-card" id="jPanel" aria-live="polite" style="gap:var(--space-4)">' + jPanel() + '</div></div></section>';
+  h += '<section class="section"><div class="wrap split">' + head("Para llevar","Qué información puede ser útil","Marcá lo que ya tenés listo. La lista queda guardada solo en este dispositivo.") + '<ul class="checklist">' + CHECK.map(function(c,i){ return '<li><label><input type="checkbox" data-check="' + i + '"' + (S.checks[i]?' checked':'') + '><span>' + c + '</span></label></li>'; }).join("") + '</ul></div></section>';
+  h += '<section class="section section--surface"><div class="wrap split">' + head("Preguntas frecuentes","Antes de tu primera consulta","") + faq([["¿Cuánto dura la primera consulta?", F("A confirmar") + " Duración aproximada pendiente de la Dra."],["¿Tiene costo la primera consulta?", F("A confirmar") + " Información pendiente de la Dra."],["¿Puedo consultar sin saber qué tratamiento necesito?","Sí. La primera consulta sirve para evaluar y orientarte. Antes podés usar la guía «¿Qué te trae a la consulta?» del inicio."]]) + '</div></section>';
+  return h + cta("Pedí tu primera consulta","Elegí el consultorio de La Plata o el de Quilmes y escribinos por WhatsApp.",""); }
+
+/* ---------- Conocimiento ---------- */
+var KN = [
+  {k:"nov", area:"laser", d:"Agosto 2024", t:"Terapia láser después de una cirugía de distracción ósea", s:"Ponencia en el Congreso de Invierno 2024 de la SAO, aprobada por el Comité Científico.", to:"la-doctora"},
+  {k:"nov", area:"ortodoncia", d:"Agosto 2024", t:"Terapia láser en ortodoncia con alineadores", s:"Disertación en el 4.° Congreso de Odontología Láser de ACALO, en Salta.", to:"la-doctora"},
+  {k:"tema", area:"atm", t:"Neuralgia y trastorno de la ATM: por qué no son lo mismo", to:"atm"},
+  {k:"tema", area:"ortodoncia", t:"Brackets, alineadores o híbrido: cómo se elige", to:"ortodoncia"},
+  {k:"tema", area:"laser", t:"Qué es la fotobiomodulación y cuándo se indica", to:"laser"},
+  {k:"tema", area:"ortodoncia", t:"La primera evaluación ortodóncica en chicos", to:"ortodoncia"},
+  {k:"tema", area:"odontologia-general", t:"Qué se revisa en un control odontológico", to:"odontologia-general"}
+];
+function pConocimiento(){ return pageHead({crumbs:[["Inicio","inicio"],["Conocimiento y actualidad"]], eyebrow:"Conocimiento y actualidad", title:"Explicaciones claras, revisadas por la Dra.", lead:"Novedades profesionales y guías para pacientes. Cada contenido indica quién lo revisó y cuándo se actualizó."}) +
+  '<section class="section" style="padding-top:var(--space-7)"><div class="wrap"><div class="chips" role="group" aria-label="Filtrar por área" id="knChips" style="margin-bottom:var(--space-6)"></div><div class="en-cards" id="knList" aria-live="polite" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"></div><p class="small" style="margin-top:var(--space-5)">Las guías «En preparación» son temas propuestos. Se publican solo después de la revisión clínica.</p></div></section>'; }
+function renderKn(){
+  var opts = [["todas","Todas"]].concat(AREAS.filter(function(a){ return !a.soon; }).map(function(a){ return [a.id, a.name]; }));
+  $("#knChips").innerHTML = opts.map(function(o){ var n = KN.filter(function(k){ return o[0]==="todas" || k.area===o[0]; }).length; return '<button type="button" class="chip" data-kn="' + o[0] + '" aria-pressed="' + (S.knArea===o[0]) + '">' + o[1] + ' <span class="n">' + n + '</span></button>'; }).join("");
+  var list = KN.filter(function(k){ return S.knArea==="todas" || k.area===S.knArea; });
+  $("#knList").innerHTML = list.length ? list.map(function(k){ var nov = k.k==="nov"; return '<article class="en-card ' + (nov?'':'en-card--soon') + '"><div class="card-top">' + chip(k.area) + '<span class="en-badge ' + (nov?'en-badge--brand':'en-badge--soon') + '">' + (nov ? "Novedad · " + k.d : "En preparación") + '</span></div><h3 class="h3">' + k.t + '</h3><p>' + (nov ? k.s : "Revisado por: Dra. Edith Noriega · fecha pendiente") + '</p><a class="en-link" href="#' + k.to + '">' + (nov ? "Ver actividad científica" : "Ir a " + area(k.area).name) + '</a></article>'; }).join("") : '<p class="muted">Todavía no hay contenidos en esta área.</p>'; }
+
+/* ---------- Contacto ---------- */
+function pContacto(){
+  var opts = [["","No sé, quiero orientación"]].concat(AREAS.filter(function(a){ return !a.soon; }).map(function(a){ return [a.id, a.name]; }));
+  var h = pageHead({crumbs:[["Inicio","inicio"],["Contacto y turnos"]], eyebrow:"Contacto", title:"Pedí tu turno", lead:"Los turnos se coordinan por WhatsApp. También podés dejar tu consulta indicando el área que te interesa.", extra:today()});
+  h += '<section class="section" style="padding-top:var(--space-7)"><div class="wrap stack" style="gap:var(--space-6)"><div class="en-cta" style="flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between"><span class="en-quarter" aria-hidden="true"></span><div class="stack" style="gap:var(--space-2);position:relative;z-index:1"><p class="eyebrow" style="color:var(--white)">Canal oficial de turnos</p><h2 class="h2">WhatsApp ' + WA_TXT + '</h2><p>Contanos tu nombre, el motivo de consulta y el consultorio que preferís.</p></div><div class="en-cta__actions" style="margin-top:0"><a class="en-btn en-btn--aqua" href="' + WA + '" target="_blank" rel="noopener">Escribir por WhatsApp</a><button type="button" class="en-btn en-btn--ghost-white" data-copy="' + WA_TXT + '">Copiar número</button></div></div>' +
+    '<div class="en-contact">' + sedeCards() + '</div><div class="en-contact"><div class="ph" style="aspect-ratio:16/7"><span><b>Mapa de La Plata</b>Se integra al publicar. Cómo llegar ' + F("A confirmar") + '</span></div><div class="ph" style="aspect-ratio:16/7"><span><b>Mapa de Quilmes</b>Se integra al publicar. Indicaciones dentro de la clínica ' + F("A confirmar") + '</span></div></div></div></section>';
+  h += '<section class="section section--tint" id="form-sec"><div class="wrap split"><div class="stack" style="gap:var(--space-5)">' + head("Consulta por área","Dejanos tu consulta","Si preferís no escribir por WhatsApp, completá el formulario. El área es opcional y ayuda a orientar la respuesta.") + '<div class="notice"><b>Tus datos están protegidos</b><span class="small" style="color:var(--ink)">Se usan solo para responder tu consulta, según la Ley 25.326 de Protección de los Datos Personales. No incluyas información médica detallada.</span></div><p class="small">' + F("Pendiente") + ' El envío del formulario se integra en la etapa de desarrollo.</p></div>' +
+    '<form class="en-form" id="cform" novalidate><div class="en-field" id="f-nombre-w"><label for="f-nombre">Nombre y apellido</label><input id="f-nombre" name="nombre" autocomplete="name" aria-describedby="f-nombre-h"><span class="en-field__help" id="f-nombre-h">Como figura en tu documento.</span></div>' +
+    '<div class="en-field" id="f-wa-w"><label for="f-wa">WhatsApp</label><input id="f-wa" name="wa" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="f-wa-h"><span class="en-field__help" id="f-wa-h">Con característica, por ejemplo 221 1234567.</span></div>' +
+    '<div class="en-field"><label for="f-area">Área de consulta <span class="opt">(opcional)</span></label><select id="f-area" name="area">' + opts.map(function(o){ return '<option value="' + o[0] + '"' + (o[0]===S.prefArea?' selected':'') + '>' + o[1] + '</option>'; }).join("") + '</select></div>' +
+    '<fieldset class="fs"><legend>Consultorio preferido</legend><div class="radios"><label><input type="radio" name="sede" value="laplata">La Plata</label><label><input type="radio" name="sede" value="quilmes">Quilmes</label><label><input type="radio" name="sede" value="igual" checked>Me da igual</label></div></fieldset>' +
+    '<div class="en-field"><label for="f-motivo">Motivo de consulta <span class="opt">(opcional)</span></label><textarea id="f-motivo" name="motivo" rows="4" aria-describedby="f-motivo-h"></textarea><span class="en-field__help" id="f-motivo-h">En pocas palabras. No hace falta saber qué tratamiento necesitás.</span></div>' +
+    '<div class="hp" aria-hidden="true"><label for="f-web">No completar</label><input id="f-web" name="web" tabindex="-1" autocomplete="off"></div>' +
+    '<div class="en-field" id="f-ok-w"><label class="consent"><input type="checkbox" id="f-ok" aria-describedby="f-ok-h"><span>Acepto que usen estos datos solo para responder mi consulta.</span></label><span class="en-field__help" id="f-ok-h"></span></div>' +
+    '<button class="en-btn en-btn--primary" type="submit" style="align-self:flex-start">Enviar consulta</button><div id="formMsg" aria-live="polite"></div></form></div></section>';
+  return h; }
+function submitForm(e){ e.preventDefault(); var ok = true;
+  function set(id, bad, msg, def){ var w = $("#" + id + "-w"); w.classList.toggle("en-field--error", bad); $("#" + id + "-h").textContent = bad ? msg : def; var inp = $("#" + id); if (bad){ inp.setAttribute("aria-invalid","true"); ok = false; } else inp.removeAttribute("aria-invalid"); }
+  set("f-nombre", $("#f-nombre").value.trim().length < 3, "Escribí tu nombre y apellido.", "Como figura en tu documento.");
+  set("f-wa", $("#f-wa").value.replace(/\D/g,"").length < 10, "Escribí un número de WhatsApp completo, con característica.", "Con característica, por ejemplo 221 1234567.");
+  set("f-ok", !$("#f-ok").checked, "Para enviar la consulta, aceptá el uso de tus datos.", "");
+  var msg = $("#formMsg");
+  if (!ok){ msg.innerHTML = '<div class="notice notice--error" role="alert"><b>Revisá los campos marcados</b><span class="small" style="color:var(--ink)">Debajo de cada uno te indicamos qué corregir.</span></div>'; var f = $(".en-field--error input"); if (f) f.focus(); return; }
+  var a = $("#f-area"), an = a.value ? a.options[a.selectedIndex].text : "orientación general";
+  msg.innerHTML = '<div class="notice" role="status"><b>Consulta lista para enviar: ' + esc(an) + '</b><span class="small" style="color:var(--ink)">En este prototipo el envío todavía no está conectado. En el sitio publicado la consulta llegará al consultorio. Mientras tanto, escribinos por WhatsApp al ' + WA_TXT + '.</span></div>'; }
+
+/* ---------- Router ---------- */
+var ROUTES = { "inicio":["Inicio",pInicio,"inicio"], "tratamientos":["Tratamientos",pTratamientos,"tratamientos"], "odontologia-general":["Odontología general",pGeneral,"tratamientos"], "ortodoncia":["Ortodoncia",pOrto,"tratamientos"], "laser":["Láser odontológico",pLaser,"tratamientos"], "atm":["Neuralgias y ATM",pATM,"tratamientos"], "ortodoncia-quirurgica":["Ortodoncia quirúrgica y malformaciones",pQX,"tratamientos"], "la-doctora":["La doctora",pDoctora,"la-doctora"], "casos":["Casos clínicos",pCasos,"casos"], "primera-consulta":["Tu primera consulta",pPrimera,"primera-consulta"], "conocimiento":["Conocimiento y actualidad",pConocimiento,"conocimiento"], "contacto":["Contacto y turnos",pContacto,"contacto"] };
+var NAV = [["tratamientos","Tratamientos"],["la-doctora","La doctora"],["casos","Casos"],["primera-consulta","Primera consulta"],["conocimiento","Conocimiento"],["contacto","Contacto"]];
+var current = null, pendingCase = null;
+function route(){ var r = (location.hash || "#inicio").slice(1); return ROUTES[r] ? r : "inicio"; }
+function render(r){ var R = ROUTES[r]; current = r; $("#main").innerHTML = R[1]();
+  document.title = r==="inicio" ? "Dra. Edith Noriega · Ortodoncista" : R[0] + " · Dra. Edith Noriega";
+  $$("#nav a, #sheetNav a").forEach(function(a){ if (a.getAttribute("href")==="#" + R[2]) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  after(r); }
+function after(r){
+  if (r==="inicio") $("#guide").innerHTML = guideHTML();
+  if (r==="tratamientos") setNet(S.txArea);
+  if (r==="odontologia-general") markTooth();
+  if (r==="laser") fireBeam();
+  if (r==="atm") markPart();
+  if (r==="casos"){ renderCases(); if (pendingCase){ var el = document.getElementById("case-" + pendingCase); pendingCase = null; if (el) setTimeout(function(){ el.scrollIntoView({behavior:reduce?"auto":"smooth", block:"start"}); }, 60); } }
+  if (r==="conocimiento") renderKn();
+  if (r==="contacto"){ $("#cform").addEventListener("submit", submitForm); if (S.scrollForm){ S.scrollForm = false; setTimeout(function(){ $("#form-sec").scrollIntoView({behavior:reduce?"auto":"smooth"}); $("#f-area").focus({preventScroll:true}); }, 60); } }
+}
+function go(){ var r = route(); if (r===current) return; closeSheet();
+  var swap = function(){ render(r); try { window.scrollTo({top:0, behavior:"instant"}); } catch(err){ window.scrollTo(0,0); } var h1 = $("#main h1"); if (h1) h1.focus({preventScroll:true}); };
+  if (document.startViewTransition && !reduce && current) document.startViewTransition(swap); else swap(); }
+window.addEventListener("hashchange", go);
+
+/* ---------- Interacciones ---------- */
+function markTooth(){ $$(".odo .tooth").forEach(function(t){ var n = +t.getAttribute("data-tooth"); t.classList.toggle("on", n===S.tooth); t.classList.toggle("same", n!==S.tooth && n%10===S.tooth%10); t.setAttribute("aria-pressed", n===S.tooth); }); }
+function markPart(){ var sv = $("#atmSvg"); if (!sv) return; sv.classList.add("sel"); $$(".hl", sv).forEach(function(e){ e.classList.toggle("on", e.getAttribute("data-part")===S.atmPart); }); }
+function toast(t){ var el = $("#toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(function(){ el.hidden = true; }, 2200); }
+function store(){ try { localStorage.setItem("en-proto", JSON.stringify({flags:!document.body.classList.contains("no-flags"), checks:S.checks})); } catch(e){} }
+function selectTx(id){ S.txArea = id; var st = $("#tx-panel"); if (!st) return;
+  $$(".tx-tab").forEach(function(b){ var on = b.getAttribute("data-tx")===id; b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1; });
+  st.setAttribute("aria-labelledby","tab-" + id); st.innerHTML = txPanel(id); setNet(id); }
+function updateQX(){ $$(".lanes .ph-h").forEach(function(b,i){ b.classList.toggle("on", i===S.qx); b.setAttribute("aria-pressed", i===S.qx); }); $$(".lanes .cell").forEach(function(c,i){ c.classList.toggle("on", i%QX.length===S.qx); }); $("#qxBody").innerHTML = qxStep(); $("#qxCount").textContent = (S.qx+1) + " / " + QX.length; }
+function updateJ(){ $$(".j-step").forEach(function(b,i){ if (i===S.jStep) b.setAttribute("aria-current","step"); else b.removeAttribute("aria-current"); b.classList.toggle("done", i<S.jStep); }); $("#jPanel").innerHTML = jPanel(); }
+
+document.addEventListener("click", function(e){
+  var t = e.target.closest("button, a, .tooth, .node, .hit"); if (!t) return;
+  var d = function(k){ return t.getAttribute(k); };
+  if (d("data-scroll")){ var s = document.getElementById(d("data-scroll")); if (s) s.scrollIntoView({behavior:reduce?"auto":"smooth"}); return; }
+  if (d("data-copy")){ var v = d("data-copy"); try { navigator.clipboard.writeText(v).then(function(){ toast("Número copiado"); }, function(){ toast("Copialo a mano: " + v); }); } catch(err){ toast("Copialo a mano: " + v); } return; }
+  if (d("data-need")!==null){ S.need = +d("data-need"); $$(".need").forEach(function(b){ b.setAttribute("aria-pressed", b===t); }); $("#guide").innerHTML = guideHTML(); if (window.matchMedia("(max-width:860px)").matches) $("#guide").scrollIntoView({behavior:reduce?"auto":"smooth", block:"nearest"}); return; }
+  if (d("data-consult")!==null){ S.prefArea = d("data-consult"); S.scrollForm = true; if (location.hash==="#contacto"){ current = null; go(); } else location.hash = "contacto"; return; }
+  if (d("data-case")){ pendingCase = d("data-case"); return; }
+  if (d("data-mode")){ S.txMode = d("data-mode"); $$("[data-mode]").forEach(function(b){ b.setAttribute("aria-selected", b===t); }); var root = $("#tx-root"); root.setAttribute("aria-labelledby","mode-" + S.txMode); root.innerHTML = S.txMode==="area" ? txArea() : txNeed(); return; }
+  if (d("data-tx")){ selectTx(d("data-tx")); return; }
+  if (t.classList.contains("node")){ var id = d("data-net"); setNet(id); if ($("#tx-panel")) selectTx(id); else S.txArea = id; return; }
+  if (t.classList.contains("tooth")){ S.tooth = +d("data-tooth"); $("#toothCard").innerHTML = toothCard(); markTooth(); return; }
+  if (d("data-ox")){ S.ox = d("data-ox"); $$("[data-ox]").forEach(function(b){ b.setAttribute("aria-pressed", b===t); }); $("#oxSvg").setAttribute("data-v", S.ox); $("#oxInfo").innerHTML = oxInfo(); $("#oxTable").innerHTML = oxTable(); return; }
+  if (d("data-laser")){ S.laser = d("data-laser"); $$("[data-laser]").forEach(function(b){ b.setAttribute("aria-pressed", b===t); }); $("#appCard").innerHTML = appCard(); fireBeam(); return; }
+  if (d("data-atm-open")!==null){ S.atmOpen = d("data-atm-open")==="1"; $$("[data-atm-open]").forEach(function(b){ b.setAttribute("aria-pressed", b===t); }); $("#atmSvg").classList.toggle("open", S.atmOpen); $("#atmMove").textContent = atmMoveText(); return; }
+  if (d("data-part-btn") || (t.classList.contains("hit") && d("data-part"))){ S.atmPart = d("data-part-btn") || d("data-part"); $$("[data-part-btn]").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-part-btn")===S.atmPart); }); $("#partCard").innerHTML = partCard(); markPart(); return; }
+  if (d("data-qx")!==null || d("data-qx-nav")!==null){ S.qx = d("data-qx")!==null ? +d("data-qx") : (S.qx + (+d("data-qx-nav")) + QX.length) % QX.length; updateQX(); return; }
+  if (d("data-tl")){ S.tlSel = d("data-tl"); $("#tlRoot").innerHTML = tlHTML(); var b = $('[data-tl="' + S.tlSel + '"]'); if (b) b.focus(); return; }
+  if (d("data-tlcat")){ var k = d("data-tlcat"); S.tlCats[k] = !S.tlCats[k]; if (!Object.keys(S.tlCats).some(function(x){ return S.tlCats[x]; })) S.tlCats[k] = true; t.setAttribute("aria-pressed", !!S.tlCats[k]); $("#tlRoot").innerHTML = tlHTML(); return; }
+  if (d("data-tlview")){ S.tlView = d("data-tlview"); $$("[data-tlview]").forEach(function(b){ b.setAttribute("aria-pressed", b===t); }); $("#tlRoot").innerHTML = tlHTML(); return; }
+  if (d("data-carea")){ S.caseArea = d("data-carea"); renderCases(); return; }
+  if (d("data-ctec")){ S.caseTec = d("data-ctec"); renderCases(); return; }
+  if (t.hasAttribute("data-case-reset")){ S.caseArea = "todos"; S.caseTec = "todas"; renderCases(); return; }
+  if (t.hasAttribute("data-cmp-clear")){ S.cmp = []; renderCases(); return; }
+  if (d("data-j")!==null || d("data-j-nav")!==null){ S.jStep = d("data-j")!==null ? +d("data-j") : Math.max(0, Math.min(JS.length-1, S.jStep + (+d("data-j-nav")))); updateJ(); return; }
+  if (d("data-kn")){ S.knArea = d("data-kn"); renderKn(); return; }
+});
+document.addEventListener("change", function(e){ var t = e.target;
+  if (t.hasAttribute("data-cmp")){ var id = t.getAttribute("data-cmp"); if (t.checked){ if (S.cmp.length<2) S.cmp.push(id); } else S.cmp = S.cmp.filter(function(x){ return x!==id; }); renderCases(); if (S.cmp.length===2) $("#compare").scrollIntoView({behavior:reduce?"auto":"smooth", block:"start"}); return; }
+  if (t.hasAttribute("data-check")){ S.checks[t.getAttribute("data-check")] = t.checked; store(); return; }
+  if (t.id==="flagsToggle"){ document.body.classList.toggle("no-flags", !t.checked); store(); } });
+document.addEventListener("keydown", function(e){ var t = e.target;
+  if ((e.key==="Enter" || e.key===" ") && t.matches && t.matches(".tooth, .node")){ e.preventDefault(); t.dispatchEvent(new MouseEvent("click", {bubbles:true})); return; }
+  if (t.matches && t.matches(".tx-tab") && ["ArrowDown","ArrowUp","ArrowLeft","ArrowRight","Home","End"].indexOf(e.key)>-1){ e.preventDefault(); var tabs = $$(".tx-tab"), i = tabs.indexOf(t);
+    i = e.key==="Home" ? 0 : e.key==="End" ? tabs.length-1 : (i + ((e.key==="ArrowDown"||e.key==="ArrowRight") ? 1 : -1) + tabs.length) % tabs.length; selectTx(tabs[i].getAttribute("data-tx")); tabs[i].focus(); return; }
+  if (e.key==="Escape" && !$("#sheet").hidden) closeSheet(true); });
+
+/* ---------- Menú ---------- */
+var lastFocus = null;
+function openSheet(){ lastFocus = document.activeElement; $("#sheet").hidden = false; document.body.style.overflow = "hidden"; $("#menuBtn").setAttribute("aria-expanded","true"); var f = $("#sheet nav a"); if (f) f.focus(); }
+function closeSheet(restore){ var s = $("#sheet"); if (s.hidden) return; s.hidden = true; document.body.style.overflow = ""; $("#menuBtn").setAttribute("aria-expanded","false"); if (restore && lastFocus) lastFocus.focus(); }
+$("#menuBtn").addEventListener("click", openSheet);
+$("#closeSheet").addEventListener("click", function(){ closeSheet(true); });
+$("#sheet").addEventListener("click", function(e){ if (e.target.closest("a")) closeSheet(false); });
+
+/* ---------- Arranque ---------- */
+$("#nav").innerHTML = NAV.map(function(n){ return '<li><a href="#' + n[0] + '">' + n[1] + '</a></li>'; }).join("");
+$("#footNav").innerHTML = [["inicio","Inicio"]].concat(NAV).map(function(n){ return '<li><a href="#' + n[0] + '">' + n[1] + '</a></li>'; }).join("");
+$("#sheetNav").innerHTML = [["inicio","Inicio"]].concat(NAV).map(function(n){ return '<a href="#' + n[0] + '">' + n[1] + '</a>'; }).join("");
+$("#sheetAreas").innerHTML = AREAS.filter(function(a){ return !a.soon; }).map(function(a){ return '<a href="#' + a.id + '">' + chip(a.id).replace('class="en-icon-chip"','class="en-icon-chip" style="width:40px;height:40px"') + a.name + '</a>'; }).join("");
+$("#footAreas").innerHTML = AREAS.filter(function(a){ return !a.soon; }).map(function(a){ return '<li><a href="#' + a.id + '">' + a.name + '</a></li>'; }).join("");
+try { var sv = JSON.parse(localStorage.getItem("en-proto") || "{}"); if (sv.flags===false){ document.body.classList.add("no-flags"); $("#flagsToggle").checked = false; } if (sv.checks) S.checks = sv.checks; } catch(e){}
+render(route());
+})();
+</script>
+
+</body></html>
