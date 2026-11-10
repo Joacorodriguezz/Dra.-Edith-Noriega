@@ -1,7 +1,6 @@
 ---
-// La maqueta aprobada es la fuente visual canónica. Se incorpora durante el
-// build de Astro sin reescribir su CSS, SVG, datos ni lógica de interacción.
-// De este modo el resultado renderizado conserva cada sección píxel a píxel.
+// La maqueta se conserva como referencia. Las correcciones publicadas se
+// aplican desde Astro, sin modificar el archivo de referencia.
 import { readFile } from "node:fs/promises";
 
 const reference = await readFile(new URL("../../Dra. Edith Noriega.html", import.meta.url), "utf8");
@@ -11,6 +10,103 @@ const body = reference.match(/<body>([\s\S]*)<\/body>/i)?.[1] ?? reference;
 
 <!doctype html>
 <html lang="es">
-  <head set:html={head}></head>
-  <body set:html={body}></body>
+  <head set:html={head}>
+    <style is:global>
+      .flag, .toggle { display: none !important; }
+      .mobilebar { grid-template-columns: minmax(0, 1fr) !important; }
+      .mobilebar .en-btn { width: 100%; }
+      .brand-mark { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; }
+      .brand-icon { position: relative; display: block; flex: 0 0 28px; width: 28px; height: 28px; overflow: hidden; }
+      .brand-icon img { position: absolute; width: 84px; height: 84px; max-width: none; left: 50%; top: 50%; transform: translate(-50%, -50%); mix-blend-mode: multiply; }
+      .wordmark .brand-mark b span { color: var(--aqua-ink); }
+      @media (max-width: 420px) { .en-nav { gap: 8px; } .brand-mark { gap: 7px; } .wordmark .brand-mark b { font-size: clamp(12px, 3.5vw, 16px); letter-spacing: .02em; } }
+      @media (max-width: 760px) { body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important; } .split-illus { grid-template-columns: minmax(0, 1fr) !important; } }
+      .training-list { list-style: none; padding: 0; margin: 0; }
+      .training-list li { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+      .training-list time { color: var(--brand); font: 600 14px/22px var(--font-display); }
+      .training-list strong { display: block; font: 600 17px/24px var(--font-display); color: var(--ink); }
+      .training-list span { color: var(--ink-muted); }
+      .training-more { margin-top: 20px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .training-more summary { padding: 16px 0; cursor: pointer; color: var(--brand); font: 600 15px/22px var(--font-display); }
+      .patient-cases { display: grid; gap: clamp(48px, 8vw, 96px); }
+      .patient-case { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr); gap: clamp(28px, 5vw, 72px); align-items: start; padding-top: 40px; border-top: 1px solid var(--line); }
+      .patient-case:first-child { padding-top: 0; border-top: 0; }
+      .patient-case__media { display: grid; gap: 12px; }
+      .patient-case__media img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 16px 16px 64px 16px; background: var(--surface-tint); }
+      .patient-case__media figcaption { color: var(--ink-muted); font-size: 13px; line-height: 20px; }
+      .patient-case__copy { display: grid; gap: 18px; }
+      .patient-case__copy h2 { margin: 0; font: 700 clamp(28px, 3vw, 40px) / 1.15 var(--font-display); color: var(--ink); }
+      .patient-case__quote { margin: 0; padding: 18px 20px; border-left: 4px solid var(--aqua); background: var(--surface-aqua); color: var(--ink); font: 500 19px/30px var(--font-display); }
+      .patient-case__facts { display: grid; gap: 12px; margin: 0; }
+      .patient-case__facts div { padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+      .patient-case__facts dt { margin-bottom: 4px; color: var(--aqua-ink); font: 600 12px/16px var(--font-display); letter-spacing: .12em; text-transform: uppercase; }
+      .patient-case__facts dd { margin: 0; color: var(--ink-muted); }
+      @media (max-width: 860px) { .patient-case { grid-template-columns: minmax(0, 1fr); } }
+      .case-stories { display: grid; gap: 28px; }
+      .case-stories__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px; }
+      .case-stories__head h2 { max-width: 18ch; margin: 0; font: 700 clamp(30px, 4vw, 48px)/1.1 var(--font-display); }
+      .case-stories__controls { display: flex; gap: 8px; }
+      .case-stories__controls button { width: 44px; height: 44px; border: 1px solid var(--brand); border-radius: 50%; background: var(--surface); color: var(--brand); cursor: pointer; font-size: 24px; }
+      .case-stories__track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 430px); gap: 20px; overflow-x: auto; padding: 4px 2px 16px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+      .case-story { display: grid; grid-template-rows: 230px 1fr; overflow: hidden; scroll-snap-align: start; background: var(--surface); border-radius: 16px 16px 64px 16px; box-shadow: var(--shadow-soft); }
+      .case-story img { width: 100%; height: 100%; object-fit: cover; }
+      .case-story__body { display: grid; align-content: start; gap: 12px; padding: 24px; }
+      .case-story__body h3 { margin: 0; font: 600 22px/28px var(--font-display); }
+      .case-story__body p { margin: 0; color: var(--ink-muted); }
+      .case-story__body blockquote { margin: 0; color: var(--ink); font: 500 18px/28px var(--font-display); }
+    </style>
+  </head>
+  <body set:html={body}>
+    <script>
+      // @ts-nocheck
+      const wa = "https://wa.me/5492213185753";
+      const training = [["1988–1993", "Odontología", "Facultad de Odontología, Universidad Nacional de La Plata"], ["1995–2000", "Especialista en Ortodoncia", "Facultad de Odontología, Universidad Nacional de La Plata"], ["2008", "Especialista en Ortodoncia Lingual", "Sociedad Argentina de Ortodoncia Lingual"], ["2011–2021", "Ortodoncia pre y posquirúrgica", "Hospital Piñero, Sociedad Argentina de Ortodoncia"], ["2021–2022", "Diplomatura en Odontología Láser y Ciencias de la Salud", "Universidad Abierta Interamericana"], ["2023–2024", "Diplomatura Universitaria en Alineadores Clínico y Diseño", "Universidad Católica de La Plata y Sociedad Argentina de Ortodoncia"]];
+      function removeEditorialNotes() { const notes = ["Que la autorización de los tres casos alcance al nuevo sitio", "Que estos días correspondan a La Plata", "La Dra. tiene que confirmar los pasos internos", "El envío del formulario se integra en la etapa de desarrollo"]; document.querySelectorAll("p, span, small").forEach((element) => { if (notes.some((note) => element.textContent.includes(note))) element.remove(); }); }
+      function removeDraftStates() {
+        document.querySelectorAll(".en-card--soon").forEach((element) => element.remove());
+        document.querySelectorAll(".flag").forEach((flag) => flag.closest("details, p, li, article, .notice")?.remove());
+        document.querySelectorAll(".faq details").forEach((item) => { if (/pendiente|a confirmar|en desarrollo/i.test(item.textContent)) item.remove(); });
+        document.querySelectorAll("p.small, .notice, .muted").forEach((element) => { if (/prototipo|no conectado|se integra al publicar|en preparación|fecha pendiente/i.test(element.textContent)) element.remove(); });
+      }
+      function replaceCopy() { const display = document.querySelector(".display"); if (display) display.textContent = "Ortodoncia y atención odontológica en La Plata y Quilmes."; const heroLead = document.querySelector(".en-hero__copy .lead"); if (heroLead) heroLead.textContent = "Dra. Edith Noriega, especialista en ortodoncia. Evaluación, tratamiento y seguimiento en ambos consultorios."; document.querySelectorAll(".h1, .h2").forEach((heading) => { if (heading.textContent.trim() === "Una trayectoria dedicada al avance de la ortodoncia") heading.textContent = "Formación y experiencia en ortodoncia"; }); document.querySelectorAll("a, button").forEach((element) => { if (element.textContent.trim() === "Explorar y comparar casos") element.textContent = "Conocé los abordajes clínicos"; }); }
+      function simplifyTraining() { const root = document.querySelector("#tlRoot"); if (!root || root.dataset.astroEnhanced) return; root.dataset.astroEnhanced = "true"; root.innerHTML = `<ul class="training-list">${training.map(([period, title, institution]) => `<li><time>${period}</time><div><strong>${title}</strong><span>${institution}</span></div></li>`).join("")}</ul><details class="training-more"><summary>Otros cursos y formación</summary><p class="small">La información adicional se incorpora cuando esté confirmada.</p></details><p class="small" style="margin-top:20px">Actualmente cursa la Especialidad en Láser en Ortodoncia y ATM.</p>`; const section = root.closest(".section"); section?.querySelectorAll(".chips, .seg").forEach((element) => element.remove()); section?.querySelectorAll(".h2").forEach((heading) => { if (heading.textContent.includes("Formación")) heading.textContent = "Formación académica"; }); }
+      function simplifyCases() {
+        const list = document.querySelector("#caseList");
+        if (!list || list.dataset.astroCases) return;
+        list.dataset.astroCases = "true";
+        document.querySelectorAll("#caseAreas, #caseTecs, #caseCount, #compare").forEach((element) => element.remove());
+        list.innerHTML = `
+          <div class="patient-cases">
+            <article class="patient-case">
+              <figure class="patient-case__media"><img src="/cases/apinyamiento-02.jpg" alt="Evolución inicial de un caso de apiñamiento con brackets"><figcaption>Inicio y primera etapa del tratamiento. Imágenes clínicas publicadas con autorización.</figcaption></figure>
+              <div class="patient-case__copy"><p class="eyebrow">Caso clínico 01</p><h2>Apiñamiento severo y una sonrisa que preocupaba</h2><p>La paciente llegó a la consulta con dientes superpuestos, una mordida alterada y ganas de sentirse más cómoda al sonreír.</p><dl class="patient-case__facts"><div><dt>Lo que buscamos</dt><dd>Ordenar la mordida y acompañar el movimiento de los dientes de forma progresiva.</dd></div><div><dt>Cómo se abordó</dt><dd>Ortodoncia fija, controles periódicos y seguimiento de cada etapa.</dd></div><div><dt>La evolución</dt><dd>La segunda y tercera etapa muestran el cambio gradual del tratamiento.</dd></div></dl><figure class="patient-case__media"><img src="/cases/apinyamiento-01.jpg" alt="Segunda y tercera etapa del caso de apiñamiento"><figcaption>Cada tratamiento responde a las necesidades de esa persona.</figcaption></figure></div>
+            </article>
+            <article class="patient-case">
+              <figure class="patient-case__media"><img src="/cases/clase-iii-01.jpg" alt="Inicio de un caso de Clase III y canino retenido"><figcaption>Inicio y primera etapa. Imágenes clínicas publicadas con autorización.</figcaption></figure>
+              <div class="patient-case__copy"><p class="eyebrow">Caso clínico 02</p><h2>Clase III y canino retenido, paso a paso</h2><p>Este caso requería mirar más allá de la alineación: había una relación diferente entre las arcadas y un canino que todavía no había erupcionado.</p><dl class="patient-case__facts"><div><dt>Lo que buscamos</dt><dd>Alinear el canino, ordenar la mordida y recuperar una función más cómoda.</dd></div><div><dt>Cómo se abordó</dt><dd>Ortodoncia fija y controles radiográficos durante el proceso.</dd></div><div><dt>La evolución</dt><dd>El registro permite ver que los cambios se construyen control a control.</dd></div></dl><figure class="patient-case__media"><img src="/cases/clase-iii-02.jpg" alt="Segunda y tercera etapa del caso de Clase III y canino retenido"><figcaption>Seguimiento clínico documentado durante el tratamiento.</figcaption></figure></div>
+            </article>
+            <article class="patient-case">
+              <figure class="patient-case__media"><img src="/cases/hibrido-laser-01.jpg" alt="Comparación inicial y final de una paciente adulta, con identidad protegida"><figcaption>Comparación de inicio y evolución; la identidad de la paciente está protegida.</figcaption></figure>
+              <div class="patient-case__copy"><p class="eyebrow">Caso clínico 03</p><h2>“Me habían dicho que mi caso no tenía solución”</h2><blockquote class="patient-case__quote">“Me habían dicho que no tenía solución ni un tratamiento alternativo.”</blockquote><p>La paciente, de 54 años, tenía una Clase II compleja y apiñamiento. A partir de los estudios se planificó una alternativa sin extracciones.</p><dl class="patient-case__facts"><div><dt>Cómo se abordó</dt><dd>Alineadores en la arcada superior, brackets en la inferior y fotobiomodulación láser como apoyo indicado para este caso.</dd></div><div><dt>La evolución</dt><dd>El registro fotográfico permite seguir el recorrido sin prometer un resultado igual para otros pacientes.</dd></div></dl><figure class="patient-case__media"><img src="/cases/hibrido-laser-03.jpg" alt="Evolución por etapas del tratamiento híbrido con láser"><figcaption>Etapas documentadas del tratamiento híbrido.</figcaption></figure></div>
+            </article>
+          </div>
+          <p class="small" style="margin-top:var(--space-7)">Las imágenes fueron publicadas con autorización. Cada tratamiento se indica luego de una evaluación individual y sus tiempos y resultados pueden variar.</p>`;
+      }
+      function enhanceHomeStories() {
+        const section = Array.from(document.querySelectorAll(".section")).find((element) => element.textContent.includes("Casos reales, explicados paso a paso"));
+        if (!section || section.dataset.astroStories) return;
+        section.dataset.astroStories = "true";
+        const wrap = section.querySelector(".wrap");
+        if (!wrap) return;
+        wrap.innerHTML = `<div class="case-stories"><div class="case-stories__head"><div><p class="eyebrow">Historias clínicas</p><h2>Casos reales, explicados paso a paso</h2><p>Qué preocupaba a cada persona, qué se evaluó y cómo se construyó el tratamiento.</p></div><div class="case-stories__controls" aria-label="Navegar historias"><button type="button" data-stories-prev aria-label="Historia anterior">←</button><button type="button" data-stories-next aria-label="Historia siguiente">→</button></div></div><div class="case-stories__track" aria-label="Historias clínicas"><article class="case-story"><img src="/cases/apinyamiento-02.jpg" alt="Inicio de un caso de apiñamiento severo"><div class="case-story__body"><p class="eyebrow">Apiñamiento severo</p><h3>Volver a sentirse cómoda al sonreír</h3><p>La consulta empezó por una mordida alterada y dientes superpuestos. El recorrido se documentó etapa por etapa con ortodoncia fija.</p><a class="en-link" href="#casos">Ver el caso</a></div></article><article class="case-story"><img src="/cases/clase-iii-01.jpg" alt="Inicio de un caso de Clase III y canino retenido"><div class="case-story__body"><p class="eyebrow">Clase III y canino retenido</p><h3>Un tratamiento que necesitaba tiempo y seguimiento</h3><p>El objetivo no era solo alinear: también había que acompañar la erupción del canino y la relación entre ambas arcadas.</p><a class="en-link" href="#casos">Ver el caso</a></div></article><article class="case-story"><img src="/cases/hibrido-laser-01.jpg" alt="Comparación de inicio y evolución de una paciente adulta con identidad protegida"><div class="case-story__body"><p class="eyebrow">Ortodoncia híbrida y láser</p><h3>Encontrar una alternativa</h3><blockquote>“Me habían dicho que no tenía solución ni un tratamiento alternativo.”</blockquote><a class="en-link" href="#casos">Ver el caso</a></div></article></div><a class="en-btn en-btn--outline" href="#casos" style="justify-self:start">Conocé todos los casos</a></div>`;
+        const track = wrap.querySelector(".case-stories__track");
+        wrap.querySelector("[data-stories-prev]")?.addEventListener("click", () => track.scrollBy({ left: -track.clientWidth * .8, behavior: "smooth" }));
+        wrap.querySelector("[data-stories-next]")?.addEventListener("click", () => track.scrollBy({ left: track.clientWidth * .8, behavior: "smooth" }));
+      }
+      function simplifyContact() { document.querySelectorAll(".ph").forEach((element) => { if (element.textContent.includes("Mapa de La Plata") || element.textContent.includes("Mapa de Quilmes")) element.remove(); }); document.querySelectorAll(".today").forEach((element) => { element.textContent = "Horarios habituales. Confirmá tu turno por WhatsApp."; }); const form = document.querySelector("#cform"); if (!form || form.dataset.astroEnhanced) return; form.dataset.astroEnhanced = "true"; form.querySelector("#f-wa-w")?.remove(); const intro = document.querySelector("#form-sec .en-section-head"); if (intro) { intro.querySelector(".h2").textContent = "Prepará tu mensaje"; const text = intro.querySelector("p:not(.eyebrow)"); if (text) text.textContent = "Completá estos datos y abriremos WhatsApp con un mensaje listo para revisar y enviar."; } const submit = form.querySelector('[type="submit"]'); if (submit) submit.textContent = "Continuar por WhatsApp"; form.addEventListener("submit", (event) => { event.preventDefault(); event.stopImmediatePropagation(); const name = form.querySelector("#f-nombre")?.value.trim(); const area = form.querySelector("#f-area"); const seat = form.querySelector('input[name="sede"]:checked')?.value || "sin preferencia"; const reason = form.querySelector("#f-motivo")?.value.trim(); const status = form.querySelector("#formMsg"); if (!name) { status.textContent = "Escribí tu nombre para preparar el mensaje."; form.querySelector("#f-nombre")?.focus(); return; } const selectedArea = area?.value ? area.options[area.selectedIndex].text : "orientación general"; const message = `Hola, soy ${name}. Quiero consultar por ${selectedArea}. Consultorio preferido: ${seat}.${reason ? ` Motivo: ${reason}` : ""}`; window.open(`${wa}?text=${encodeURIComponent(message)}`, "_blank", "noopener"); status.textContent = "Abrimos WhatsApp con tu mensaje preparado. Revisalo y envialo cuando estés listo."; }, true); }
+      function applyBrand() { document.querySelectorAll(".navbar .wordmark, .sheet .wordmark").forEach((element) => { if (element.dataset.brandApplied) return; element.dataset.brandApplied = "true"; if (element.matches("a")) element.setAttribute("aria-label", "Dra. Edith Noriega. Ir al inicio"); element.innerHTML = '<span class="brand-mark"><span class="brand-icon"><img src="/brand/dental-icon.jpeg" alt="" width="1600" height="1600"></span><b><span>Dra.</span> Edith Noriega</b></span>'; }); }
+      function enhance() { document.body.classList.add("no-flags"); document.querySelectorAll(".net").forEach((element) => element.closest(".section")?.remove()); document.querySelectorAll(".mobilebar a").forEach((element) => { element.href = wa; element.target = "_blank"; element.rel = "noopener"; element.textContent = "Pedí tu turno por WhatsApp"; }); removeEditorialNotes(); removeDraftStates(); replaceCopy(); simplifyTraining(); simplifyCases(); simplifyContact(); enhanceHomeStories(); applyBrand(); }
+      enhance(); window.addEventListener("hashchange", () => window.setTimeout(enhance, 0));
+    </script>
+  </body>
 </html>
