@@ -1,0 +1,16 @@
+---
+const items: [string, string][] = [
+  ["Especialista en Ortodoncia", "Universidad Nacional de La Plata · 2000"],
+  ["Ortodoncia pre y posquirúrgica", "Hospital Piñero · SAO · 2011–2021"],
+  ["Diplomada en Odontología Láser", "Universidad Abierta Interamericana · 2022"],
+  ["Más de 20 años en ortodoncia", "Consultorios en La Plata y Quilmes"]
+];
+---
+
+<section class="creds" aria-label="Formación destacada">
+  <div class="wrap">
+    <ul>
+      {items.map(([t, d]) => <li><b>{t}</b><span>{d}</span></li>)}
+    </ul>
+  </div>
+</section>

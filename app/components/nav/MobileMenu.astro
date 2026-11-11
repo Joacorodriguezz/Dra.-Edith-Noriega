@@ -1,0 +1,47 @@
+---
+import Brand from "./Brand.astro";
+import Button from "../ui/Button.astro";
+import IconChip from "../ui/IconChip.astro";
+import { NAV, SITE } from "../../data/site";
+import { AREAS, areaHref } from "../../data/areas";
+
+interface Props { current: string }
+const { current } = Astro.props;
+const items = [{ href: "/", label: "Inicio" }, ...NAV];
+const active = (href: string) => (href === "/" ? current === "/" : href === "/tratamientos/" ? current.startsWith("/tratamientos/") : current === href);
+---
+
+<dialog class="sheet" id="sheet" aria-label="Menú">
+  <div class="sheet-top">
+    <Brand />
+    <form method="dialog"><button class="en-btn en-btn--outline en-btn--sm" id="closeSheet">Cerrar</button></form>
+  </div>
+  <nav aria-label="Menú principal">
+    {items.map((n) => <a href={n.href} aria-current={active(n.href) ? "page" : undefined}>{n.label}</a>)}
+  </nav>
+  <div class="stack" style="gap:var(--space-2)">
+    <p class="eyebrow">Tratamientos</p>
+    <nav class="areas" aria-label="Áreas">
+      {AREAS.map((a) => <a href={areaHref(a.id)}><IconChip id={a.id} size={40} />{a.name}</a>)}
+    </nav>
+  </div>
+  <div class="stack" style="gap:var(--space-3)">
+    <Button wa={{ origen: "menu" }}>Pedí tu turno</Button>
+    <p class="small">WhatsApp {SITE.whatsappTexto}</p>
+  </div>
+</dialog>
+
+<script>
+  import { $ } from "../../lib/dom";
+  const dlg = $<HTMLDialogElement>("#sheet");
+  const btn = $<HTMLButtonElement>("#menuBtn");
+  btn?.addEventListener("click", () => dlg?.showModal());
+  // Si se toca un enlace del menú que no recarga la página, se cierra
+  dlg?.addEventListener("click", (e) => {
+    if ((e.target as Element).closest("a")) dlg.close();
+  });
+  // Si se agranda la ventana con el menú abierto, se cierra
+  window.matchMedia("(min-width: 981px)").addEventListener("change", (m) => {
+    if (m.matches) dlg?.close();
+  });
+</script>

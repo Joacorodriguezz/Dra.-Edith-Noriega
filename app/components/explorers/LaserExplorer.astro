@@ -1,0 +1,75 @@
+---
+import { LAPPS } from "../../data/explorers";
+
+const DEFAULT = LAPPS[0];
+---
+
+<div class="split-illus" style="grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)" data-laser>
+  <div class="side">
+    <div class="list-btns" role="group" aria-label="Aplicaciones del láser">
+      {LAPPS.map((a, i) => (
+        <button type="button" data-laser-btn={a.id} aria-pressed={String(a === DEFAULT) as "true" | "false"}><span class="k">{String.fromCharCode(65 + i)}</span>{a.n}</button>
+      ))}
+    </div>
+    <div class="en-card" aria-live="polite">
+      {LAPPS.map((a) => (
+        <div class="stack" style="gap:var(--space-3)" data-laser-panel={a.id} hidden={a !== DEFAULT}>
+          <p class="eyebrow">Aplicación</p>
+          <h3 class="h3">{a.n}</h3>
+          <p class="muted">{a.d}</p>
+          <p class="small">La indicación surge de la evaluación. Las sensaciones durante la aplicación varían según el caso y la zona.</p>
+        </div>
+      ))}
+    </div>
+  </div>
+  <div>
+    <svg class="illus xsec sel" id="xsec" viewBox="0 0 420 420" role="img" aria-label="Corte esquemático de un diente con encía, hueso y mucosa">
+      <path class="zone z-mucosa" fill="var(--surface-aqua)" d="M20 420 V300 C30 280 46 270 60 262 L90 244 V420 Z"></path>
+      <path class="zone z-hueso" fill="var(--line)" d="M90 420 V244 C130 224 170 226 190 236 C206 230 222 230 238 236 C258 226 298 224 338 244 V420 Z"></path>
+      <path class="zone z-encia on" fill="var(--aqua-soft)" d="M60 262 C76 214 132 180 178 176 C184 200 186 220 190 236 C170 226 130 224 90 244 Z M368 262 C352 214 296 180 250 176 C244 200 242 220 238 236 C258 226 298 224 338 244 Z"></path>
+      <path fill="var(--surface-tint)" stroke="var(--line-strong)" d="M180 182 C178 260 190 340 206 400 C210 412 218 412 222 400 C238 340 250 260 248 182 Z"></path>
+      <path class="zone z-esmalte" fill="var(--white)" d="M156 70 C156 40 186 28 214 32 C242 28 272 40 272 70 C274 120 262 160 250 182 L178 182 C166 160 154 120 156 70 Z" style="stroke:var(--line-strong)"></path>
+      <path fill="var(--surface-tint)" d="M172 78 C172 56 194 46 214 48 C234 46 256 56 256 78 C258 118 248 150 240 172 L188 172 C180 150 170 118 172 78 Z"></path>
+      <path class="zone z-pulpa" fill="var(--aqua)" d="M200 96 C200 86 228 86 228 96 L226 170 C224 250 220 330 215 395 C214 398 212 398 212 395 C208 330 204 250 202 170 Z"></path>
+      <path class="zone z-bolsa bolsa" fill="none" stroke-linecap="round" d="M178 182 L186 222 M250 182 L242 222"></path>
+      <rect x="14" y="14" width="40" height="16" rx="4" fill="var(--ink-muted)" transform="rotate(35 34 22)"></rect>
+      <path class="beam-glow" id="beamGlow" d={`M50 34 L${DEFAULT.at[0]} ${DEFAULT.at[1]}`}></path>
+      <path class="beam" id="beam" d={`M50 34 L${DEFAULT.at[0]} ${DEFAULT.at[1]}`}></path>
+      <path class="ld" d="M222 128 L292 150"></path>
+      <text x="290" y="60">Esmalte</text>
+      <text x="290" y="110">Dentina</text>
+      <text x="296" y="154">Pulpa y conducto</text>
+      <text x="372" y="226">Encía</text>
+      <text x="344" y="330">Hueso</text>
+      <text x="22" y="292">Mucosa</text>
+      <text x="64" y="58">Fibra del láser</text>
+    </svg>
+  </div>
+</div>
+
+<script>
+  import { $, $$ } from "../../lib/dom";
+  import { LAPPS } from "../../data/explorers";
+  $$("[data-laser]").forEach((root) => {
+    const svg = $("#xsec", root);
+    const btns = $$<HTMLButtonElement>("[data-laser-btn]", root);
+    btns.forEach((b) =>
+      b.addEventListener("click", () => {
+        const a = LAPPS.find((l) => l.id === b.dataset.laserBtn);
+        if (!a || !svg) return;
+        btns.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        $$("[data-laser-panel]", root).forEach((p) => (p.hidden = p.dataset.laserPanel !== a.id));
+        const d = `M50 34 L${a.at[0]} ${a.at[1]}`;
+        for (const id of ["beam", "beamGlow"]) {
+          const el = document.getElementById(id);
+          if (!el) continue;
+          el.setAttribute("d", d);
+          el.classList.remove("fire");
+          void el.getBoundingClientRect();
+          el.classList.add("fire");
+        }
+        $$(".zone", svg).forEach((z) => z.classList.toggle("on", z.classList.contains("z-" + a.z)));
+      })
+    );
+  });
+</script>

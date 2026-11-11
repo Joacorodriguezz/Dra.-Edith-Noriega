@@ -1,0 +1,35 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import LaserScale from "../explorers/LaserScale.astro";
+import LaserExplorer from "../explorers/LaserExplorer.astro";
+
+const consideraciones = [
+  "No reemplaza la evaluación ni otros tratamientos.",
+  "Cada aplicación tiene su propia indicación, que no es intercambiable con las demás.",
+  "Los tiempos y los resultados dependen de cada caso.",
+  "La Dra. tiene una diplomatura en Odontología Láser (UAI, 2021–2022) y cursa la especialidad en Láser en Ortodoncia y ATM desde 2025."
+];
+---
+
+<section class="section section--aqua">
+  <div class="wrap split" style="align-items:center">
+    <SectionHeader eyebrow="Tecnología" title="Dónde está el láser en el espectro" text="980 nm queda fuera de la luz visible, en el infrarrojo cercano. Por eso el haz de trabajo no se ve a simple vista." />
+    <LaserScale />
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Aplicaciones" title="Qué zona trabaja cada aplicación" text="Elegí una aplicación para verla en el esquema. Es una explicación educativa: la indicación siempre se define en la consulta." />
+    </div>
+    <LaserExplorer />
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <SectionHeader eyebrow="Consideraciones" title="Lo que conviene saber" text="El láser se suma a un tratamiento cuando aporta algo concreto." />
+    <ul class="dotlist">{consideraciones.map((t) => <li>{t}</li>)}</ul>
+  </div>
+</section>

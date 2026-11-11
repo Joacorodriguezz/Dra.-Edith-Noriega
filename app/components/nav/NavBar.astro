@@ -1,0 +1,20 @@
+---
+import Brand from "./Brand.astro";
+import Button from "../ui/Button.astro";
+import { NAV } from "../../data/site";
+
+interface Props { current: string }
+const { current } = Astro.props;
+const active = (href: string) => (href === "/tratamientos/" ? current.startsWith("/tratamientos/") : current === href);
+---
+
+<header class="navbar">
+  <nav class="wrap en-nav" aria-label="Principal">
+    <Brand href="/" />
+    <ul class="en-nav__links">
+      {NAV.map((n) => <li><a href={n.href} aria-current={active(n.href) ? "page" : undefined}>{n.label}</a></li>)}
+    </ul>
+    <Button size="sm" wa={{ origen: "barra" }}>Pedí tu turno</Button>
+    <button type="button" class="menu-btn" id="menuBtn" aria-haspopup="dialog" aria-controls="sheet">Menú</button>
+  </nav>
+</header>

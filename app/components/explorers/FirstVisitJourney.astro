@@ -1,0 +1,59 @@
+---
+import Button from "../ui/Button.astro";
+import { JOURNEY } from "../../data/explorers";
+const total = JOURNEY.length;
+---
+
+<div class="journey" data-journey>
+  <div class="j-steps" role="group" aria-label="Etapas">
+    {JOURNEY.map((j, i) => (
+      <button type="button" class="j-step" data-j={i} aria-current={i === 0 ? "step" : undefined}><span class="k">{i + 1}</span>{j.n}</button>
+    ))}
+  </div>
+  <div class="en-card" style="gap:var(--space-4)" aria-live="polite">
+    {JOURNEY.map((j, i) => (
+      <div class="stack" style="gap:var(--space-4)" data-j-panel={i} hidden={i !== 0}>
+        <div class="progress" aria-hidden="true"><i style={`width:${((i + 1) / total) * 100}%`}></i></div>
+        <p class="eyebrow">Etapa {i + 1} de {total}</p>
+        <h2 class="h2">{j.n}</h2>
+        <div class="stack measure" style="gap:var(--space-3)">
+          {j.b.map((b) => (
+            <>
+              {b.p && <p>{b.p}</p>}
+              {b.muted && <p class="muted">{b.muted}</p>}
+              {b.ul && <ul class="dotlist">{b.ul.map((t) => <li>{t}</li>)}</ul>}
+            </>
+          ))}
+        </div>
+        <div class="step-ctrl" style="margin-top:var(--space-3)">
+          <Button variant="outline" size="sm" data-j-nav="-1" disabled={i === 0}>Anterior</Button>
+          {i < total - 1 ? <Button size="sm" data-j-nav="1">Siguiente</Button> : <Button size="sm" wa={{ origen: "primera-consulta" }}>Pedí tu turno</Button>}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  import { $$ } from "../../lib/dom";
+  $$("[data-journey]").forEach((root) => {
+    const steps = $$<HTMLButtonElement>("[data-j]", root);
+    const panels = $$("[data-j-panel]", root);
+    const show = (i: number) => {
+      const n = Math.max(0, Math.min(panels.length - 1, i));
+      steps.forEach((b, k) => {
+        if (k === n) b.setAttribute("aria-current", "step");
+        else b.removeAttribute("aria-current");
+        b.classList.toggle("done", k < n);
+      });
+      panels.forEach((p) => (p.hidden = Number(p.dataset.jPanel) !== n));
+    };
+    steps.forEach((b, k) => b.addEventListener("click", () => show(k)));
+    root.addEventListener("click", (e) => {
+      const b = (e.target as Element).closest<HTMLButtonElement>("[data-j-nav]");
+      if (!b) return;
+      const cur = steps.findIndex((s) => s.getAttribute("aria-current") === "step");
+      show(cur + Number(b.dataset.jNav));
+    });
+  });
+</script>

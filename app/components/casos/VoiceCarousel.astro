@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets";
+import { TESTIMONIOS } from "../../data/testimonios";
+
+interface Props { tone?: "aqua" | "paper" }
+const { tone = "aqua" } = Astro.props;
+const total = TESTIMONIOS.length;
+---
+
+<section class:list={["section", { "section--aqua": tone === "aqua" }]}>
+  <div class="wrap">
+    <div class="voice-carousel" data-voices role="region" aria-roledescription="carrusel" aria-label="La voz de mis pacientes">
+      <h2 class="eyebrow">La voz de mis pacientes</h2>
+      <div class="voice-carousel__track">
+        {TESTIMONIOS.map((t, i) => (
+          <article class="patient-voice" id={`testimonio-${i + 1}`} aria-roledescription="diapositiva" aria-label={`${i + 1} de ${total}: ${t.name}`}>
+            <figure class="patient-voice__photo">
+              <Image src={t.photo} alt={`${t.name}, paciente de la Dra. Edith Noriega`} widths={[240, 340, 680]} sizes="(max-width: 760px) 240px, 340px" format="webp" loading="lazy" style={`object-position:${t.position}`} />
+            </figure>
+            <div class="patient-voice__copy">
+              <h3>“{t.highlight}”</h3>
+              <p class="patient-voice__who"><strong>{t.name}</strong> · {t.treatment}</p>
+              <details class="patient-voice__full">
+                <summary>Leer el testimonio completo</summary>
+                <blockquote>{t.text}</blockquote>
+              </details>
+              <a class="en-link" href={t.video} target="_blank" rel="noopener">Ver su testimonio en video</a>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="voice-carousel__nav" hidden>
+        <div class="voice-carousel__dots">
+          {TESTIMONIOS.map((t) => <button type="button" data-voice-dot aria-label={`Ver testimonio de ${t.name}`}></button>)}
+        </div>
+        <div class="voice-carousel__arrows">
+          <span data-voice-count aria-live="polite"></span>
+          <button type="button" data-voice-prev aria-label="Testimonio anterior">←</button>
+          <button type="button" data-voice-next aria-label="Testimonio siguiente">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { $, $$ } from "../../lib/dom";
+  $$("[data-voices]").forEach((root) => {
+    const track = $(".voice-carousel__track", root);
+    const nav = $<HTMLElement>(".voice-carousel__nav", root);
+    const prev = $<HTMLButtonElement>("[data-voice-prev]", root);
+    const next = $<HTMLButtonElement>("[data-voice-next]", root);
+    const counter = $("[data-voice-count]", root);
+    if (!track || !nav || !prev || !next || !counter) return;
+    nav.hidden = false;
+    const slides = Array.from(track.children) as HTMLElement[];
+    const dots = $$("[data-voice-dot]", root);
+    const current = () => Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
+    const go = (i: number) => track.scrollTo({ left: Math.max(0, Math.min(slides.length - 1, i)) * track.clientWidth, behavior: "smooth" });
+    const update = () => {
+      const i = current();
+      dots.forEach((d, k) => d.setAttribute("aria-current", String(k === i)));
+      prev.disabled = i === 0;
+      next.disabled = i === slides.length - 1;
+      counter.textContent = `${i + 1} / ${slides.length}`;
+      slides.forEach((s, k) => s.toggleAttribute("inert", k !== i));
+    };
+    prev.addEventListener("click", () => go(current() - 1));
+    next.addEventListener("click", () => go(current() + 1));
+    dots.forEach((d, i) => d.addEventListener("click", () => go(i)));
+    let frame = 0;
+    track.addEventListener("scroll", () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    }, { passive: true });
+    update();
+  });
+</script>

@@ -1,0 +1,67 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import Button from "../ui/Button.astro";
+import { NEEDS } from "../../data/needs";
+import { areaPorId, areaHref, consultaHref } from "../../data/areas";
+---
+
+<section class="section section--tint" id="necesidades">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Empezá por lo que te pasa" title="¿Qué te trae a la consulta?" text="Elegí la opción más cercana a tu situación y te mostramos qué leer y qué llevar. No es un diagnóstico." />
+      <a class="en-link" href="/tratamientos/">Ya sé qué busco: ver tratamientos</a>
+    </div>
+    <div class="needs" data-needs>
+      <ul aria-label="Motivos de consulta">
+        {NEEDS.map((n, i) => (
+          <li>
+            <button type="button" class="need" data-need={i} aria-pressed={i === 0 ? "true" : "false"}>
+              <span>{n.t}</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+            </button>
+          </li>
+        ))}
+      </ul>
+      <div class="guide" aria-live="polite">
+        {NEEDS.map((n, i) => (
+          <div class="stack" style="gap:var(--space-4)" data-guide={i} hidden={i !== 0}>
+            <p class="eyebrow">Motivo {i + 1} de {NEEDS.length}</p>
+            <h3 class="h3">{n.t}</h3>
+            <p class="muted">{n.text}</p>
+            <dl>
+              <dt>Áreas</dt>
+              <dd class="rels">{n.areas.map((id) => <a class="rel" href={areaHref(id)}>{areaPorId(id)?.name}</a>)}</dd>
+              <dt>Para leer</dt>
+              <dd><a class="en-link" href={n.to}>{n.read}</a></dd>
+              <dt>Para llevar</dt>
+              <dd>{n.bring}</dd>
+            </dl>
+            <div class="guide-foot">
+              <Button size="sm" href={consultaHref(n.areas[0])}>Consultar por este tema</Button>
+              <p class="small">Esto no es un diagnóstico: es una guía para orientarte antes de la consulta.</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { $$, $, reducedMotion } from "../../lib/dom";
+  const root = $("[data-needs]");
+  if (root) {
+    const buttons = $$<HTMLButtonElement>("[data-need]", root);
+    const panels = $$("[data-guide]", root);
+    buttons.forEach((b) =>
+      b.addEventListener("click", () => {
+        const i = b.dataset.need;
+        buttons.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        panels.forEach((p) => (p.hidden = p.dataset.guide !== i));
+        if (window.matchMedia("(max-width:860px)").matches) {
+          $(".guide", root)?.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "nearest" });
+        }
+      })
+    );
+  }
+</script>

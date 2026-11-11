@@ -1,0 +1,12 @@
+<!-- @dsCard group="Secciones" height=620 subtitle="Dos consultorios, turno por WhatsApp y formulario con error" -->
+<!doctype html><html lang="es"><head><meta charset="utf-8"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap"><link rel="stylesheet" href="/styles/tokens.css"><link rel="stylesheet" href="/styles/design-system.css"></head><body><div class="en-stage" style="flex-direction:column;align-items:stretch">
+<div class="en-contact">
+ <article class="en-sede"><span class="eyebrow" style="color:var(--aqua-ink)">Consultorio</span><h3 class="h3">La Plata</h3><p>Dirección y horarios de atención.</p><a class="en-btn en-btn--aqua" href="#">Pedí tu turno por WhatsApp</a></article>
+ <article class="en-sede"><span class="eyebrow" style="color:var(--aqua-ink)">Consultorio</span><h3 class="h3">Quilmes</h3><p>Dirección y horarios de atención.</p><a class="en-btn en-btn--aqua" href="#">Pedí tu turno por WhatsApp</a></article>
+</div>
+<form class="en-form" onsubmit="return false" style="max-width:520px">
+ <div class="en-field"><label for="n">Nombre y apellido</label><input id="n" value="Lucía Fernández" autocomplete="name"></div>
+ <div class="en-field en-field--error"><label for="w">WhatsApp</label><input id="w" value="221 55" inputmode="tel" aria-invalid="true" aria-describedby="w-h"><span class="en-field__help" id="w-h">Escribí un número de WhatsApp completo, con característica.</span></div>
+ <div class="en-field"><label for="m">¿En qué te podemos ayudar?</label><textarea id="m" rows="3">Quiero consultar por ortodoncia para mi hijo de 9 años.</textarea><span class="en-field__help">Contanos brevemente el motivo de la consulta.</span></div>
+ <button class="en-btn en-btn--primary" type="button" style="align-self:flex-start">Enviar consulta</button>
+</form></div></body></html>

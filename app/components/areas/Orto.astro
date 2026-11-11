@@ -1,0 +1,50 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import Steps from "../ui/Steps.astro";
+import Faq from "../ui/Faq.astro";
+import OrthoExplorer from "../explorers/OrthoExplorer.astro";
+import { areaPorId } from "../../data/areas";
+const area = areaPorId("ortodoncia")!;
+---
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Explorador de ortodoncia" title="Compará las alternativas" text="Elegí una opción y mirá cómo se ve en los dientes. La tabla compara lo que cambia entre una y otra." />
+    </div>
+    <OrthoExplorer />
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Según la edad" title="No hay edad para mejorar tu sonrisa" text="La evaluación cambia con el crecimiento. En todas las etapas empieza por entender la función." />
+    </div>
+    <div class="ages">
+      <article class="en-card"><p class="eyebrow">Infancia</p><h3 class="h3">Guiar el crecimiento</h3><p>Con dientes de leche o en recambio, la ortopedia dentomaxilar ayuda a guiar el desarrollo de los maxilares.</p></article>
+      <article class="en-card"><p class="eyebrow">Adolescencia</p><h3 class="h3">Ordenar y alinear</h3><p>Con los dientes permanentes se corrigen la posición y la mordida.</p></article>
+      <article class="en-card"><p class="eyebrow">Adultez</p><h3 class="h3">Alternativas para adultos</h3><p>En adultos también hay alternativas, a veces combinadas con otros tratamientos.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Recorrido de atención" title="Cómo es el proceso" text="Cada plan es distinto. Estas son las etapas habituales." />
+    </div>
+    <Steps steps={area.steps!} />
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap split">
+    <div class="en-section-head">
+      <p class="eyebrow">Preguntas frecuentes</p>
+      <h2 class="h2">Lo que más se consulta</h2>
+      <a class="en-link" href="/casos/" style="align-self:flex-start">Ver casos de ortodoncia</a>
+    </div>
+    <Faq items={area.faqs!} />
+  </div>
+</section>

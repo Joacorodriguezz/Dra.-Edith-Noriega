@@ -1,0 +1,64 @@
+---
+import Button from "../ui/Button.astro";
+import Badge from "../ui/Badge.astro";
+import { QX, LANES } from "../../data/explorers";
+---
+
+<div data-qx>
+  <div class="lanes-wrap">
+    <div class="lanes" role="group" aria-label="Quién participa en cada etapa">
+      <div class="small" style="font-family:var(--font-display);font-weight:600">Etapas</div>
+      {QX.map((q, i) => <button type="button" class:list={["ph-h", { on: i === 0 }]} data-qx-i={i} aria-pressed={String(i === 0) as "true" | "false"}>{i + 1}. {q.n}</button>)}
+      {LANES.map((l) => (
+        <>
+          <div class="lane-h">{l.n}<small>{l.sub}</small></div>
+          {l.v.map((v, i) => (
+            <div class:list={["cell", { on: i === 0 }]} data-qx-cell={i}>
+              {v ? <span class:list={["bar", l.cls]}><span class="sr">participa</span></span> : null}
+            </div>
+          ))}
+        </>
+      ))}
+    </div>
+  </div>
+  <div class="stepper">
+    <div aria-live="polite">
+      {QX.map((q, i) => (
+        <div class="stack" style="gap:var(--space-3)" data-qx-panel={i} hidden={i !== 0}>
+          <p class="eyebrow">Etapa {i + 1} de {QX.length}</p>
+          <h3 class="h2">{q.n}</h3>
+          <p class="muted measure">{q.d}</p>
+          <div class="tags">{q.who.map((w) => <Badge>{w}</Badge>)}</div>
+        </div>
+      ))}
+    </div>
+    <div class="step-ctrl">
+      <Button variant="outline" size="sm" data-qx-nav="-1">Anterior</Button>
+      <span class="count" data-qx-count>1 / {QX.length}</span>
+      <Button size="sm" data-qx-nav="1">Siguiente</Button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { $, $$ } from "../../lib/dom";
+  $$("[data-qx]").forEach((root) => {
+    const heads = $$<HTMLButtonElement>("[data-qx-i]", root);
+    const cells = $$("[data-qx-cell]", root);
+    const panels = $$("[data-qx-panel]", root);
+    const total = panels.length;
+    let cur = 0;
+    const show = (i: number) => {
+      cur = (i + total) % total;
+      heads.forEach((b, k) => {
+        b.classList.toggle("on", k === cur);
+        b.setAttribute("aria-pressed", String(k === cur));
+      });
+      cells.forEach((c) => c.classList.toggle("on", Number(c.dataset.qxCell) === cur));
+      panels.forEach((p) => (p.hidden = Number(p.dataset.qxPanel) !== cur));
+      $("[data-qx-count]", root)!.textContent = `${cur + 1} / ${total}`;
+    };
+    heads.forEach((b, k) => b.addEventListener("click", () => show(k)));
+    $$<HTMLButtonElement>("[data-qx-nav]", root).forEach((b) => b.addEventListener("click", () => show(cur + Number(b.dataset.qxNav))));
+  });
+</script>

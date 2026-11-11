@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: confirmar dominio; si cambia SITE_URL, actualizar esta línea.
+Sitemap: https://draedithnoriega.com.ar/sitemap-index.xml

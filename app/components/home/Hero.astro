@@ -1,0 +1,51 @@
+---
+import { Picture } from "astro:assets";
+import retrato from "../../assets/retrato/retrato-dra-noriega.webp";
+import Button from "../ui/Button.astro";
+import { SITE } from "../../data/site";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead: string;
+  /** Si es true, el título es el h1 de la página (clase display) */
+  home?: boolean;
+  alt?: string;
+}
+const { eyebrow, title, lead, home = false, alt = "Retrato de la Dra. Edith Noriega con ambo blanco" } = Astro.props;
+---
+
+<section>
+  <div class="wrap">
+    <div class="en-hero">
+      <div class="en-hero__copy">
+        <slot name="before" />
+        <p class="eyebrow">{eyebrow}</p>
+        {home ? <h1 class="display">{title}</h1> : <h1 class="h1">{title}</h1>}
+        <p class="lead">{lead}</p>
+        <slot />
+        {home && (
+          <>
+            <div class="en-hero__actions">
+              <Button wa={{ origen: "hero" }}>Pedí tu turno</Button>
+              <Button variant="outline" href="#necesidades">¿Qué te trae a la consulta?</Button>
+            </div>
+            <p class="wa-line">
+              WhatsApp {SITE.whatsappTexto}
+              <button type="button" class="copy" data-copy={SITE.whatsappTexto}>Copiar número</button>
+            </p>
+          </>
+        )}
+      </div>
+      <div class="en-hero__stage">
+        <span class="en-quarter" aria-hidden="true"></span>
+        <div class="en-portrait">
+          <div class="en-portrait__slot">
+            <Picture src={retrato} alt={alt} formats={["avif"]} fallbackFormat="webp" widths={[300, 400, 600]} sizes="(max-width: 860px) 280px, 400px" loading="eager" fetchpriority="high" />
+          </div>
+        </div>
+        <span class="en-star" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </div>
+    </div>
+  </div>
+</section>

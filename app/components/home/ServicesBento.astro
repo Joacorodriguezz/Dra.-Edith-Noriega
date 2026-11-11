@@ -1,0 +1,41 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import IconChip from "../ui/IconChip.astro";
+import Badge from "../ui/Badge.astro";
+import Button from "../ui/Button.astro";
+import { areaPorId, areaHref } from "../../data/areas";
+
+const cards: { id: string; size: string; cls?: string; tags?: string[]; badge?: string; link: string }[] = [
+  { id: "odontologia-general", size: "s2", link: "Conocé esta área" },
+  { id: "ortodoncia", size: "s4", tags: ["Brackets metálicos", "Brackets estéticos", "Alineadores", "Híbridos", "Ortopedia infantil"], link: "Conocé el tratamiento" },
+  { id: "laser", size: "s4", cls: "en-card--brand", badge: "980 nm", tags: ["Tejidos blandos", "Apoyo en ortodoncia", "Endodoncia y periodoncia"], link: "Conocé esta área" },
+  { id: "atm", size: "s2", link: "Conocé esta área" },
+  { id: "ortodoncia-quirurgica", size: "s6", link: "Conocé esta área" }
+];
+---
+
+<section class="section">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Especialidades" title="Tratamientos para todas las etapas, desde una temprana edad" />
+      <Button variant="outline" href="/tratamientos/">Ver todos los tratamientos</Button>
+    </div>
+    <div class="bento">
+      {cards.map((c) => {
+        const a = areaPorId(c.id)!;
+        return (
+          <article class:list={["en-card", "hover", c.size, c.cls]}>
+            <div class="card-top">
+              <IconChip id={c.id} />
+              {c.badge && <Badge>{c.badge}</Badge>}
+            </div>
+            <h3 class="h3">{a.name}</h3>
+            <p>{a.line}</p>
+            {c.tags && <ul class="tags">{c.tags.map((t) => <li class="en-badge en-badge--brand">{t}</li>)}</ul>}
+            <a class="en-link" href={areaHref(c.id)}>{c.link}</a>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>

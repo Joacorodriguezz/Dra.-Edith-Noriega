@@ -1,0 +1,21 @@
+---
+import Button from "./Button.astro";
+import { consultaHref } from "../../data/areas";
+
+interface Props { title: string; text: string; area?: string }
+const { title, text, area } = Astro.props;
+---
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="en-cta">
+      <span class="en-quarter" aria-hidden="true"></span>
+      <h2 class="h2">{title}</h2>
+      <p>{text}</p>
+      <div class="en-cta__actions">
+        <Button variant="aqua" wa={{ origen: "cta", area }}>Pedí tu turno por WhatsApp</Button>
+        <Button variant="ghost-white" href={consultaHref(area)}>Dejar una consulta</Button>
+      </div>
+    </div>
+  </div>
+</section>

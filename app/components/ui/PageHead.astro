@@ -1,0 +1,32 @@
+---
+import Breadcrumbs from "../nav/Breadcrumbs.astro";
+import Shapes from "./Shapes.astro";
+
+interface Props {
+  crumbs: { label: string; href?: string }[];
+  eyebrow: string;
+  title: string;
+  lead: string;
+  facts?: [string, string][];
+  shape?: string;
+}
+const { crumbs, eyebrow, title, lead, facts, shape } = Astro.props;
+---
+
+<section class="pagehead">
+  <div class="wrap">
+    <div class="copy-col">
+      <Breadcrumbs items={crumbs} />
+      <p class="eyebrow">{eyebrow}</p>
+      <h1 class="h1">{title}</h1>
+      <p class="lead">{lead}</p>
+      <slot />
+      {facts && (
+        <div class="facts-line">
+          {facts.map(([k, v]) => <span><b>{k}</b><em>{v}</em></span>)}
+        </div>
+      )}
+    </div>
+    <Shapes kind={shape} />
+  </div>
+</section>

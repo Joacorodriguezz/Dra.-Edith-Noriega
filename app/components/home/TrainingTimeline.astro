@@ -1,0 +1,25 @@
+---
+import PullQuote from "../ui/PullQuote.astro";
+import { TRAYECTORIA } from "../../data/formacion";
+---
+
+<section class="section">
+  <div class="wrap stack" style="gap:var(--space-8)">
+    <PullQuote quote="Un buen diagnóstico integral es la clave para el éxito de todos los tratamientos." />
+    <div class="split">
+      <div class="en-section-head">
+        <p class="eyebrow">Trayectoria</p>
+        <h2 class="h2">Formación y experiencia en ortodoncia</h2>
+        <p>Formación universitaria, especialización hospitalaria y actualización constante en tecnología láser y alineadores.</p>
+        <a class="en-link" href="/la-doctora/" style="align-self:flex-start">Conocé a la doctora</a>
+      </div>
+      <ol class="timeline">
+        {TRAYECTORIA.map((t) => (
+          <li class:list={{ now: t.now }}>
+            <span class="y">{t.y}</span><b>{t.t}</b><span class="m">{t.m}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

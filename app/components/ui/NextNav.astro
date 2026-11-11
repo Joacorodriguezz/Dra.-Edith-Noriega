@@ -1,0 +1,17 @@
+---
+import { AREAS, areaHref } from "../../data/areas";
+interface Props { id: string }
+const { id } = Astro.props;
+const i = AREAS.findIndex((a) => a.id === id);
+const prev = AREAS[(i - 1 + AREAS.length) % AREAS.length];
+const next = AREAS[(i + 1) % AREAS.length];
+---
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <nav class="nextnav" aria-label="Otras áreas">
+      <a href={areaHref(prev.id)}><span class="eyebrow">Área anterior</span><span class="h3">{prev.name}</span></a>
+      <a href={areaHref(next.id)}><span class="eyebrow">Área siguiente</span><span class="h3">{next.name}</span></a>
+    </nav>
+  </div>
+</section>

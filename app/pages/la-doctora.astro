@@ -1,0 +1,94 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/home/Hero.astro";
+import Breadcrumbs from "../components/nav/Breadcrumbs.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import PullQuote from "../components/ui/PullQuote.astro";
+import IconChip from "../components/ui/IconChip.astro";
+import Badge from "../components/ui/Badge.astro";
+import { SITE_URL, pageTitle } from "../data/site";
+import { FORMACION, EJES, CIENCIA } from "../data/formacion";
+import { breadcrumbList } from "../lib/schema";
+
+const crumbs = [{ label: "Inicio", href: "/" }, { label: "La doctora" }];
+const equipo = [
+  "Cirujanos maxilofaciales: cirugía de los maxilares",
+  "Fonoaudiólogos: habla y deglución",
+  "Técnicos dentales: aparatología, prótesis y mecánicas de alineadores"
+];
+---
+
+<Base
+  title={pageTitle("La doctora")}
+  description="Conocé a la Dra. Edith Noriega, especialista en ortodoncia: formación en la UNLP y el Hospital Piñero, tecnología láser y atención en La Plata y Quilmes."
+  schema={[breadcrumbList(SITE_URL, crumbs, `${SITE_URL}/la-doctora/`)]}
+>
+  <Hero eyebrow="Sobre mí" title="Formación y experiencia en ortodoncia" lead="Soy Edith Noriega, odontóloga especialista jerarquizada en ortodoncia y diplomada en tecnología láser. Atiendo en La Plata y Quilmes con una mirada integral y multidisciplinaria." alt="Retrato de la Dra. Edith Noriega">
+    <Breadcrumbs slot="before" items={crumbs} />
+  </Hero>
+
+  <section class="section section--surface">
+    <div class="wrap split">
+      <PullQuote quote="La ortodoncia es para todos y para todas las edades." />
+      <div class="stack measure" style="gap:var(--space-4)">
+        <p class="eyebrow">Filosofía de atención</p>
+        <p>Me formé en la Universidad Nacional de La Plata y en el Hospital San Martín, en el sector de Odontología. Hice mi posgrado en Ortodoncia en la UNLP y completé mi especialización en el Hospital Piñero de Buenos Aires.</p>
+        <p>Me gusta abordar cada tratamiento con una mirada integral: la salud bucal forma parte de la salud general. Trabajo con un enfoque preventivo, tratamientos mínimamente invasivos y planificación digital.</p>
+        <p>Me actualizo de forma constante en ortodoncia lingual, alineadores y tecnología láser, para que cada paciente tenga una experiencia más cómoda.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap">
+      <div class="head-row"><SectionHeader eyebrow="Ejes de mi práctica" title="Cada área se apoya en una formación concreta" /></div>
+      <div class="bento">
+        {EJES.map((e) => (
+          <article class={`en-card ${e.size}`}>
+            <div class="card-top"><IconChip id={e.icon} /></div>
+            <h3 class="h3">{e.t}</h3>
+            <ul class="dotlist">
+              {e.items.map(([y, t]) => <li><span><b class="num">{y}</b><br />{t}</span></li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head-row"><SectionHeader eyebrow="Formación" title="Formación académica" text="Títulos y especializaciones, en orden cronológico." /></div>
+      <ul class="training-list">
+        {FORMACION.map((f) => <li><time>{f.periodo}</time><div><strong>{f.titulo}</strong><span>{f.institucion}</span></div></li>)}
+      </ul>
+      <details class="training-more">
+        <summary>Otros cursos y formación</summary>
+        <p class="small">La información adicional se incorpora cuando esté confirmada.</p>
+      </details>
+      <p class="small" style="margin-top:20px">Actualmente cursa la Especialidad en Láser en Ortodoncia y ATM.</p>
+    </div>
+  </section>
+
+  <section class="section section--aqua">
+    <div class="wrap">
+      <div class="head-row"><SectionHeader eyebrow="Investigación y actualización constante" title="Actividad científica" text="Publicaciones y ponencias sobre tecnología láser aplicada a la ortodoncia y la cirugía." /></div>
+      <div class="en-cards">
+        {CIENCIA.map((c) => (
+          <article class="en-card">
+            <Badge style="align-self:flex-start">{c.badge}</Badge>
+            <h3 class="h3">{c.t}</h3>
+            <p>{c.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <SectionHeader eyebrow="Equipo" title="Un equipo de trabajo multidisciplinario" text="Trabajo junto a profesionales comprometidos con tratamientos integrales e interdisciplinarios." />
+      <ul class="dotlist">{equipo.map((t) => <li>{t}</li>)}</ul>
+    </div>
+  </section>
+</Base>

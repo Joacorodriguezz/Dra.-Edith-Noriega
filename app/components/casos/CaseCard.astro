@@ -1,0 +1,79 @@
+---
+import { Image, getImage } from "astro:assets";
+import type { ClinicalCase } from "../../data/cases";
+
+interface Props { item: ClinicalCase }
+const { item } = Astro.props;
+const stages = await Promise.all(
+  item.stages.map(async (s) => ({ ...s, full: (await getImage({ src: s.img, width: 1800, format: "webp" })).src }))
+);
+---
+
+<article class="case-card" id={item.id} data-case>
+  <div class="case-card__media">
+    {stages.map((s, i) => (
+      <a class="case-card__zoom" href={s.full} data-zoom data-full={s.full} data-alt={s.alt} aria-label={`Ampliar imagen: ${s.label}`} hidden={i > 0}>
+        <Image src={s.img} alt={s.alt} widths={[400, 640, 960]} sizes="(max-width: 760px) 100vw, 400px" format="webp" loading="lazy" />
+        <span>Ampliar</span>
+      </a>
+    ))}
+  </div>
+  {stages.length > 1 && (
+    <div class="case-card__stages" role="group" aria-label="Etapas del caso" hidden>
+      {stages.map((s, i) => <button type="button" data-stage={i} aria-pressed={i === 0 ? "true" : "false"}>{s.label}</button>)}
+    </div>
+  )}
+  <div class="case-card__body">
+    <p class="eyebrow">{item.label}</p>
+    <h3>{item.title}</h3>
+    <p>{item.summary}</p>
+    {item.quote && <blockquote>{item.quote}</blockquote>}
+    <details>
+      <summary>Cómo se abordó</summary>
+      <dl>
+        {item.facts.map(([t, d]) => <div><dt>{t}</dt><dd>{d}</dd></div>)}
+      </dl>
+    </details>
+  </div>
+  <dialog class="case-lightbox" aria-label="Imagen ampliada">
+    <img alt="" />
+    <div class="case-lightbox__bar">
+      <span></span>
+      <button type="button" data-lightbox-close aria-label="Cerrar">×</button>
+    </div>
+  </dialog>
+</article>
+
+<script>
+  import { $, $$ } from "../../lib/dom";
+  $$("[data-case]").forEach((card) => {
+    const zooms = $$<HTMLAnchorElement>("[data-zoom]", card);
+    const stagesBox = $<HTMLElement>(".case-card__stages", card);
+    const box = $<HTMLDialogElement>(".case-lightbox", card);
+    if (stagesBox) stagesBox.hidden = false;
+
+    stagesBox?.addEventListener("click", (e) => {
+      const b = (e.target as Element).closest<HTMLButtonElement>("[data-stage]");
+      if (!b) return;
+      const i = Number(b.dataset.stage);
+      zooms.forEach((z, k) => (z.hidden = k !== i));
+      $$<HTMLButtonElement>("[data-stage]", stagesBox).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    });
+
+    zooms.forEach((z) =>
+      z.addEventListener("click", (e) => {
+        if (!box) return;
+        e.preventDefault();
+        const big = $<HTMLImageElement>("img", box)!;
+        big.src = z.dataset.full ?? z.href;
+        big.alt = z.dataset.alt ?? "";
+        $(".case-lightbox__bar span", box)!.textContent = z.dataset.alt ?? "";
+        box.showModal();
+      })
+    );
+    box?.addEventListener("click", (e) => {
+      const t = e.target as Element;
+      if (t === box || t.closest("[data-lightbox-close]")) box.close();
+    });
+  });
+</script>

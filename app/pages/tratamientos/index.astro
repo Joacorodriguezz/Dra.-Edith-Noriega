@@ -1,0 +1,25 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/ui/PageHead.astro";
+import Cta from "../../components/ui/Cta.astro";
+import AreaExplorer from "../../components/tratamientos/AreaExplorer.astro";
+import { SITE_URL, pageTitle } from "../../data/site";
+import { breadcrumbList } from "../../lib/schema";
+
+const crumbs = [{ label: "Inicio", href: "/" }, { label: "Tratamientos" }];
+const url = `${SITE_URL}/tratamientos/`;
+---
+
+<Base
+  title={pageTitle("Tratamientos")}
+  description="Odontología general, ortodoncia, láser, ATM y ortodoncia quirúrgica en La Plata y Quilmes. Explorá por área o por lo que te pasa y pedí tu turno."
+  schema={[breadcrumbList(SITE_URL, crumbs, url)]}
+>
+  <PageHead crumbs={crumbs} eyebrow="Tratamientos" title="El tratamiento que necesitás para cada etapa de tu vida" lead="Explorá por área si ya sabés qué buscás, o empezá por lo que te pasa. Los dos caminos llevan a las mismas páginas." />
+  <section class="section" style="padding-top:var(--space-7)">
+    <div class="wrap">
+      <AreaExplorer />
+    </div>
+  </section>
+  <Cta title="¿No sabés por dónde empezar?" text="Una primera consulta sirve para evaluar tu situación y explicarte las alternativas." />
+</Base>

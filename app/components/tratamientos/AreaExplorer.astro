@@ -1,0 +1,112 @@
+---
+import IconChip from "../ui/IconChip.astro";
+import Button from "../ui/Button.astro";
+import { AREAS, areaPorId, areaHref, consultaHref, relsFor } from "../../data/areas";
+import { NEEDS } from "../../data/needs";
+
+const DEFAULT = AREAS[1].id; // ortodoncia
+---
+
+<div data-tx>
+  <div class="seg" role="tablist" aria-label="Forma de explorar" style="margin-bottom:var(--space-6)">
+    <button type="button" role="tab" id="mode-area" aria-controls="tx-area" aria-selected="true" tabindex="0" data-mode="area">Por área</button>
+    <button type="button" role="tab" id="mode-need" aria-controls="tx-need" aria-selected="false" tabindex="-1" data-mode="need">Por necesidad</button>
+  </div>
+
+  <div id="tx-area" role="tabpanel" aria-labelledby="mode-area">
+    <div class="tx">
+      <div class="tx-tabs" role="tablist" aria-label="Áreas de atención" aria-orientation="vertical">
+        {AREAS.map((a) => (
+          <button type="button" class="tx-tab" role="tab" id={`tab-${a.id}`} aria-controls={`panel-${a.id}`} aria-selected={String(a.id === DEFAULT) as "true" | "false"} tabindex={a.id === DEFAULT ? 0 : -1} data-tx-tab={a.id}>
+            <IconChip id={a.id} />
+            <span>{a.name}</span>
+          </button>
+        ))}
+      </div>
+      <div>
+        {AREAS.map((a) => (
+          <div role="tabpanel" id={`panel-${a.id}`} aria-labelledby={`tab-${a.id}`} data-tx-panel={a.id} hidden={a.id !== DEFAULT}>
+            <article class="en-card">
+              <div class="tx-panel">
+                <div class="stack" style="gap:var(--space-4)">
+                  <IconChip id={a.id} />
+                  <h2 class="h2">{a.name}</h2>
+                  <p class="lead" style="font-size:18px;line-height:28px">{a.line}</p>
+                  <ul class="dotlist">{a.inc.map((t) => <li>{t}</li>)}</ul>
+                  <div class="en-hero__actions">
+                    <Button href={areaHref(a.id)}>Ver el área completa</Button>
+                    <Button variant="outline" href={consultaHref(a.id)}>Consultar por esta área</Button>
+                  </div>
+                </div>
+                <div class="stack" style="gap:var(--space-3)">
+                  <p class="eyebrow">Se relaciona con</p>
+                  <ul class="rel-list">
+                    {relsFor(a.id).map(([id, why]) => <li><a href={areaHref(id)}>{areaPorId(id)?.name}</a><span class="small">{why}</span></li>)}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div id="tx-need" role="tabpanel" aria-labelledby="mode-need" hidden>
+    <div class="en-cards" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+      {NEEDS.map((n) => (
+        <article class="en-card">
+          <h2 class="h4">{n.t}</h2>
+          <p>{n.text}</p>
+          <div class="rels">{n.areas.map((id) => <a class="rel" href={areaHref(id)}>{areaPorId(id)?.name}</a>)}</div>
+        </article>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  import { $, $$ } from "../../lib/dom";
+
+  // Navegación con flechas, Inicio y Fin en una lista de pestañas
+  function roving(tabs: HTMLElement[], keys: string[], select: (t: HTMLElement) => void) {
+    tabs.forEach((t) =>
+      t.addEventListener("keydown", (e) => {
+        if (!keys.includes(e.key)) return;
+        e.preventDefault();
+        const i = tabs.indexOf(t);
+        const next = e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : (i + (e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+        select(tabs[next]);
+        tabs[next].focus();
+      })
+    );
+  }
+
+  $$("[data-tx]").forEach((root) => {
+    // Por área / por necesidad
+    const modes = $$<HTMLButtonElement>("[data-mode]", root);
+    const selectMode = (b: HTMLElement) => {
+      modes.forEach((m) => {
+        const on = m === b;
+        m.setAttribute("aria-selected", String(on));
+        m.tabIndex = on ? 0 : -1;
+        $(`#${m.getAttribute("aria-controls")}`, root)!.hidden = !on;
+      });
+    };
+    modes.forEach((m) => m.addEventListener("click", () => selectMode(m)));
+    roving(modes, ["ArrowLeft", "ArrowRight", "Home", "End"], selectMode);
+
+    // Pestañas de áreas
+    const tabs = $$<HTMLButtonElement>("[data-tx-tab]", root);
+    const selectArea = (b: HTMLElement) => {
+      tabs.forEach((t) => {
+        const on = t === b;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+      });
+      $$("[data-tx-panel]", root).forEach((p) => (p.hidden = p.dataset.txPanel !== b.dataset.txTab));
+    };
+    tabs.forEach((t) => t.addEventListener("click", () => selectArea(t)));
+    roving(tabs, ["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight", "Home", "End"], selectArea);
+  });
+</script>
