@@ -1,0 +1,606 @@
+---
+// Prototipo aislado para probar los íconos 3D (pack "Dental Care" de IconScout).
+// No forma parte del sitio publicado: no está enlazado y lleva noindex.
+// Los PNG del pack van en public/icons3d/. La página los detecta sola por nombre.
+import { readdir } from "node:fs/promises";
+import { join } from "node:path";
+
+let files: string[] = [];
+try {
+  files = (await readdir(join(process.cwd(), "public", "icons3d")))
+    .filter((name) => /\.(png|webp|avif)$/i.test(name))
+    .sort()
+    .map((name) => `/icons3d/${encodeURIComponent(name)}`);
+} catch {
+  files = [];
+}
+
+// Cada hueco dice qué ícono espera y con qué palabras del nombre de archivo se reconoce.
+const SLOTS: Record<string, [string, string]> = {
+  general: ["Diente sano", "healthy,clean,shiny,shine,sparkl,white,tooth,teeth"],
+  brackets: ["Dientes con brackets metálicos", "brace,bracket,orthodon"],
+  esteticos: ["Brackets estéticos", "ceramic,clear-brace,brace,bracket"],
+  alineador: ["Alineador o placa", "aligner,invisalign,retainer,guard,tray"],
+  hibrido: ["Dientes y encía", "gum,gingiv,teeth,jaw"],
+  ortopedia: ["Diente de leche", "baby,milk,kid,child,primary"],
+  laser: ["Diente con encía", "gum,gingiv,root,tooth,teeth"],
+  protesis: ["Prótesis completa", "denture,prosthe,false,jaw,dental-model,teeth-model"],
+  quirurgica: ["Implante", "implant,screw,surgery"],
+  turno: ["Turno o calendario", "calendar,appointment,schedule,date,clipboard"],
+  evaluacion: ["Espejo o revisión", "mirror,check,exam,dentist,tool,instrument"],
+  estudios: ["Radiografía", "x-ray,xray,radiograph,scan"],
+  plan: ["Diente protegido", "shield,protect,care,implant,crown"],
+};
+
+const slot = (key: string, extra = "") => {
+  const [label, kw] = SLOTS[key];
+  return `<span class="slot ${extra}" data-slot="${key}" data-kw="${kw}">
+    <svg class="slot__ph" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#phFill)" stroke="var(--line-strong)" stroke-width=".5" d="M7 3C4.8 3 3 4.8 3 7.2c0 2.1.8 3.6 1.4 5.3.6 1.8.7 4 1.2 6.2.3 1.4 1 2.3 1.9 2.3 1.1 0 1.5-1.2 1.8-2.6.3-1.4.6-3 1.7-3s1.4 1.6 1.7 3c.3 1.4.7 2.6 1.8 2.6.9 0 1.6-.9 1.9-2.3.5-2.2.6-4.4 1.2-6.2.6-1.7 1.4-3.2 1.4-5.3C21 4.8 19.2 3 17 3c-1.9 0-3 1-5 1S8.9 3 7 3z"/></svg>
+    <img class="slot__img" alt="" hidden draggable="false">
+    <span class="slot__tag">${label}</span>
+    <button type="button" class="slot__swap" hidden aria-label="Probar otro ícono en este lugar">Cambiar</button>
+  </span>`;
+};
+
+const AREAS = [
+  { slot: "general", name: "Odontología general", line: "Evaluación, diagnóstico, prevención y seguimiento.", move: "bob" },
+  { slot: "brackets", name: "Ortodoncia", line: "Brackets, alineadores e híbridos, según la edad y el caso.", move: "press" },
+  { slot: "laser", name: "Láser odontológico", line: "Láser de diodo de 980 nm, con una indicación para cada uso.", move: "glow" },
+  { slot: "protesis", name: "Neuralgias y ATM", line: "Molestias mandibulares y dolor orofacial, con diagnóstico diferencial.", move: "nod" },
+  { slot: "quirurgica", name: "Ortodoncia quirúrgica", line: "Planificación junto a cirugía maxilofacial.", move: "spin" },
+];
+
+const OX = [
+  { id: "metal", slot: "brackets", name: "Brackets metálicos", text: "Piezas adheridas a cada diente y unidas por un arco. Permiten controlar el movimiento de cada pieza con precisión.", facts: ["Fijo", "Visibles", "No se retira para comer"] },
+  { id: "ceram", slot: "esteticos", name: "Brackets estéticos", text: "Funcionan como los metálicos, con piezas transparentes o del color del diente (ice, zafiro).", facts: ["Fijo", "Menos visibles", "No se retira para comer"] },
+  { id: "align", slot: "alineador", name: "Alineadores", text: "Placas removibles hechas a medida con diseño digital, que se cambian por etapas.", facts: ["Removible", "Placas transparentes", "Se retira para comer"] },
+  { id: "hibrido", slot: "hibrido", name: "Híbrido", text: "Combina alineadores en una arcada y brackets en la otra, según lo que necesite cada una.", facts: ["Combinado", "Arriba transparente, abajo visible", "Se retiran solo los alineadores"] },
+  { id: "orto", slot: "ortopedia", name: "Ortopedia infantil", text: "Aparatología para chicos con dentición temporaria o mixta, que ayuda a guiar el crecimiento de los maxilares.", facts: ["Según el aparato", "Según el aparato", "Dentición temporaria o mixta"] },
+];
+
+const STEPS = [
+  { slot: "turno", name: "Pedís el turno", text: "Por WhatsApp, eligiendo el consultorio de La Plata o el de Quilmes." },
+  { slot: "evaluacion", name: "Evaluación", text: "Conversación sobre el motivo de consulta y revisión clínica." },
+  { slot: "estudios", name: "Estudios, si hacen falta", text: "Según el caso, una radiografía panorámica o una cefalometría." },
+  { slot: "plan", name: "Plan y seguimiento", text: "Las alternativas, las etapas y los controles." },
+];
+
+// Zonas del láser: posición aproximada sobre el ícono (en %). Se ajustan con el ícono real.
+const LASER = [
+  { id: "tejidos", name: "Tejidos blandos", x: 28, y: 62, text: "Cirugías mínimamente invasivas en la encía y los frenillos: frenectomía, gingivoplastia y coagulación." },
+  { id: "mucosa", name: "Mucosa bucal", x: 14, y: 82, text: "Tratamiento de aftas y herpes." },
+  { id: "endo", name: "Endodoncia", x: 50, y: 52, text: "Descontaminación del conducto, como complemento del tratamiento de conducto." },
+  { id: "perio", name: "Periodoncia", x: 37, y: 66, text: "Descontaminación de la zona entre la encía y la raíz, como complemento del tratamiento." },
+  { id: "orto", name: "Apoyo en ortodoncia", x: 58, y: 86, text: "Fotobiomodulación durante algunos tratamientos de ortodoncia. Su indicación se evalúa caso por caso." },
+  { id: "blanq", name: "Blanqueamiento", x: 52, y: 22, text: "Blanqueamiento dental asistido con láser." },
+];
+
+const PARTS = [
+  { id: "condilo", name: "Cóndilo mandibular", text: "Es el extremo superior de la mandíbula. Encaja en la fosa del hueso temporal y, cuando abrís grande la boca, gira y se desliza hacia adelante." },
+  { id: "disco", name: "Disco articular", text: "Una lámina de tejido fibroso entre el cóndilo y el hueso temporal. Acompaña el movimiento." },
+  { id: "fosa", name: "Fosa y eminencia", text: "La superficie del hueso temporal donde se aloja el cóndilo. Al abrir grande, el cóndilo se traslada hacia la eminencia." },
+  { id: "masetero", name: "Músculo masetero", text: "Uno de los músculos que cierran la boca y permiten masticar." },
+  { id: "nervio", name: "Nervio trigémino", text: "Lleva la sensibilidad de la cara. La neuralgia del trigémino es un dolor relacionado con este nervio, distinto de un trastorno de la ATM." },
+];
+
+const teeth = (x0: number, y: number) =>
+  Array.from({ length: 10 }, (_, i) => `<rect class="atooth" x="${x0 + i * 21}" y="${y}" width="18" height="30" rx="7"/>`).join("");
+const nmX = (nm: number) => 16 + (nm - 300) * 0.41;
+const BIO = [450, 585, 660, 850];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Prototipo de íconos 3D · Dra. Edith Noriega</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" />
+    <style is:global>
+      :root {
+        color-scheme: light;
+        --paper: #f7f7f7; --surface: #fff; --surface-tint: #ecebff; --surface-aqua: #dcf8f6;
+        --ink: #0e0c24; --ink-muted: #5a5875; --line: #d9d8e8; --line-strong: #8b89a8;
+        --brand: #4f39fd; --brand-hover: #3a24e0; --aqua: #00cece; --aqua-soft: #57e0d6; --aqua-ink: #00706f;
+        --font-display: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+        --font-sans: "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
+        --shadow-soft: 0 12px 32px rgba(79, 57, 253, .12); --shadow-lift: 0 20px 48px rgba(79, 57, 253, .2);
+        --card-radius: 8px 8px 64px 8px;
+        --ease: cubic-bezier(.2, .8, .2, 1);
+      }
+      *, *::before, *::after { box-sizing: border-box; }
+      [hidden] { display: none !important; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/26px var(--font-sans); -webkit-font-smoothing: antialiased; }
+      h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+      ul, ol { padding: 0; list-style: none; }
+      button { font: inherit; color: inherit; }
+      a { color: var(--brand); }
+      :focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
+      .wrap { width: 100%; max-width: 1248px; margin: 0 auto; padding-inline: 24px; }
+      .section { padding-block: 72px; }
+      .section--tint { background: var(--surface-tint); }
+      .section--aqua { background: var(--surface-aqua); }
+      .section--surface { background: var(--surface); }
+      .eyebrow { font: 500 13px/16px var(--font-display); letter-spacing: .32em; text-transform: uppercase; color: var(--aqua-ink); }
+      .h1 { font: 700 clamp(30px, 4.4vw, 44px)/1.12 var(--font-display); text-wrap: balance; }
+      .h2 { font: 700 clamp(24px, 3vw, 30px)/1.25 var(--font-display); text-wrap: balance; }
+      .h3 { font: 600 20px/28px var(--font-display); }
+      .muted { color: var(--ink-muted); }
+      .small { font-size: 14px; line-height: 22px; color: var(--ink-muted); }
+      .head { display: grid; gap: 12px; max-width: 680px; margin-bottom: 40px; }
+      .head p:not(.eyebrow) { color: var(--ink-muted); }
+      .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 22px; border: 2px solid var(--brand); border-radius: 999px; background: var(--brand); color: #fff; font: 600 14px/20px var(--font-display); text-decoration: none; cursor: pointer; }
+      .seg { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 28px; background: var(--surface); }
+      .seg button { min-height: 44px; padding: 10px 20px; border: 0; border-radius: 999px; background: transparent; font: 600 14px/20px var(--font-display); cursor: pointer; transition: background .18s, color .18s; }
+      .seg button[aria-pressed="true"] { background: var(--brand); color: #fff; }
+      .card { display: flex; flex-direction: column; gap: 12px; padding: 32px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--shadow-soft); min-width: 0; }
+      .badge { align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: var(--surface-tint); color: var(--brand); font: 600 12px/16px var(--font-display); letter-spacing: .14em; text-transform: uppercase; }
+      .badge--aqua { background: var(--surface-aqua); color: var(--aqua-ink); }
+      .verdict { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; font-size: 15px; line-height: 23px; }
+      .verdict dt { font: 600 12px/23px var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: var(--aqua-ink); }
+
+      /* Barra del prototipo */
+      .proto { background: var(--ink); color: #fff; }
+      .proto .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-block: 10px; font: 500 13px/20px var(--font-display); }
+      .proto b { color: var(--aqua-soft); font-weight: 600; }
+      .drop { display: grid; gap: 8px; padding: 24px; border: 2px dashed var(--line-strong); border-radius: 16px; background: var(--surface); text-align: center; transition: border-color .18s, background .18s; }
+      .drop.over { border-color: var(--brand); background: var(--surface-tint); }
+      .drop label { color: var(--brand); font-weight: 700; text-decoration: underline; cursor: pointer; }
+
+      /* Hueco de ícono */
+      .slot { position: relative; display: grid; place-items: center; width: var(--size, 160px); aspect-ratio: 1; flex: none; }
+      .slot__ph, .slot__img { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 18px 18px rgba(79, 57, 253, .22)); user-select: none; }
+      .slot__ph { padding: 14%; }
+      .slot__tag { position: absolute; left: 50%; bottom: 0; transform: translate(-50%, 40%); max-width: 120%; padding: 2px 10px; border: 1.5px dashed var(--line-strong); border-radius: 999px; background: var(--surface); color: var(--ink-muted); font: 600 10px/16px var(--font-display); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; pointer-events: none; }
+      .slot.has-img .slot__tag { display: none; }
+      .slot__swap { position: absolute; right: 0; top: 0; z-index: 3; padding: 2px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink-muted); font: 600 11px/18px var(--font-display); cursor: pointer; opacity: 0; transition: opacity .18s; }
+      .slot:hover .slot__swap, .slot__swap:focus-visible { opacity: 1; }
+      body.clean .slot__swap, body.clean .slot__tag { display: none; }
+
+      /* 1. Tarjetas de especialidad */
+      .areas { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+      .area { position: relative; align-items: flex-start; padding-top: 24px; perspective: 700px; text-decoration: none; color: var(--ink); transition: box-shadow .25s, transform .25s var(--ease); }
+      .area:hover { box-shadow: var(--shadow-lift); transform: translateY(-4px); }
+      .area::before { content: ""; position: absolute; left: 24px; top: 24px; width: 120px; height: 120px; border-radius: 50%; background: var(--surface-aqua); transition: transform .4s var(--ease), background .25s; }
+      .area:hover::before { transform: scale(1.12); background: var(--aqua-soft); }
+      .area .tilt { --size: 136px; transform-style: preserve-3d; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .5s var(--ease); will-change: transform; }
+      .area.tracking .tilt { transition-duration: .08s; }
+      .area p { color: var(--ink-muted); }
+      .area .go { margin-top: auto; color: var(--brand); font: 600 15px/22px var(--font-display); box-shadow: inset 0 -3px 0 var(--aqua); }
+      @media (prefers-reduced-motion: no-preference) {
+        .area:hover [data-move] .slot__img, .area:hover [data-move] .slot__ph { animation: var(--anim) 1.1s var(--ease) both; }
+        [data-move="bob"] { --anim: m-bob; } [data-move="press"] { --anim: m-press; } [data-move="glow"] { --anim: m-glow; } [data-move="nod"] { --anim: m-nod; } [data-move="spin"] { --anim: m-spin; }
+      }
+      @keyframes m-bob { 40% { transform: translateY(-12px) scale(1.06); } 70% { transform: translateY(2px); } }
+      @keyframes m-press { 35% { transform: scale(.9); } 65% { transform: scale(1.1) rotate(-4deg); } }
+      @keyframes m-glow { 50% { transform: scale(1.08); filter: drop-shadow(0 0 22px var(--aqua)) drop-shadow(0 18px 18px rgba(79, 57, 253, .22)); } }
+      @keyframes m-nod { 30% { transform: rotate(-9deg); } 60% { transform: rotate(7deg); } 80% { transform: rotate(-3deg); } }
+      @keyframes m-spin { 60% { transform: rotate(18deg) translateY(-8px); } }
+
+      /* 2. Comparador */
+      .cmp { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; margin-top: 24px; }
+      .cmp__stage { position: relative; display: grid; place-items: center; min-height: 340px; border-radius: var(--card-radius); background: var(--surface); box-shadow: var(--shadow-soft); overflow: hidden; }
+      .cmp__stage::before { content: ""; position: absolute; width: 62%; aspect-ratio: 1; border-radius: 50%; background: var(--surface-tint); }
+      .cmp__stage .slot { --size: min(260px, 70%); grid-area: 1 / 1; opacity: 0; transform: translateY(24px) scale(.82) rotate(-10deg); transition: opacity .35s, transform .55s var(--ease); pointer-events: none; }
+      .cmp__stage .slot.on { opacity: 1; transform: none; pointer-events: auto; }
+      .facts { display: flex; flex-wrap: wrap; gap: 8px; }
+
+      /* 3. Recorrido */
+      .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 32px 24px; counter-reset: s; }
+      .step { position: relative; display: grid; gap: 10px; align-content: start; padding-top: 16px; border-top: 2px solid var(--line); counter-increment: s; }
+      .step::before { content: counter(s); position: absolute; top: -21px; left: 0; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--brand); color: #fff; font: 700 15px/1 var(--font-display); box-shadow: 0 0 0 6px var(--surface); }
+      .step .slot { --size: 132px; margin: 16px 0 8px; }
+      @media (prefers-reduced-motion: no-preference) {
+        .js .reveal { opacity: 0; transform: translateY(28px) scale(.86) rotate(-8deg); transition: opacity .5s, transform .7s var(--ease); transition-delay: calc(var(--i, 0) * 110ms); }
+        .js .reveal.in { opacity: 1; transform: none; }
+      }
+
+      /* Alternativas ATM y láser */
+      .alts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; align-items: start; }
+      .alt { padding: 24px; }
+      .alt__stage { position: relative; display: grid; place-items: center; min-height: 300px; border-radius: 16px; background: var(--paper); overflow: hidden; }
+      .range { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; align-items: center; font: 600 13px/20px var(--font-display); }
+      .range input { width: 100%; accent-color: var(--brand); }
+      .pick { display: flex; flex-wrap: wrap; gap: 6px; }
+      .pick button { min-height: 36px; padding: 6px 14px; border: 2px solid var(--line); border-radius: 999px; background: var(--surface); font: 600 13px/18px var(--font-display); cursor: pointer; }
+      .pick button[aria-pressed="true"] { border-color: var(--brand); background: var(--brand); color: #fff; }
+
+      /* ATM A: el ícono de prótesis partido en dos mitades; la de abajo gira */
+      .jaw { position: relative; width: min(240px, 72%); aspect-ratio: 1; --cut: 50%; --open: 0; }
+      .jaw .slot { position: absolute; inset: 0; --size: 100%; }
+      .jaw .slot--top { clip-path: inset(0 0 calc(100% - var(--cut)) 0); transform: rotate(calc(var(--open) * 3deg)); transform-origin: 88% var(--cut); }
+      .jaw .slot--bot { clip-path: inset(var(--cut) 0 0 0); transform: rotate(calc(var(--open) * -22deg)) translateY(calc(var(--open) * 4%)); transform-origin: 88% var(--cut); }
+      .jaw .slot--top, .jaw .slot--bot { transition: transform .12s linear; }
+      .jaw .slot--bot .slot__tag, .jaw .slot--bot .slot__swap { display: none; }
+      .jaw__hinge { position: absolute; right: 6%; top: var(--cut); width: 22px; height: 22px; margin: -11px 0 0; border-radius: 50%; background: var(--aqua); border: 3px solid var(--brand); box-shadow: 0 0 0 6px rgba(0, 206, 206, .25); z-index: 2; }
+
+      /* ATM B: esquema 2D con el acabado suave del resto */
+      .atm { width: 100%; height: auto; }
+      .atm text { font: 500 12px var(--font-display); fill: var(--ink-muted); }
+      .atm .bone { fill: url(#boneFill); stroke: #c9c6f2; stroke-width: 1.5; stroke-linejoin: round; }
+      .atm .atooth { fill: #fff; stroke: #c9c6f2; stroke-width: 1.2; }
+      .atm .mus { fill: rgba(87, 224, 214, .35); stroke: var(--aqua-ink); stroke-width: 1.5; stroke-dasharray: 5 4; }
+      .atm .disc { fill: var(--aqua); }
+      .atm .nerve { fill: none; stroke: var(--brand); stroke-width: 2.5; stroke-dasharray: 2 5; stroke-linecap: round; }
+      .atm .mand { transform-box: view-box; transform-origin: 370px 86px; transform: translate(calc(var(--open, 0) * -44px), calc(var(--open, 0) * 38px)) rotate(calc(var(--open, 0) * -16deg)); transition: transform .12s linear; }
+      .atm .hl { transition: opacity .2s, stroke .2s; }
+      .atm.sel .hl:not(.on) { opacity: .45; }
+      .atm .hl.on { stroke: var(--brand); stroke-width: 3.5; }
+      .atm .hit { cursor: pointer; }
+
+      /* Láser A: ícono del pack con pieza de mano y haz dibujados encima */
+      .beam { position: relative; width: min(250px, 74%); aspect-ratio: 1; --tx: 28%; --ty: 62%; }
+      .beam .slot { --size: 100%; }
+      .beam__dot { position: absolute; left: var(--tx); top: var(--ty); width: 18px; height: 18px; margin: -9px; border-radius: 50%; background: var(--aqua); box-shadow: 0 0 0 6px rgba(0, 206, 206, .3), 0 0 26px 10px rgba(0, 206, 206, .55); transition: left .45s var(--ease), top .45s var(--ease); z-index: 2; }
+      .beam__ray { position: absolute; left: 8%; top: 1.5%; height: 4px; width: var(--len, 40%); border-radius: 4px; background: linear-gradient(90deg, var(--brand), var(--aqua)); box-shadow: 0 0 14px 3px rgba(0, 206, 206, .5); transform-origin: 0 50%; transform: rotate(var(--ang, 45deg)); transition: transform .45s var(--ease), width .45s var(--ease); z-index: 2; }
+      .beam__tip { position: absolute; left: -16%; top: -9%; width: 26%; height: 9%; border-radius: 999px; background: linear-gradient(180deg, #fff, #cfcce8); box-shadow: 0 8px 14px rgba(79, 57, 253, .25); transform: rotate(28deg); z-index: 3; }
+      @media (prefers-reduced-motion: no-preference) { .beam__dot { animation: pulse 1.8s ease-in-out infinite; } }
+      @keyframes pulse { 50% { box-shadow: 0 0 0 10px rgba(0, 206, 206, .18), 0 0 34px 14px rgba(0, 206, 206, .5); } }
+      .scale { width: 100%; height: auto; }
+      .legend { display: grid; gap: 4px; font: 600 13px/20px var(--font-display); }
+      .legend li { display: flex; align-items: center; gap: 8px; }
+      .legend i { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+      .scale text { font: 600 12px var(--font-display); fill: var(--ink-muted); }
+      .photo-slot { display: grid; place-items: center; gap: 4px; width: 100%; min-height: 300px; padding: 24px; border: 2px dashed var(--line-strong); border-radius: 16px; background: var(--surface-tint); color: var(--ink-muted); text-align: center; }
+      .photo-slot b { color: var(--ink); font: 600 15px/22px var(--font-display); }
+
+      @media (max-width: 860px) { .cmp { grid-template-columns: minmax(0, 1fr); } .section { padding-block: 56px; } .wrap { padding-inline: 16px; } }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <linearGradient id="phFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" /><stop offset="1" stop-color="#d7d3ff" /></linearGradient>
+        <linearGradient id="boneFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" /><stop offset="1" stop-color="#e4e2ff" /></linearGradient>
+      </defs>
+    </svg>
+
+    <div class="proto">
+      <div class="wrap">
+        <span>Prototipo 2 · íconos 3D «Dental Care» · no publicado</span>
+        <span id="protoState">{files.length ? <><b>{files.length}</b> archivos en public/icons3d</> : <>Sin archivos del pack todavía</>}</span>
+        <label style="cursor:pointer"><input type="checkbox" id="cleanToggle" /> Ocultar etiquetas de prueba</label>
+      </div>
+    </div>
+
+    <main>
+      <section class="section section--surface">
+        <div class="wrap">
+          <div class="head">
+            <p class="eyebrow">Prototipo</p>
+            <h1 class="h1">Cómo se moverían los íconos 3D en el sitio</h1>
+            <p>Tres usos con el pack y dos temas que el pack no cubre (ATM y láser), cada uno con sus alternativas. Los textos son los de la maqueta actual.</p>
+          </div>
+          <div class="drop" id="drop">
+            <p><b>Para verlo con los íconos reales:</b> arrastrá acá los PNG del pack o <label for="filePick">elegilos desde tu equipo</label>.</p>
+            <p class="small">Se usan solo en este navegador, no se suben a ningún lado. Para dejarlos fijos, copialos a <code>public/icons3d/</code>. Cada lugar reconoce su ícono por el nombre del archivo y se puede cambiar con el botón «Cambiar».</p>
+            <input type="file" id="filePick" accept="image/*" multiple hidden />
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="head">
+            <p class="eyebrow">Uso 1</p>
+            <h2 class="h2">Tarjetas de especialidad</h2>
+            <p>El ícono sigue al cursor y hace un gesto al pasar por encima. En el celular queda quieto y hace el gesto al tocar.</p>
+          </div>
+          <div class="areas">
+            {AREAS.map((a) => (
+              <a class="card area" href="#" data-tilt>
+                <span class="tilt" data-move={a.move} set:html={slot(a.slot)} />
+                <h3 class="h3">{a.name}</h3>
+                <p>{a.line}</p>
+                <span class="go">Conocé esta área</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tint">
+        <div class="wrap">
+          <div class="head">
+            <p class="eyebrow">Uso 2</p>
+            <h2 class="h2">Comparador de aparatos</h2>
+            <p>Al elegir una alternativa cambia el ícono y la ficha. Reemplaza al dibujo de frente de la maqueta.</p>
+          </div>
+          <div class="seg" role="group" aria-label="Alternativas de ortodoncia" id="oxSeg">
+            {OX.map((o, i) => <button type="button" data-ox={o.id} aria-pressed={i === 0 ? "true" : "false"}>{o.name}</button>)}
+          </div>
+          <div class="cmp">
+            <div class="cmp__stage">
+              {OX.map((o, i) => <Fragment set:html={slot(o.slot, `ox-${o.id}${i === 0 ? " on" : ""}`)} />)}
+            </div>
+            <div aria-live="polite">
+              {OX.map((o, i) => (
+                <div class="card" data-ox-panel={o.id} hidden={i !== 0}>
+                  <p class="eyebrow">Alternativa</p>
+                  <h3 class="h3">{o.name}</h3>
+                  <p class="muted">{o.text}</p>
+                  <ul class="facts">{o.facts.map((f) => <li class="badge">{f}</li>)}</ul>
+                  <p class="small">La alternativa se elige después de la evaluación, según el caso, la edad y tus preferencias.</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--surface">
+        <div class="wrap">
+          <div class="head">
+            <p class="eyebrow">Uso 3</p>
+            <h2 class="h2">Recorrido «Tu primera consulta»</h2>
+            <p>Cada paso entra con su ícono a medida que bajás.</p>
+          </div>
+          <ol class="steps">
+            {STEPS.map((s, i) => (
+              <li class="step">
+                <span class="reveal" style={`--i:${i}`} set:html={slot(s.slot)} />
+                <h3 class="h3">{s.name}</h3>
+                <p class="muted">{s.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--tint" id="atm">
+        <div class="wrap">
+          <div class="head">
+            <p class="eyebrow">Lo que el pack no trae · ATM</p>
+            <h2 class="h2">Tres formas de mostrar la articulación</h2>
+            <p>El pack no tiene mandíbula ni articulación. Movés un solo control y las dos primeras responden a la vez, para compararlas.</p>
+          </div>
+          <div class="card" style="margin-bottom:24px">
+            <div class="range"><label for="openRange">Apertura de la boca</label><input type="range" id="openRange" min="0" max="100" value="0" /></div>
+            <p class="small" id="openText" aria-live="polite">Con la boca cerrada, el cóndilo descansa en la fosa del hueso temporal, con el disco por encima.</p>
+          </div>
+          <div class="alts">
+            <article class="card alt">
+              <span class="badge">A · Con el pack</span>
+              <h3 class="h3">La prótesis completa que abre y cierra</h3>
+              <div class="alt__stage">
+                <div class="jaw" id="jaw">
+                  <Fragment set:html={slot("protesis", "slot--top")} />
+                  <Fragment set:html={slot("protesis", "slot--bot")} />
+                  <i class="jaw__hinge" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="range"><label for="cutRange">Línea de corte</label><input type="range" id="cutRange" min="30" max="70" value="50" /></div>
+              <dl class="verdict"><dt>A favor</dt><dd>Mismo autor y mismo estilo que el resto. No hay que encargar nada.</dd><dt>Límite</dt><dd>Muestra el movimiento y dónde está la articulación, no su anatomía. El cóndilo y el disco se explican en texto.</dd></dl>
+            </article>
+
+            <article class="card alt">
+              <span class="badge badge--aqua">B · Esquema 2D</span>
+              <h3 class="h3">El dibujo de la maqueta, mejor terminado</h3>
+              <div class="alt__stage" style="background:var(--surface)">
+                <svg class="atm" id="atmSvg" viewBox="0 0 520 430" role="img" aria-label="Esquema lateral de la articulación temporomandibular y la mandíbula">
+                  <path class="bone" d="M40 40 H480 V104 C452 104 432 102 418 92 C410 86 404 74 394 70 C380 64 366 66 356 76 C346 86 338 104 326 110 C318 114 306 112 296 106 C270 96 200 96 150 100 L40 104 Z" />
+                  <path class="bone" d="M70 120 C66 160 70 196 84 214 L312 214 C306 180 296 150 290 130 L150 126 C120 122 92 118 70 120 Z" />
+                  <Fragment set:html={teeth(96, 214)} />
+                  <path class="mus hl hit" data-part="masetero" d="M168 124 C210 120 262 122 296 128 L368 300 C340 318 300 320 270 312 Z" />
+                  <path class="hl hit" data-part="fosa" fill="none" stroke="transparent" stroke-width="22" d="M310 106 C330 104 344 74 372 66 C392 64 404 80 414 94" />
+                  <path class="nerve hl" data-part="nervio" d="M300 60 C260 80 200 110 120 136" /><circle cx="300" cy="60" r="5" fill="var(--brand)" />
+                  <g class="mand">
+                    <path class="bone" d="M384 94 C396 160 404 230 400 292 C398 314 382 326 358 326 L160 326 C128 326 104 316 98 300 C94 290 94 282 100 272 L318 272 C318 230 312 170 306 132 C314 124 322 128 326 138 C334 154 344 152 352 132 C356 118 356 104 358 94 Z" />
+                    <Fragment set:html={teeth(100, 246)} />
+                    <ellipse class="bone hl hit" data-part="condilo" cx="370" cy="86" rx="17" ry="13" />
+                    <path class="disc hl hit" data-part="disco" d="M350 80 C356 60 386 58 392 76 L388 79 C382 70 362 68 354 83 Z" />
+                    <path class="nerve hl" data-part="nervio" d="M300 60 C318 90 344 112 372 112 C372 180 356 250 326 292 C290 306 220 304 140 298" />
+                  </g>
+                  <text x="40" y="30">Hueso temporal</text><text x="56" y="142">Maxilar</text><text x="410" y="140">Rama</text>
+                </svg>
+              </div>
+              <div class="pick" role="group" aria-label="Estructuras" id="partPick">
+                {PARTS.map((p) => <button type="button" data-part-btn={p.id} data-text={p.text} aria-pressed="false">{p.name}</button>)}
+              </div>
+              <p class="small" id="partText" aria-live="polite">Tocá una estructura para ver qué es.</p>
+              <dl class="verdict"><dt>A favor</dt><dd>Es la única que explica cóndilo, disco, fosa, masetero y trigémino. Pesa nada y ya está hecha.</dd><dt>Límite</dt><dd>Es plano: convive con los íconos 3D, no es uno de ellos.</dd></dl>
+            </article>
+
+            <article class="card alt">
+              <span class="badge">C · 3D real embebido</span>
+              <h3 class="h3">Un modelo anatómico de facultad</h3>
+              <div class="photo-slot"><b>Visor de Sketchfab</b><span>«Articular Disc (TMJ)», Facultad de Odontología de la Universidad de Dundee, licencia CC BY 4.0. Se gira, se acerca y trae una animación.</span></div>
+              <dl class="verdict"><dt>A favor</dt><dd>Anatomía hecha por una facultad de odontología. Gratis con atribución.</dd><dt>Límite</dt><dd>Es hueso real: se ve clínico al lado del clay, y trae el visor y el logo de Sketchfab. Solo en la página de ATM.</dd></dl>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--aqua" id="laser">
+        <div class="wrap">
+          <div class="head">
+            <p class="eyebrow">Lo que el pack no trae · Láser</p>
+            <h2 class="h2">Tres formas de mostrar el láser</h2>
+            <p>El pack no tiene pieza de mano ni equipo. El haz de 980 nm tampoco se ve a simple vista, así que cualquier luz dibujada es una ilustración.</p>
+          </div>
+          <div class="alts">
+            <article class="card alt">
+              <span class="badge">A · Con el pack</span>
+              <h3 class="h3">Un diente del pack con la luz encima</h3>
+              <div class="alt__stage">
+                <div class="beam" id="beam">
+                  <Fragment set:html={slot("laser")} />
+                  <i class="beam__tip" aria-hidden="true"></i><i class="beam__ray" aria-hidden="true"></i><i class="beam__dot" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="pick" role="group" aria-label="Aplicaciones del láser" id="laserPick">
+                {LASER.map((l, i) => <button type="button" data-x={l.x} data-y={l.y} data-text={l.text} aria-pressed={i === 0 ? "true" : "false"}>{l.name}</button>)}
+              </div>
+              <p class="small" id="laserText" aria-live="polite">{LASER[0].text}</p>
+              <dl class="verdict"><dt>A favor</dt><dd>Mismo estilo que el resto. La luz y la pieza de mano son código, en índigo y aqua.</dd><dt>Límite</dt><dd>Los puntos se ubican a mano sobre el ícono elegido, y solo sirve para lo que se ve por fuera (encía, esmalte). Conducto y hueso quedan aproximados.</dd></dl>
+            </article>
+
+            <article class="card alt">
+              <span class="badge badge--aqua">B · Dato en vez de dibujo</span>
+              <h3 class="h3">Dónde está el láser en el espectro</h3>
+              <div class="alt__stage" style="background:var(--surface);min-height:0;padding:16px">
+                <svg class="scale" viewBox="0 0 360 132" role="img" aria-label="Escala de 300 a 1100 nanómetros. La luz visible va de 380 a 750 nm. El láser trabaja en 980 nm, en el infrarrojo cercano. La camilla de Bio Vitality usa 450, 585, 660 y 850 nm.">
+                  <rect x={nmX(380)} y="48" width={nmX(750) - nmX(380)} height="28" rx="14" fill="var(--surface-tint)" />
+                  <text x={(nmX(380) + nmX(750)) / 2} y="40" text-anchor="middle" style="fill:var(--brand)">Luz visible</text>
+                  <rect x={nmX(750)} y="48" width={nmX(1100) - nmX(750)} height="28" rx="14" fill="var(--surface-aqua)" />
+                  <text x={nmX(1100)} y="40" text-anchor="end" style="fill:var(--aqua-ink)">Infrarrojo cercano</text>
+                  {BIO.map((nm) => <circle cx={nmX(nm)} cy="62" r="5" fill="var(--aqua-ink)" />)}
+                  <line x1={nmX(980)} y1="44" x2={nmX(980)} y2="80" stroke="var(--brand)" stroke-width="3" /><circle cx={nmX(980)} cy="62" r="8" fill="var(--brand)" />
+                  {[300, 500, 700, 900, 1100].map((nm) => (
+                    <><line x1={nmX(nm)} y1="84" x2={nmX(nm)} y2="90" stroke="var(--line-strong)" /><text x={nmX(nm)} y="106" text-anchor="middle">{nm}</text></>
+                  ))}
+                  <text x="16" y="126">Nanómetros (nm)</text>
+                </svg>
+              </div>
+              <ul class="legend"><li><i style="background:var(--brand)"></i>Láser de la Dra.: 980 nm</li><li><i style="background:var(--aqua-ink)"></i>Camilla Bio Vitality: 450, 585, 660 y 850 nm</li></ul>
+              <p class="small">980 nm queda fuera de la luz visible, en el infrarrojo cercano. Por eso el haz de trabajo no se ve a simple vista.</p>
+              <dl class="verdict"><dt>A favor</dt><dd>Es exacto, no depende de ningún ícono y sirve para separar el láser de la Dra. de la camilla de Bio Vitality (660, 850, 450 y 585 nm) en la misma escala.</dd><dt>Límite</dt><dd>Explica la tecnología, no qué se hace en la boca.</dd></dl>
+            </article>
+
+            <article class="card alt">
+              <span class="badge">C · Foto real</span>
+              <h3 class="h3">El equipo del consultorio</h3>
+              <div class="photo-slot"><b>Foto del láser de diodo</b><span>Recortada sobre fondo claro, con una forma de la marca detrás. Igual para la camilla de Bio Vitality.</span></div>
+              <dl class="verdict"><dt>A favor</dt><dd>Es lo que usan las clínicas de referencia en su sección Tecnología: el equipo real da más confianza que un dibujo.</dd><dt>Límite</dt><dd>Depende de la sesión de fotos (decisión 5 del plan).</dd></dl>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script is:inline define:vars={{ files }}>
+      document.documentElement.classList.add("js");
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const KEY = "proto3d.slots";
+      let pool = files.map((url) => ({ url, name: decodeURIComponent(url.split("/").pop()) }));
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch {}
+      const norm = (text) => text.toLowerCase().replace(/[\s_]+/g, "-");
+
+      function pickFor(slot) {
+        const key = slot.dataset.slot;
+        const chosen = pool.find((file) => file.name === saved[key]);
+        if (chosen) return chosen;
+        for (const word of slot.dataset.kw.split(",")) {
+          const hit = pool.find((file) => norm(file.name).includes(word));
+          if (hit) return hit;
+        }
+        return null;
+      }
+      function paint() {
+        document.querySelectorAll(".slot").forEach((slot) => {
+          const file = pickFor(slot);
+          const img = slot.querySelector(".slot__img");
+          slot.classList.toggle("has-img", !!file);
+          slot.querySelector(".slot__ph").toggleAttribute("hidden", !!file);
+          img.toggleAttribute("hidden", !file);
+          if (file && img.getAttribute("src") !== file.url) img.src = file.url;
+          slot.querySelector(".slot__swap").toggleAttribute("hidden", pool.length < 2);
+          slot.title = file ? file.name : "";
+        });
+        if (pool.length) document.querySelector("#protoState").innerHTML = `<b>${pool.length}</b> íconos cargados`;
+      }
+      document.addEventListener("click", (event) => {
+        const swap = event.target.closest(".slot__swap");
+        if (!swap) return;
+        event.preventDefault();
+        const slot = swap.closest(".slot");
+        const now = pickFor(slot);
+        const next = pool[(pool.indexOf(now) + 1) % pool.length];
+        saved[slot.dataset.slot] = next.name;
+        try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch {}
+        paint();
+      });
+
+      // Archivos arrastrados: quedan solo en esta pestaña.
+      const drop = document.querySelector("#drop");
+      function addFiles(list) {
+        Array.from(list).filter((file) => file.type.startsWith("image/")).forEach((file) => {
+          if (!pool.some((item) => item.name === file.name)) pool.push({ url: URL.createObjectURL(file), name: file.name });
+        });
+        paint();
+      }
+      ["dragenter", "dragover"].forEach((type) => addEventListener(type, (event) => { event.preventDefault(); drop.classList.add("over"); }));
+      ["dragleave", "drop"].forEach((type) => addEventListener(type, (event) => { event.preventDefault(); drop.classList.remove("over"); }));
+      addEventListener("drop", (event) => addFiles(event.dataTransfer.files));
+      document.querySelector("#filePick").addEventListener("change", (event) => addFiles(event.target.files));
+      document.querySelector("#cleanToggle").addEventListener("change", (event) => document.body.classList.toggle("clean", event.target.checked));
+      document.querySelectorAll('a[href="#"]').forEach((link) => link.addEventListener("click", (event) => event.preventDefault()));
+      paint();
+
+      // Uso 1: el ícono sigue al cursor.
+      if (!reduce && matchMedia("(hover: hover)").matches) {
+        document.querySelectorAll("[data-tilt]").forEach((card) => {
+          const tilt = card.querySelector(".tilt");
+          card.addEventListener("pointermove", (event) => {
+            const box = card.getBoundingClientRect();
+            const x = (event.clientX - box.left) / box.width - 0.5;
+            const y = (event.clientY - box.top) / box.height - 0.5;
+            card.classList.add("tracking");
+            tilt.style.setProperty("--ry", `${x * 36}deg`);
+            tilt.style.setProperty("--rx", `${-y * 28}deg`);
+          });
+          card.addEventListener("pointerleave", () => {
+            card.classList.remove("tracking");
+            tilt.style.setProperty("--ry", "0deg");
+            tilt.style.setProperty("--rx", "0deg");
+          });
+        });
+      }
+
+      // Uso 2: comparador.
+      document.querySelector("#oxSeg").addEventListener("click", (event) => {
+        const button = event.target.closest("[data-ox]");
+        if (!button) return;
+        const id = button.dataset.ox;
+        document.querySelectorAll("[data-ox]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        document.querySelectorAll(".cmp__stage .slot").forEach((slot) => slot.classList.toggle("on", slot.classList.contains(`ox-${id}`)));
+        document.querySelectorAll("[data-ox-panel]").forEach((panel) => { panel.hidden = panel.dataset.oxPanel !== id; });
+      });
+
+      // Uso 3: entrada al bajar.
+      const seen = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("in"); seen.unobserve(entry.target); } }), { threshold: 0.4 });
+      document.querySelectorAll(".reveal").forEach((item) => seen.observe(item));
+
+      // ATM: un control mueve las alternativas A y B.
+      const jaw = document.querySelector("#jaw");
+      const atm = document.querySelector("#atmSvg");
+      document.querySelector("#openRange").addEventListener("input", (event) => {
+        const open = event.target.value / 100;
+        jaw.style.setProperty("--open", open);
+        atm.style.setProperty("--open", open);
+        document.querySelector("#openText").textContent = open > 0.5
+          ? "Al abrir grande, el cóndilo gira y se desliza hacia adelante, hasta la eminencia articular. El disco lo acompaña."
+          : "Con la boca cerrada, el cóndilo descansa en la fosa del hueso temporal, con el disco por encima.";
+      });
+      document.querySelector("#cutRange").addEventListener("input", (event) => jaw.style.setProperty("--cut", `${event.target.value}%`));
+      function selectPart(id) {
+        const button = document.querySelector(`[data-part-btn="${id}"]`);
+        if (!button) return;
+        document.querySelectorAll("[data-part-btn]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        atm.classList.add("sel");
+        atm.querySelectorAll(".hl").forEach((shape) => shape.classList.toggle("on", shape.dataset.part === id));
+        document.querySelector("#partText").textContent = button.dataset.text;
+      }
+      document.querySelector("#partPick").addEventListener("click", (event) => { const button = event.target.closest("[data-part-btn]"); if (button) selectPart(button.dataset.partBtn); });
+      atm.addEventListener("click", (event) => { const hit = event.target.closest("[data-part]"); if (hit) selectPart(hit.dataset.part); });
+
+      // Láser: el haz va de la pieza de mano al punto elegido.
+      const beam = document.querySelector("#beam");
+      function aim(button) {
+        const x = Number(button.dataset.x), y = Number(button.dataset.y);
+        const dx = x - 8, dy = y - 1.5;
+        beam.style.setProperty("--tx", `${x}%`);
+        beam.style.setProperty("--ty", `${y}%`);
+        beam.style.setProperty("--len", `${Math.hypot(dx, dy)}%`);
+        beam.style.setProperty("--ang", `${Math.atan2(dy, dx) * 180 / Math.PI}deg`);
+        document.querySelectorAll("#laserPick button").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        document.querySelector("#laserText").textContent = button.dataset.text;
+      }
+      document.querySelector("#laserPick").addEventListener("click", (event) => { const button = event.target.closest("button"); if (button) aim(button); });
+      aim(document.querySelector("#laserPick button"));
+    </script>
+  </body>
+</html>
