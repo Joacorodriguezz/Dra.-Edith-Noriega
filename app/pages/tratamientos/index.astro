@@ -22,6 +22,8 @@ import blanqueamiento from "../../assets/tratamientos/blanqueamiento.webp";
 import atm from "../../assets/tratamientos/atm.webp";
 import quirurgica from "../../assets/tratamientos/quirurgica.webp";
 
+import bioLogo from "../../assets/biovitality/isotipo.png";
+
 const crumbs = [{ label: "Inicio", href: "/" }, { label: "Tratamientos" }];
 const url = `${SITE_URL}/tratamientos/`;
 
@@ -148,7 +150,7 @@ const faq = [
     <section id={b.id} class:list={["tx-band", `tx-band--${b.tone}`, k % 2 === 1 && "tx-band--rev"]} data-band>
       <div class="wrap tx-band__in">
         <div class="tx-band__art">
-          <div class="tx-band__stage">
+          <div class:list={["tx-band__stage", b.variants.length > 1 && "tx-band__stage--multi"]}>
             <div class="tx-disc" aria-hidden="true" style={`left:12%;top:0;width:74%;background:${b.disc}`}></div>
             <div class="tx-ring" aria-hidden="true" style={`left:15%;top:-3%;width:74%;border-color:${b.ring}`}></div>
             {b.variants.map((v, j) => (
@@ -175,7 +177,10 @@ const faq = [
           </ul>
           {b.place && (
             <div class="tx-place">
-              <p class="tx-place__title">Centro Bio Vitality · consultorio La Plata</p>
+              <p class="tx-place__title">
+                <Image class="tx-place__logo" src={bioLogo} alt="" height={96} />
+                <span><span class="tx-place__brand">Centro Bio Vitality</span> · consultorio La Plata</span>
+              </p>
               <p>Las sesiones con láser se hacen en el centro Bio Vitality del consultorio de La Plata. El turno se pide por el mismo WhatsApp.</p>
             </div>
           )}
@@ -290,6 +295,8 @@ const faq = [
   .tx-band__stage { position: relative; width: 100%; max-width: 560px; }
   .tx-band__stage :global(.tx-band__img) { position: relative; display: block; width: 100%; height: auto; margin-top: 14%; }
   .tx-band__stage :global(.tx-band__img[hidden]) { display: none; }
+  /* Áreas con varias ilustraciones: caja fija para que una imagen vertical (p. ej. implante) no crezca de más ni haga saltar el diseño */
+  .tx-band__stage--multi :global(.tx-band__img) { aspect-ratio: 4 / 3; object-fit: contain; }
   .tx-variants { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
   .tx-variants button {
     display: flex; flex-direction: column; align-items: center; gap: 4px; width: 132px; padding: 8px 8px 10px;
@@ -312,12 +319,22 @@ const faq = [
   .tx-band__list li::before {
     content: ""; flex: none; width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background: var(--aqua);
   }
+  /* Bio Vitality: usa el naranja de su marca aunque se salga de la paleta del sitio */
   .tx-place {
-    display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border-radius: 8px 8px 32px 8px;
-    background: rgba(87, 224, 214, .14); border: 1px solid rgba(87, 224, 214, .4);
+    --bio: #f37820;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; gap: 6px; padding: 18px 20px 18px 24px; border-radius: 8px 8px 32px 8px;
+    background: rgba(243, 120, 32, .1); border: 1px solid rgba(243, 120, 32, .5);
     font-size: 15px; line-height: 23px; color: var(--muted);
   }
-  .tx-place__title { font: 600 15px/22px var(--font-display); color: var(--fg); }
+  /* franja con el degradado de la marca (amarillo → naranja → rojo) */
+  .tx-place::before {
+    content: ""; position: absolute; inset: 0 auto 0 0; width: 5px;
+    background: linear-gradient(180deg, #ffb115, #f37820 55%, #e54139);
+  }
+  .tx-place__title { display: flex; align-items: center; gap: 12px; font: 600 15px/22px var(--font-display); color: var(--fg); }
+  .tx-place :global(.tx-place__logo) { flex: none; width: 44px; height: 44px; }
+  .tx-place__brand { color: var(--bio); }
   .tx-band__links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 4px; }
   .tx-link {
     color: var(--link); font: 600 15px/22px var(--font-display); text-decoration: none;
