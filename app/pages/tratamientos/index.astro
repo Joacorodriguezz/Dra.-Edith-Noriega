@@ -1,25 +1,383 @@
 ---
+// Página "Tratamientos": diseño "Luminosa editorial" (una banda ilustrada por área).
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 import Base from "../../layouts/Base.astro";
-import PageHead from "../../components/ui/PageHead.astro";
+import Breadcrumbs from "../../components/nav/Breadcrumbs.astro";
+import Button from "../../components/ui/Button.astro";
 import Cta from "../../components/ui/Cta.astro";
-import AreaExplorer from "../../components/tratamientos/AreaExplorer.astro";
+import Faq from "../../components/ui/Faq.astro";
+import { AREAS, areaHref, consultaHref } from "../../data/areas";
+import { FAQ_HOME } from "../../data/faqs";
 import { SITE_URL, pageTitle } from "../../data/site";
 import { breadcrumbList } from "../../lib/schema";
 
+import general from "../../assets/tratamientos/general.webp";
+import implante from "../../assets/tratamientos/implante.webp";
+import brackets from "../../assets/tratamientos/brackets.webp";
+import alineador from "../../assets/tratamientos/alineador.webp";
+import ortopedia from "../../assets/tratamientos/ortopedia.webp";
+import laser from "../../assets/tratamientos/laser.webp";
+import blanqueamiento from "../../assets/tratamientos/blanqueamiento.webp";
+import atm from "../../assets/tratamientos/atm.webp";
+import quirurgica from "../../assets/tratamientos/quirurgica.webp";
+
+import bioLogo from "../../assets/biovitality/isotipo.png";
+
 const crumbs = [{ label: "Inicio", href: "/" }, { label: "Tratamientos" }];
 const url = `${SITE_URL}/tratamientos/`;
+
+type Variant = { label: string; img: ImageMetadata; alt: string };
+type Look = {
+  short: string;
+  tone: "white" | "tint" | "dark";
+  disc: string;
+  ring: string;
+  variants: Variant[];
+  place?: boolean;
+  note?: string;
+};
+
+// Presentación de cada área. Los textos (nombre, línea, lista) salen de data/areas.ts.
+const LOOK: Record<string, Look> = {
+  "odontologia-general": {
+    short: "Odontología general",
+    tone: "white",
+    disc: "var(--surface-tint)",
+    ring: "var(--brand)",
+    variants: [
+      { label: "Controles", img: general, alt: "Controles, prevención y diagnóstico integral" },
+      { label: "Implantes", img: implante, alt: "Implantes, pernos y coronas" }
+    ]
+  },
+  ortodoncia: {
+    short: "Ortodoncia",
+    tone: "tint",
+    disc: "var(--aqua-soft)",
+    ring: "var(--brand)",
+    variants: [
+      { label: "Brackets", img: brackets, alt: "Brackets metálicos o estéticos" },
+      { label: "Alineadores", img: alineador, alt: "Alineadores transparentes" },
+      { label: "Para chicos", img: ortopedia, alt: "Ortopedia dentomaxilar para chicos" }
+    ]
+  },
+  laser: {
+    short: "Láser",
+    tone: "dark",
+    disc: "rgba(87,224,214,.22)",
+    ring: "var(--aqua-soft)",
+    place: true,
+    note: " Representación ilustrativa: la luz del láser de 980 nm no es visible.",
+    variants: [
+      { label: "Tejidos blandos", img: laser, alt: "Láser sobre tejidos blandos" },
+      { label: "Blanqueamiento", img: blanqueamiento, alt: "Blanqueamiento asistido con láser" }
+    ]
+  },
+  atm: {
+    short: "Neuralgias y ATM",
+    tone: "white",
+    disc: "var(--surface-tint)",
+    ring: "var(--aqua)",
+    variants: [{ label: "Articulación", img: atm, alt: "La ATM une la mandíbula con el cráneo, delante del oído" }]
+  },
+  "ortodoncia-quirurgica": {
+    short: "Ortodoncia quirúrgica",
+    tone: "tint",
+    disc: "var(--surface)",
+    ring: "var(--brand)",
+    variants: [{ label: "Cirugía y ortodoncia", img: quirurgica, alt: "Ortodoncia pre y posquirúrgica" }]
+  }
+};
+
+const bands = AREAS.filter((a) => LOOK[a.id]).map((a) => ({ ...a, ...LOOK[a.id] }));
+
+const steps = [
+  { t: "Pedís el turno", d: "Por WhatsApp, eligiendo el consultorio de La Plata o el de Quilmes." },
+  { t: "Evaluación", d: "Conversación sobre el motivo de consulta y revisión clínica." },
+  { t: "Estudios, si hacen falta", d: "Según el caso, una radiografía panorámica o una cefalometría." },
+  { t: "Plan y seguimiento", d: "Las alternativas, las etapas y los controles." }
+];
+
+const faq = [
+  ...FAQ_HOME,
+  {
+    q: "¿Dónde se hacen las sesiones con láser?",
+    a: "En el centro Bio Vitality del consultorio de La Plata. En Quilmes la atención es solo odontológica."
+  }
+];
 ---
 
 <Base
   title={pageTitle("Tratamientos")}
-  description="Odontología general, ortodoncia, láser, ATM y ortodoncia quirúrgica en La Plata y Quilmes. Explorá por área o por lo que te pasa y pedí tu turno."
+  description="Odontología general, ortodoncia, láser, ATM y ortodoncia quirúrgica en La Plata y Quilmes. Conocé cada área, qué incluye y cómo pedir tu turno."
   schema={[breadcrumbList(SITE_URL, crumbs, url)]}
 >
-  <PageHead crumbs={crumbs} eyebrow="Tratamientos" title="El tratamiento que necesitás para cada etapa de tu vida" lead="Explorá por área si ya sabés qué buscás, o empezá por lo que te pasa. Los dos caminos llevan a las mismas páginas." />
-  <section class="section" style="padding-top:var(--space-7)">
-    <div class="wrap">
-      <AreaExplorer />
+  <header class="tx-hero">
+    <div class="wrap tx-hero__in">
+      <div class="tx-hero__copy">
+        <Breadcrumbs items={crumbs} />
+        <p class="eyebrow">Tratamientos</p>
+        <h1>El tratamiento que necesitás para cada etapa de tu vida</h1>
+        <p class="tx-hero__lead">Odontología, ortodoncia y tecnología láser, con una evaluación integral en La Plata y Quilmes.</p>
+        <div class="tx-actions">
+          <Button variant="aqua" wa={{ origen: "hero" }}>Pedí tu turno por WhatsApp</Button>
+          <Button variant="outline" href="#consulta">Cómo es la primera consulta</Button>
+        </div>
+      </div>
+      <div class="tx-hero__art">
+        <div class="tx-disc" aria-hidden="true" style="left:9%;top:2%;width:80%;background:var(--surface-aqua)"></div>
+        <div class="tx-ring" aria-hidden="true" style="left:13%;top:-2%;width:80%;border-color:var(--aqua)"></div>
+        <span class="en-star" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <Image class="tx-hero__main" src={brackets} alt="Arcadas con brackets metálicos" widths={[480, 760, 1023]} sizes="(max-width: 860px) 92vw, 560px" loading="eager" fetchpriority="high" />
+        <Image class="tx-hero__implant" src={implante} alt="Implante con pilar y corona" width={260} loading="eager" />
+      </div>
+    </div>
+  </header>
+
+  <div class="tx-jump">
+    <nav class="wrap tx-jump__in" aria-label="Áreas de esta página">
+      <span class="tx-jump__label">Ir a</span>
+      {bands.map((b) => (
+        <a href={`#${b.id}`}>
+          <Image src={b.variants[0].img} alt="" width={68} loading="eager" />
+          {b.short}
+        </a>
+      ))}
+    </nav>
+  </div>
+
+  {bands.map((b, k) => (
+    <section id={b.id} class:list={["tx-band", `tx-band--${b.tone}`, k % 2 === 1 && "tx-band--rev"]} data-band>
+      <div class="wrap tx-band__in">
+        <div class="tx-band__art">
+          <div class:list={["tx-band__stage", b.variants.length > 1 && "tx-band__stage--multi"]}>
+            <div class="tx-disc" aria-hidden="true" style={`left:12%;top:0;width:74%;background:${b.disc}`}></div>
+            <div class="tx-ring" aria-hidden="true" style={`left:15%;top:-3%;width:74%;border-color:${b.ring}`}></div>
+            {b.variants.map((v, j) => (
+              <Image class="tx-band__img" src={v.img} alt={v.alt} widths={[480, 760, v.img.width]} sizes="(max-width: 860px) 92vw, 560px" loading="lazy" hidden={j !== 0} data-variant={j} />
+            ))}
+          </div>
+          {b.variants.length > 1 && (
+            <div class="tx-variants" role="group" aria-label={`Ilustraciones de ${b.short}`}>
+              {b.variants.map((v, j) => (
+                <button type="button" aria-pressed={j === 0 ? "true" : "false"} data-pick={j}>
+                  <Image src={v.img} alt="" height={144} loading="lazy" />
+                  {v.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <div class="tx-band__copy">
+          <p class="tx-band__num" aria-hidden="true">{`0${k + 1}`}</p>
+          <h2>{b.name}</h2>
+          <p class="tx-band__line">{b.line}</p>
+          <ul class="tx-band__list">
+            {b.inc.map((it) => <li>{it}</li>)}
+          </ul>
+          {b.place && (
+            <div class="tx-place">
+              <p class="tx-place__title">
+                <Image class="tx-place__logo" src={bioLogo} alt="" height={96} />
+                <span><span class="tx-place__brand">Centro Bio Vitality</span> · consultorio La Plata</span>
+              </p>
+              <p>Las sesiones con láser se hacen en el centro Bio Vitality del consultorio de La Plata. El turno se pide por el mismo WhatsApp.</p>
+            </div>
+          )}
+          <div class="tx-band__links">
+            <a class="tx-link" href={areaHref(b.id)}>Conocé el área<span class="sr-only">: {b.name}</span></a>
+            <a class="tx-link" href={consultaHref(b.id)}>Consultar por esta área<span class="sr-only">: {b.name}</span></a>
+          </div>
+          <p class="tx-band__foot">Ilustración de referencia.{b.note}</p>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section id="consulta" class="tx-steps">
+    <div class="wrap tx-steps__in">
+      <div class="tx-head">
+        <p class="eyebrow">Tu primera consulta</p>
+        <h2>Qué pasa cuando pedís un turno</h2>
+        <p>No hace falta saber de antemano qué tratamiento necesitás. <a href="/primera-consulta/">Ver cómo es una primera consulta</a>.</p>
+      </div>
+      <ol class="tx-steps__list">
+        {steps.map((s, i) => (
+          <li>
+            <span class="tx-steps__n" aria-hidden="true">{i + 1}</span>
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
+
+  <section class="tx-faq">
+    <div class="wrap tx-faq__in">
+      <div class="tx-head tx-faq__head">
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2>Dudas antes de consultar</h2>
+        <p>Si tu pregunta no está acá, escribinos por WhatsApp.</p>
+      </div>
+      <div class="tx-faq__list">
+        <Faq items={faq} schema={false} />
+      </div>
+    </div>
+  </section>
+
   <Cta title="¿No sabés por dónde empezar?" text="Una primera consulta sirve para evaluar tu situación y explicarte las alternativas." />
+
+  <script>
+    import { $$ } from "../../lib/dom";
+
+    // Selector de ilustración de cada área
+    for (const band of $$("[data-band]")) {
+      const imgs = $$<HTMLImageElement>("[data-variant]", band);
+      const buttons = $$<HTMLButtonElement>("[data-pick]", band);
+      for (const btn of buttons) {
+        btn.addEventListener("click", () => {
+          const pick = btn.dataset.pick;
+          for (const img of imgs) img.hidden = img.dataset.variant !== pick;
+          for (const b of buttons) b.setAttribute("aria-pressed", String(b === btn));
+        });
+      }
+    }
+  </script>
 </Base>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  h1, h2, h3, p { margin: 0; }
+  h1, h2, h3 { text-wrap: balance; }
+  .tx-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+  .tx-disc, .tx-ring { position: absolute; aspect-ratio: 1; border-radius: 50%; box-sizing: border-box; }
+  .tx-ring { border: 3px solid; }
+
+  /* Portada */
+  .tx-hero { position: relative; overflow: hidden; background: var(--paper); padding-block: 56px 72px; }
+  .tx-hero__in { display: flex; flex-wrap: wrap; align-items: center; gap: 40px 56px; }
+  .tx-hero__copy { flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+  .tx-hero h1 { font: 700 56px/62px var(--font-display); letter-spacing: -.01em; }
+  .tx-hero__lead { max-width: 52ch; font-size: 20px; line-height: 31px; color: var(--ink-muted); }
+  .tx-hero__art { flex: 1 1 460px; min-width: 0; position: relative; }
+  .tx-hero__art .en-star { position: absolute; left: 0; top: 4%; --size: 56px; --shape: var(--brand); }
+  .tx-hero__art :global(.tx-hero__main) { position: relative; display: block; width: 100%; height: auto; margin-top: 20%; }
+  .tx-hero__art :global(.tx-hero__implant) { position: absolute; right: -2%; top: -4%; width: 22%; height: auto; }
+
+  /* Accesos por área */
+  .tx-jump { background: var(--surface); border-block: 1px solid var(--line); padding-block: 14px; }
+  .tx-jump__in { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+  .tx-jump__label { font: 600 13px/18px var(--font-display); color: var(--ink-muted); margin-right: 6px; }
+  .tx-jump a {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px 0 6px;
+    border-radius: var(--radius-pill); background: var(--surface-tint); color: var(--ink);
+    font: 600 14px/20px var(--font-display); text-decoration: none; transition: background .18s;
+  }
+  .tx-jump a:hover { background: var(--surface-aqua); }
+  .tx-jump a :global(img) { width: 34px; height: 34px; object-fit: contain; }
+
+  /* Bandas por área */
+  .tx-band {
+    --fg: var(--ink); --muted: var(--ink-muted); --num: var(--brand); --rule: var(--line);
+    --link: var(--brand); --thumb-on: var(--brand); --thumb-bg: var(--surface);
+    background: var(--paper); color: var(--fg); padding-block: 88px; scroll-margin-top: 88px;
+  }
+  .tx-band--white { background: var(--surface); --thumb-bg: var(--surface-tint); }
+  .tx-band--tint { background: var(--surface-aqua); }
+  .tx-band--dark {
+    background: #15113d; --fg: #fff; --muted: #c9c6f2; --num: var(--aqua-soft);
+    --rule: rgba(255, 255, 255, .14); --link: #fff; --thumb-on: var(--aqua-soft); --thumb-bg: rgba(255, 255, 255, .06);
+  }
+  .tx-band__in { display: flex; flex-wrap: wrap; align-items: center; gap: 40px 72px; }
+  .tx-band--rev .tx-band__in { flex-direction: row-reverse; }
+  .tx-band__art { flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .tx-band__stage { position: relative; width: 100%; max-width: 560px; }
+  .tx-band__stage :global(.tx-band__img) { position: relative; display: block; width: 100%; height: auto; margin-top: 14%; }
+  .tx-band__stage :global(.tx-band__img[hidden]) { display: none; }
+  /* Áreas con varias ilustraciones: caja fija para que una imagen vertical (p. ej. implante) no crezca de más ni haga saltar el diseño */
+  .tx-band__stage--multi :global(.tx-band__img) { aspect-ratio: 4 / 3; object-fit: contain; }
+  .tx-variants { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .tx-variants button {
+    display: flex; flex-direction: column; align-items: center; gap: 4px; width: 132px; padding: 8px 8px 10px;
+    border-radius: 16px; border: 2px solid transparent; background: var(--thumb-bg); color: var(--fg);
+    font: 600 13px/18px var(--font-display); cursor: pointer; transition: border-color .18s;
+  }
+  .tx-variants button:hover { border-color: var(--rule); }
+  .tx-variants button[aria-pressed="true"] { border-color: var(--thumb-on); }
+  .tx-variants button :global(img) { width: 100%; height: 72px; object-fit: contain; }
+  .tx-band--dark :focus-visible { outline-color: var(--aqua-soft); }
+  .tx-band__copy { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+  .tx-band__num { font: 800 60px/1 var(--font-display); color: var(--num); }
+  .tx-band h2 { font: 700 40px/48px var(--font-display); color: var(--fg); }
+  .tx-band__line { font-size: 18px; line-height: 28px; color: var(--muted); }
+  .tx-band__list { list-style: none; margin: 0; padding: 0; }
+  .tx-band__list li {
+    display: flex; gap: 12px; align-items: flex-start; padding: 9px 0;
+    border-bottom: 1px solid var(--rule); font-size: 16px; line-height: 24px;
+  }
+  .tx-band__list li::before {
+    content: ""; flex: none; width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background: var(--aqua);
+  }
+  /* Bio Vitality: usa el naranja de su marca aunque se salga de la paleta del sitio */
+  .tx-place {
+    --bio: #f37820;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; gap: 6px; padding: 18px 20px 18px 24px; border-radius: 8px 8px 32px 8px;
+    background: rgba(243, 120, 32, .1); border: 1px solid rgba(243, 120, 32, .5);
+    font-size: 15px; line-height: 23px; color: var(--muted);
+  }
+  /* franja con el degradado de la marca (amarillo → naranja → rojo) */
+  .tx-place::before {
+    content: ""; position: absolute; inset: 0 auto 0 0; width: 5px;
+    background: linear-gradient(180deg, #ffb115, #f37820 55%, #e54139);
+  }
+  .tx-place__title { display: flex; align-items: center; gap: 12px; font: 600 15px/22px var(--font-display); color: var(--fg); }
+  .tx-place :global(.tx-place__logo) { flex: none; width: 44px; height: 44px; }
+  .tx-place__brand { color: var(--bio); }
+  .tx-band__links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 4px; }
+  .tx-link {
+    color: var(--link); font: 600 15px/22px var(--font-display); text-decoration: none;
+    box-shadow: inset 0 -3px 0 var(--aqua); transition: box-shadow .18s, color .18s;
+  }
+  .tx-link:hover { color: var(--on-aqua); box-shadow: inset 0 -22px 0 var(--aqua); }
+  .tx-band__foot { font-size: 13px; line-height: 20px; color: var(--muted); }
+
+  /* Primera consulta y preguntas */
+  .tx-head { display: flex; flex-direction: column; gap: 14px; max-width: 640px; }
+  .tx-head h2 { font: 700 40px/48px var(--font-display); }
+  .tx-head > p:not(.eyebrow) { font-size: 18px; line-height: 28px; color: var(--ink-muted); }
+  .tx-steps { background: var(--surface-tint); padding-block: 96px; scroll-margin-top: 88px; }
+  .tx-steps__in { display: flex; flex-direction: column; gap: 40px; }
+  .tx-steps__list {
+    list-style: none; margin: 0; padding: 0; display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 20px;
+  }
+  .tx-steps__list li {
+    display: flex; flex-direction: column; gap: 12px; padding: 28px; background: var(--surface);
+    border-radius: 8px 8px 48px 8px; box-shadow: var(--shadow-soft);
+  }
+  .tx-steps__n {
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--brand); color: var(--on-brand); font: 700 18px/1 var(--font-display);
+  }
+  .tx-steps h3 { font: 600 20px/28px var(--font-display); }
+  .tx-steps__list p { font-size: 15px; line-height: 24px; color: var(--ink-muted); }
+  .tx-faq { padding-block: 96px; }
+  .tx-faq__in { display: flex; flex-wrap: wrap; gap: 32px 72px; }
+  .tx-faq__head { flex: 1 1 320px; }
+  .tx-faq__list { flex: 2 1 520px; min-width: 0; }
+
+  @media (max-width: 760px) {
+    .tx-hero { padding-block: 32px 48px; }
+    .tx-hero h1 { font-size: 36px; line-height: 42px; }
+    .tx-hero__lead { font-size: 18px; line-height: 28px; }
+    .tx-hero__copy, .tx-hero__art, .tx-band__art, .tx-band__copy, .tx-faq__head, .tx-faq__list { flex-basis: 100%; }
+    .tx-band { padding-block: 64px; }
+    .tx-band--rev .tx-band__in { flex-direction: row; }
+    .tx-band__num { font-size: 44px; }
+    .tx-band h2, .tx-head h2 { font-size: 28px; line-height: 36px; }
+    .tx-variants button { width: 104px; }
+    .tx-steps, .tx-faq { padding-block: 64px; }
+  }
+</style>
