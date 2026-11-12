@@ -1,0 +1,19 @@
+---
+import { waAttrs, type WaOpts } from "../../lib/whatsapp";
+
+interface Props {
+  href?: string;
+  variant?: "primary" | "aqua" | "outline" | "ghost-white";
+  size?: "sm" | "md";
+  /** Si se pasa, el botón abre WhatsApp con el mensaje armado para ese contexto */
+  wa?: WaOpts;
+  type?: "button" | "submit";
+  class?: string;
+  [attr: string]: unknown;
+}
+const { href, variant = "primary", size = "md", wa, type = "button", class: className, ...rest } = Astro.props;
+const cls = ["en-btn", `en-btn--${variant}`, size === "sm" ? "en-btn--sm" : "", className ?? ""].filter(Boolean).join(" ");
+const attrs = wa ? waAttrs(wa) : href ? { href } : null;
+---
+
+{attrs ? <a class={cls} {...attrs} {...rest}><slot /></a> : <button class={cls} type={type} {...rest}><slot /></button>}

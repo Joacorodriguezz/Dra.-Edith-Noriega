@@ -1,0 +1,25 @@
+---
+interface Props { kind?: string }
+const { kind = "default" } = Astro.props;
+---
+
+<div class="shapes" aria-hidden="true">
+  {kind === "odontologia-general" && (<>
+    <span class="en-disc" style="--size:220px;right:-40px;top:10px"></span>
+    <span class="en-star" style="--size:70px;--shape:var(--aqua);right:190px;top:170px"><i></i><i></i><i></i><i></i></span>
+  </>)}
+  {kind === "ortodoncia" && <span class="en-quarter en-quarter--framed" style="--size:230px;right:-30px;top:0"><i></i></span>}
+  {kind === "laser" && (<>
+    <span class="en-star" style="--size:200px;--shape:var(--brand);right:-20px;top:20px"><i></i><i></i><i></i><i></i></span>
+    <span class="en-disc" style="--size:80px;--shape:var(--aqua-soft);--ring:var(--brand);right:200px;top:150px"></span>
+  </>)}
+  {kind === "atm" && <span class="en-disc" style="--size:220px;--shape:var(--aqua-soft);--ring:var(--brand);right:-40px;top:10px"></span>}
+  {kind === "ortodoncia-quirurgica" && (<>
+    <span class="en-quarter" style="--size:220px;--shape:var(--aqua-soft);right:-20px;top:10px"></span>
+    <span class="en-quarter" style="--size:90px;right:190px;top:140px"></span>
+  </>)}
+  {kind === "default" && (<>
+    <span class="en-quarter" style="--size:200px;--shape:var(--surface-tint);right:-20px;top:20px"></span>
+    <span class="en-star" style="--size:64px;--shape:var(--aqua);right:180px;top:40px"><i></i><i></i><i></i><i></i></span>
+  </>)}
+</div>

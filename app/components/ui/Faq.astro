@@ -1,0 +1,27 @@
+---
+interface Props {
+  items: { q: string; a: string }[];
+  /** Emite un FAQPage en JSON-LD con las preguntas en texto plano. Una sola por página. */
+  schema?: boolean;
+}
+const { items, schema = true } = Astro.props;
+const json = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((it) => ({
+    "@type": "Question",
+    name: it.q,
+    acceptedAnswer: { "@type": "Answer", text: it.a }
+  }))
+}).replace(/</g, "\\u003c");
+---
+
+<div class="faq">
+  {items.map((it, i) => (
+    <details open={i === 0}>
+      <summary>{it.q}</summary>
+      <div class="a">{it.a}</div>
+    </details>
+  ))}
+</div>
+{schema && <script type="application/ld+json" set:html={json} />}

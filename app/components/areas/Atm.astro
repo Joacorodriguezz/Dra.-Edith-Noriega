@@ -1,0 +1,49 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import Steps from "../ui/Steps.astro";
+import Badge from "../ui/Badge.astro";
+import AtmExplorer from "../explorers/AtmExplorer.astro";
+import { areaPorId } from "../../data/areas";
+const area = areaPorId("atm")!;
+---
+
+<section class="section section--tint">
+  <div class="wrap">
+    <AtmExplorer>
+      <SectionHeader eyebrow="Explorador anatómico" title="Cómo funciona la articulación" text="Un esquema educativo para entender de qué se habla en la consulta. Tocá cada estructura y probá abrir la boca." />
+    </AtmExplorer>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Diagnóstico diferencial" title="Dos condiciones distintas" text="Por eso el primer paso es una evaluación detallada, sin suponer la causa." />
+    </div>
+    <div class="vs">
+      <article class="en-card">
+        <Badge variant="brand" style="align-self:flex-start">Trastornos de la ATM</Badge>
+        <h3 class="h3">La articulación y sus músculos</h3>
+        <p>Pueden aparecer molestias al abrir o cerrar la boca, ruidos en la articulación, dolor al masticar o sensación de mandíbula cansada.</p>
+      </article>
+      <article class="en-card">
+        <Badge variant="aqua" style="align-self:flex-start">Neuralgias</Badge>
+        <h3 class="h3">Un nervio de la cara</h3>
+        <p>Dolor relacionado con un nervio, como el trigémino, con características propias. Muchas veces requiere trabajar con otros especialistas.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Recorrido de atención" title="Cómo se aborda" text="Cada caso se evalúa de forma individual. Esta información no sirve para autodiagnosticarse." />
+    </div>
+    <Steps steps={area.steps!} />
+    <div class="notice" style="margin-top:var(--space-7)">
+      <b>Formación en curso</b>
+      <span>Especialidad en Láser en Ortodoncia y ATM · Universidad Europea Miguel de Cervantes · desde marzo de 2025.</span>
+    </div>
+  </div>
+</section>

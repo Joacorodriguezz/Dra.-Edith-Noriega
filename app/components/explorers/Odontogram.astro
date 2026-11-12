@@ -1,0 +1,113 @@
+---
+import { TT, QN } from "../../data/explorers";
+
+// Geometría del odontograma (misma del prototipo), calculada en el servidor
+const W = 720, unit = 38, gap = 4, DEFAULT = 11;
+type Tooth = { n: number; x: number; y: number; w: number; h: number; rx: number; cx: number; ty: number };
+
+function row(nums: number[], up: boolean): Tooth[] {
+  const ws = nums.map((n) => TT[n % 10][1] * unit);
+  const tot = ws.reduce((a, b) => a + b, 0) + gap * (nums.length - 1);
+  let x = (W - tot) / 2;
+  return nums.map((n, k) => {
+    const w = ws[k];
+    const cx = x + w / 2;
+    const t = (cx - W / 2) / (W / 2);
+    const h = 54;
+    const y = up ? 50 + 64 * t * t : 258 - 64 * t * t;
+    const out = { n, x, y, w, h, rx: w / 3, cx, ty: up ? y - 8 : y + h + 16 };
+    x += w + gap;
+    return out;
+  });
+}
+const teeth = [
+  ...row([18, 17, 16, 15, 14, 13, 12, 11, 21, 22, 23, 24, 25, 26, 27, 28], true),
+  ...row([48, 47, 46, 45, 44, 43, 42, 41, 31, 32, 33, 34, 35, 36, 37, 38], false)
+];
+const info = (n: number) => {
+  const t = TT[n % 10];
+  const q = Math.floor(n / 10);
+  return {
+    title: `${t[0]} ${QN[q]}`,
+    func: t[2],
+    expl: `En el sistema FDI, el primer dígito indica el cuadrante (${q}: ${QN[q]}) y el segundo, la pieza contando desde el centro. Las piezas en aqua son del mismo tipo.`
+  };
+};
+const cur = info(DEFAULT);
+const f = (v: number) => v.toFixed(1);
+const cuadrantes = [1, 2, 3, 4].map((q) => ({
+  q,
+  label: `Cuadrante ${q} · ${QN[q]}`,
+  piezas: teeth.filter((t) => Math.floor(t.n / 10) === q).sort((a, b) => (a.n % 10) - (b.n % 10)).map((t) => t.n)
+}));
+---
+
+<div class="split-illus" data-odo>
+  <div>
+    <div class="en-field odo-select">
+      <label for="odo-select">Elegí una pieza</label>
+      <select id="odo-select" data-odo-select>
+        {cuadrantes.map((c) => (
+          <optgroup label={c.label}>
+            {c.piezas.map((n) => <option value={n} selected={n === DEFAULT}>{n} · {TT[n % 10][0]}</option>)}
+          </optgroup>
+        ))}
+      </select>
+    </div>
+    <svg class="illus odo" viewBox="0 0 720 360" role="group" aria-label="Odontograma de dientes permanentes">
+      <line class="mid" x1="360" y1="20" x2="360" y2="350"></line>
+      <text x="20" y="30">Derecha del paciente</text>
+      <text x="700" y="30" text-anchor="end">Izquierda</text>
+      <text x="20" y="186">Arcada superior</text>
+      <text x="20" y="206">Arcada inferior</text>
+      {teeth.map((t) => {
+        const i = info(t.n);
+        const on = t.n === DEFAULT;
+        const same = !on && t.n % 10 === DEFAULT % 10;
+        return (
+          <g class:list={["tooth", { on, same }]} tabindex="0" role="button" aria-pressed={String(on) as "true" | "false"} data-tooth={t.n} data-title={i.title} data-func={i.func} data-expl={i.expl} aria-label={`Pieza ${t.n}, ${TT[t.n % 10][0].toLowerCase()} ${QN[Math.floor(t.n / 10)]}`}>
+            <rect class="hit-area" x={f(t.x - 5)} y={f(t.y - 5)} width={f(t.w + 10)} height={t.h + 10} fill="transparent"></rect>
+            <rect x={f(t.x)} y={f(t.y)} width={f(t.w)} height={t.h} rx={f(t.rx)}></rect>
+            <text x={f(t.cx)} y={f(t.ty)}>{t.n}</text>
+          </g>
+        );
+      })}
+    </svg>
+    <p class="small" style="margin-top:var(--space-2)">Vista de frente al paciente: su lado derecho aparece a tu izquierda. Dentición permanente.</p>
+  </div>
+  <div class="en-card" aria-live="polite">
+    <span class="fdi" data-o-fdi>{DEFAULT}</span>
+    <h3 class="h3" data-o-title>{cur.title}</h3>
+    <p class="muted" data-o-func>{cur.func}</p>
+    <p class="small" data-o-expl>{cur.expl}</p>
+  </div>
+</div>
+
+<script>
+  import { $, $$, onActivate } from "../../lib/dom";
+  $$("[data-odo]").forEach((root) => {
+    const teeth = $$<SVGGElement>(".tooth", root);
+    const set = (el: SVGGElement | HTMLElement) => {
+      const n = Number(el.dataset.tooth);
+      teeth.forEach((t) => {
+        const m = Number(t.dataset.tooth);
+        t.classList.toggle("on", m === n);
+        t.classList.toggle("same", m !== n && m % 10 === n % 10);
+        t.setAttribute("aria-pressed", String(m === n));
+      });
+      $("[data-o-fdi]", root)!.textContent = String(n);
+      $("[data-o-title]", root)!.textContent = el.dataset.title ?? "";
+      $("[data-o-func]", root)!.textContent = el.dataset.func ?? "";
+      $("[data-o-expl]", root)!.textContent = el.dataset.expl ?? "";
+    };
+    const select = $<HTMLSelectElement>("[data-odo-select]", root);
+    onActivate(root, ".tooth", (el) => {
+      set(el as SVGGElement);
+      if (select) select.value = (el as SVGGElement).dataset.tooth ?? "";
+    });
+    select?.addEventListener("change", () => {
+      const t = teeth.find((x) => x.dataset.tooth === select.value);
+      if (t) set(t);
+    });
+  });
+</script>

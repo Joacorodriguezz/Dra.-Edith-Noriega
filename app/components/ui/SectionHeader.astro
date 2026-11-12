@@ -1,0 +1,12 @@
+---
+interface Props { eyebrow: string; title: string; text?: string; level?: 2 | 3 }
+const { eyebrow, title, text, level = 2 } = Astro.props;
+const Tag = level === 2 ? "h2" : "h3";
+---
+
+<div class="en-section-head">
+  <p class="eyebrow">{eyebrow}</p>
+  <Tag class="h2">{title}</Tag>
+  {text && <p>{text}</p>}
+  <slot />
+</div>

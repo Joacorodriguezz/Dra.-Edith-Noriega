@@ -1,0 +1,40 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHead from "../components/ui/PageHead.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import Faq from "../components/ui/Faq.astro";
+import Cta from "../components/ui/Cta.astro";
+import FirstVisitJourney from "../components/explorers/FirstVisitJourney.astro";
+import Checklist from "../components/explorers/Checklist.astro";
+import { FAQ_PRIMERA } from "../data/faqs";
+import { SITE_URL, pageTitle } from "../data/site";
+import { breadcrumbList } from "../lib/schema";
+
+const crumbs = [{ label: "Inicio", href: "/" }, { label: "Primera consulta" }];
+---
+
+<Base
+  title={pageTitle("Primera consulta")}
+  description="Cómo es la primera consulta con la Dra. Edith Noriega: desde el turno por WhatsApp hasta el plan de atención, qué estudios pueden pedirse y qué llevar."
+  schema={[breadcrumbList(SITE_URL, crumbs, `${SITE_URL}/primera-consulta/`)]}
+>
+  <PageHead crumbs={crumbs} eyebrow="Tu primera consulta" title="Qué pasa desde que pedís el turno hasta que tenés un plan" lead="Para que llegues sabiendo qué esperar. No hace falta saber de antemano qué tratamiento necesitás." />
+  <section class="section section--tint">
+    <div class="wrap">
+      <FirstVisitJourney />
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap split">
+      <SectionHeader eyebrow="Para llevar" title="Qué información puede ser útil" text="Marcá lo que ya tenés listo. La lista queda guardada solo en este dispositivo." />
+      <Checklist />
+    </div>
+  </section>
+  <section class="section section--surface">
+    <div class="wrap split">
+      <SectionHeader eyebrow="Preguntas frecuentes" title="Antes de tu primera consulta" />
+      <Faq items={FAQ_PRIMERA} />
+    </div>
+  </section>
+  <Cta title="Pedí tu primera consulta" text="Elegí el consultorio de La Plata o el de Quilmes y escribinos por WhatsApp." />
+</Base>

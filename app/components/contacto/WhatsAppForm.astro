@@ -1,0 +1,87 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import Button from "../ui/Button.astro";
+import { AREAS } from "../../data/areas";
+import { SEDES } from "../../data/sedes";
+---
+
+<section class="section section--tint" id="form-sec">
+  <div class="wrap split">
+    <div class="stack" style="gap:var(--space-5)">
+      <SectionHeader eyebrow="Consulta por área" title="Prepará tu mensaje" text="Completá estos datos y abriremos WhatsApp con un mensaje listo para revisar y enviar." />
+      <p class="small">Se abre WhatsApp con tu mensaje para que lo revises antes de enviarlo.</p>
+    </div>
+    <form class="en-form" id="cform" novalidate>
+      <div class="en-field" id="f-nombre-w">
+        <label for="f-nombre">Nombre</label>
+        <input id="f-nombre" name="nombre" autocomplete="name" aria-describedby="f-nombre-h" required />
+        <span class="en-field__help" id="f-nombre-h" data-default="Cómo querés que te llamemos.">Cómo querés que te llamemos.</span>
+      </div>
+      <div class="en-field">
+        <label for="f-area">Área de consulta <span class="opt">(opcional)</span></label>
+        <select id="f-area" name="area">
+          <option value="" data-consulta="">No sé, quiero orientación</option>
+          {AREAS.map((a) => <option value={a.id} data-consulta={a.consulta}>{a.name}</option>)}
+        </select>
+      </div>
+      <fieldset class="fs">
+        <legend>Consultorio preferido</legend>
+        <div class="radios">
+          {SEDES.map((s) => <label><input type="radio" name="sede" value={s.id} />{s.nombre}</label>)}
+          <label><input type="radio" name="sede" value="" checked />Me da igual</label>
+        </div>
+      </fieldset>
+      <div class="en-field">
+        <label for="f-motivo">Motivo de consulta <span class="opt">(opcional)</span></label>
+        <textarea id="f-motivo" name="motivo" rows="4" aria-describedby="f-motivo-h"></textarea>
+        <span class="en-field__help" id="f-motivo-h">En pocas palabras. No hace falta saber qué tratamiento necesitás.</span>
+      </div>
+      <Button type="submit" style="align-self:flex-start">Continuar por WhatsApp</Button>
+      <div id="formMsg" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<script>
+  import { $ } from "../../lib/dom";
+  import { waLink } from "../../lib/whatsapp";
+  import { track } from "../../lib/track";
+
+  const form = $<HTMLFormElement>("#cform");
+  if (form) {
+    const nombre = $<HTMLInputElement>("#f-nombre")!;
+    const area = $<HTMLSelectElement>("#f-area")!;
+    const help = $("#f-nombre-h")!;
+    const wrap = $("#f-nombre-w")!;
+    const status = $("#formMsg")!;
+
+    // ?area=<id> preselecciona el área
+    const pre = new URLSearchParams(location.search).get("area");
+    if (pre && Array.from(area.options).some((o) => o.value === pre)) {
+      area.value = pre;
+      area.focus({ preventScroll: true });
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nom = nombre.value.trim();
+      if (!nom) {
+        wrap.classList.add("en-field--error");
+        nombre.setAttribute("aria-invalid", "true");
+        help.textContent = "Escribí tu nombre para preparar el mensaje.";
+        status.textContent = "";
+        nombre.focus();
+        return;
+      }
+      wrap.classList.remove("en-field--error");
+      nombre.removeAttribute("aria-invalid");
+      help.textContent = help.dataset.default ?? "";
+      const sede = (form.querySelector<HTMLInputElement>('input[name="sede"]:checked')?.value) || undefined;
+      const motivo = $<HTMLTextAreaElement>("#f-motivo")!.value.trim();
+      const url = waLink({ origen: "formulario", area: area.value || undefined, sede, nombre: nom, motivo: motivo || undefined });
+      track("whatsapp_form", { area: area.value || undefined, sede, pagina: location.pathname });
+      window.open(url, "_blank", "noopener");
+      status.textContent = "Abrimos WhatsApp con tu mensaje preparado. Revisalo y envialo cuando estés listo.";
+    });
+  }
+</script>

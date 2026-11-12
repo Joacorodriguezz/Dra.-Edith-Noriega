@@ -1,0 +1,27 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import SurgeryLanes from "../explorers/SurgeryLanes.astro";
+
+const publico = [
+  "Alteraciones dentofaciales que requieren cirugía ortognática",
+  "Pacientes con fisuras, unilaterales o bilaterales",
+  "Pacientes con síndrome de Down u otras condiciones específicas",
+  "Casos con intervenciones quirúrgicas previas o planificadas"
+];
+---
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Planificación de casos complejos" title="Cómo se planifica un caso complejo" text="Recorré las etapas para ver qué pasa en cada una y quién participa." />
+    </div>
+    <SurgeryLanes />
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <SectionHeader eyebrow="Para quién" title="Pacientes que pueden requerir este abordaje" text="Cada caso se evalúa de forma individual, sin anticipar un tratamiento." />
+    <ul class="dotlist">{publico.map((t) => <li>{t}</li>)}</ul>
+  </div>
+</section>

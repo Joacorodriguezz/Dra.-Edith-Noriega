@@ -1,0 +1,21 @@
+---
+const x = (nm: number) => 20 + (nm - 300) * 0.75;
+const ticks = [300, 400, 500, 600, 700, 800, 900, 1000, 1100];
+---
+
+<svg class="illus scale" viewBox="0 0 640 130" role="img" aria-label="Escala de 300 a 1100 nanómetros. La luz visible va de 380 a 750 nm. El láser trabaja en 980 nm, en el infrarrojo cercano.">
+  <rect x={x(380)} y="44" width={x(750) - x(380)} height="24" rx="12" fill="var(--surface-tint)"></rect>
+  <text x={(x(380) + x(750)) / 2} y="61" text-anchor="middle" style="fill:var(--brand)">Luz visible · 380 a 750 nm</text>
+  <rect x={x(750)} y="44" width={x(1100) - x(750)} height="24" rx="12" fill="var(--surface-aqua)"></rect>
+  <text x={x(800)} y="61" style="fill:var(--aqua-ink)">Infrarrojo cercano</text>
+  {ticks.map((nm) => (
+    <>
+      <line x1={x(nm)} y1="74" x2={x(nm)} y2="80" stroke="var(--line-strong)"></line>
+      <text x={x(nm)} y="96" text-anchor="middle">{nm}</text>
+    </>
+  ))}
+  <line x1={x(980)} y1="30" x2={x(980)} y2="72" stroke="var(--brand)" stroke-width="3"></line>
+  <circle cx={x(980)} cy="30" r="7" fill="var(--brand)"></circle>
+  <text x={x(980) - 12} y="34" text-anchor="end" style="fill:var(--brand)">980 nm</text>
+  <text x="20" y="120">Nanómetros (nm)</text>
+</svg>

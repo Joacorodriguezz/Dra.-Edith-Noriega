@@ -1,0 +1,14 @@
+---
+import { SEDES } from "../../data/sedes";
+import { resumenHabitual, CONFIRMA_TURNO } from "../../lib/horarios";
+---
+
+<p class="today" data-today><i></i><span data-today-text>{resumenHabitual(SEDES)} {CONFIRMA_TURNO}</span></p>
+
+<script>
+  import { $$ } from "../../lib/dom";
+  import { SEDES } from "../../data/sedes";
+  import { estadoHoy } from "../../lib/horarios";
+  const texto = estadoHoy(new Date(), SEDES).texto;
+  $$("[data-today-text]").forEach((el) => (el.textContent = texto));
+</script>

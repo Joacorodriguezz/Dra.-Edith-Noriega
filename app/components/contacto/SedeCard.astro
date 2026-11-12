@@ -1,0 +1,25 @@
+---
+import Button from "../ui/Button.astro";
+import { SITE } from "../../data/site";
+import type { Sede } from "../../data/sedes";
+
+interface Props { sede: Sede }
+const { sede } = Astro.props;
+---
+
+<div class="en-sede" data-sede-card={sede.id}>
+  <p class="eyebrow">{sede.eyebrow}</p>
+  <h3 class="h3">{sede.direccion}</h3>
+  {sede.referencia && <p>{sede.referencia}</p>}
+  <dl class="hours">
+    {sede.horarios.map((h) => (
+      <>
+        <dt>{h.corto}</dt>
+        <dd>{h.texto}</dd>
+      </>
+    ))}
+  </dl>
+  <a class="en-link" href={sede.mapsUrl} target="_blank" rel="noopener" data-como-llegar data-sede={sede.id}>Cómo llegar</a>
+  <Button variant="aqua" wa={{ origen: "sede", sede: sede.id }}>Pedí tu turno por WhatsApp</Button>
+  <p class="small">{SITE.whatsappTexto}</p>
+</div>

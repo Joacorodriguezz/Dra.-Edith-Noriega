@@ -1,0 +1,47 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import Steps from "../ui/Steps.astro";
+import Odontogram from "../explorers/Odontogram.astro";
+import { areaPorId } from "../../data/areas";
+const area = areaPorId("odontologia-general")!;
+---
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Explorá" title="Conocé tu boca, pieza por pieza" text="Cada diente tiene un número. Tocá una pieza para saber cuál es y qué función cumple." />
+    </div>
+    <Odontogram />
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Continuidad de la atención" title="Una atención que continúa" text="Los controles permiten detectar cambios a tiempo y cuidar lo logrado." />
+    </div>
+    <Steps steps={area.steps!} />
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="wrap">
+    <div class="head-row">
+      <SectionHeader eyebrow="Qué incluye" title="Prevención, diagnóstico y rehabilitación" />
+    </div>
+    <div class="en-cards">
+      <article class="en-card">
+        <h3 class="h3">Prevención y diagnóstico</h3>
+        <ul class="dotlist">{["Controles periódicos", "Prevención", "Diagnóstico integral"].map((t) => <li>{t}</li>)}</ul>
+      </article>
+      <article class="en-card">
+        <h3 class="h3">Rehabilitación</h3>
+        <ul class="dotlist">{["Tratamientos de conducto", "Prótesis removibles y fijas", "Implantes, pernos y coronas"].map((t) => <li>{t}</li>)}</ul>
+      </article>
+      <article class="en-card en-card--tint">
+        <h3 class="h3">Adultos mayores</h3>
+        <p>Abordaje integral adaptado a las necesidades funcionales y estéticas de cada paciente.</p>
+      </article>
+    </div>
+  </div>
+</section>

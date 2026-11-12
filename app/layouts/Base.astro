@@ -1,0 +1,96 @@
+---
+import "../styles/site.css";
+import Seo from "../components/seo/Seo.astro";
+import NavBar from "../components/nav/NavBar.astro";
+import MobileMenu from "../components/nav/MobileMenu.astro";
+import MobileBar from "../components/nav/MobileBar.astro";
+import Footer from "../components/nav/Footer.astro";
+import { SITE } from "../data/site";
+
+interface Props {
+  title: string;
+  description: string;
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+const { title, description, schema, noindex } = Astro.props;
+const current = Astro.url.pathname;
+const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="icon" href="/brand/dental-icon.jpeg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/design-system.css" />
+    <slot name="head" />
+    <Seo title={title} description={description} schema={schema} noindex={noindex} />
+    {plausible && <script is:inline defer data-domain={plausible} src="https://plausible.io/js/script.js"></script>}
+  </head>
+  <body>
+    <a class="skip" href="#main">Saltar al contenido</a>
+    <div class="topbar">
+      <div class="wrap">
+        <span>Consultorios en La Plata y Quilmes</span>
+        <span>Turnos por WhatsApp: <a href={`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent("Hola, quiero pedir un turno para consultar por una consulta general.")}`} target="_blank" rel="noopener" data-origen="topbar">{SITE.whatsappTexto}</a></span>
+      </div>
+    </div>
+    <NavBar current={current} />
+    <MobileMenu current={current} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <MobileBar />
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script>
+      import { track } from "../lib/track";
+      import { $ } from "../lib/dom";
+
+      document.addEventListener("click", (e) => {
+        const target = e.target as Element;
+        // Medición de clics a WhatsApp (delegación)
+        const a = target.closest<HTMLAnchorElement>('a[href^="https://wa.me/"]');
+        if (a) {
+          track("whatsapp_click", {
+            origen: a.dataset.origen,
+            area: a.dataset.area,
+            sede: a.dataset.sede,
+            pagina: location.pathname
+          });
+          return;
+        }
+        // Cómo llegar
+        const m = target.closest<HTMLAnchorElement>("a[data-como-llegar]");
+        if (m) {
+          track("como_llegar", { sede: m.dataset.sede, pagina: location.pathname });
+          return;
+        }
+        // Copiar el número
+        const c = target.closest<HTMLElement>("[data-copy]");
+        if (c) {
+          const v = c.dataset.copy ?? "";
+          track("copiar_numero", { pagina: location.pathname });
+          const toast = $("#toast");
+          const say = (t: string) => {
+            if (!toast) return;
+            toast.textContent = t;
+            toast.hidden = false;
+            window.clearTimeout(Number(toast.dataset.t));
+            toast.dataset.t = String(window.setTimeout(() => (toast.hidden = true), 2200));
+          };
+          navigator.clipboard.writeText(v).then(
+            () => say("Número copiado"),
+            () => say("Copialo a mano: " + v)
+          );
+        }
+      });
+    </script>
+  </body>
+</html>

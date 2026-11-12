@@ -1,0 +1,50 @@
+---
+import { Image } from "astro:assets";
+import Button from "../ui/Button.astro";
+import { STORIES } from "../../data/cases";
+---
+
+<section class="section section--aqua">
+  <div class="wrap">
+    <div class="case-stories" data-stories>
+      <div class="case-stories__head">
+        <div>
+          <p class="eyebrow">Historias clínicas</p>
+          <h2>Casos reales, explicados paso a paso</h2>
+          <p>Qué preocupaba a cada persona, qué se evaluó y cómo se construyó el tratamiento.</p>
+        </div>
+        <div class="case-stories__controls" aria-label="Navegar historias" hidden>
+          <button type="button" data-stories-prev aria-label="Historia anterior">←</button>
+          <button type="button" data-stories-next aria-label="Historia siguiente">→</button>
+        </div>
+      </div>
+      <div class="case-stories__track" aria-label="Historias clínicas" tabindex="0" role="region">
+        {STORIES.map((s) => (
+          <article class="case-story">
+            <Image src={s.img} alt={s.alt} widths={[430, 640, 860]} sizes="(max-width: 520px) 88vw, 430px" format="webp" loading="lazy" />
+            <div class="case-story__body">
+              <p class="eyebrow">{s.eyebrow}</p>
+              <h3>{s.title}</h3>
+              {s.text && <p>{s.text}</p>}
+              {s.quote && <blockquote>{s.quote}</blockquote>}
+              <a class="en-link" href={`/casos/#${s.id}`}>Ver el caso</a>
+            </div>
+          </article>
+        ))}
+      </div>
+      <Button variant="outline" href="/casos/" style="justify-self:start">Conocé todos los casos</Button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { $, $$ } from "../../lib/dom";
+  $$("[data-stories]").forEach((root) => {
+    const track = $(".case-stories__track", root);
+    const controls = $<HTMLElement>(".case-stories__controls", root);
+    if (!track || !controls) return;
+    controls.hidden = false;
+    $("[data-stories-prev]", root)?.addEventListener("click", () => track.scrollBy({ left: -track.clientWidth * 0.8, behavior: "smooth" }));
+    $("[data-stories-next]", root)?.addEventListener("click", () => track.scrollBy({ left: track.clientWidth * 0.8, behavior: "smooth" }));
+  });
+</script>

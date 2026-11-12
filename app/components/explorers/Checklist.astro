@@ -1,0 +1,33 @@
+---
+import { CHECK } from "../../data/explorers";
+---
+
+<ul class="checklist" data-checklist>
+  {CHECK.map((c, i) => <li><label><input type="checkbox" data-check={i} /><span>{c}</span></label></li>)}
+</ul>
+
+<script>
+  import { $, $$ } from "../../lib/dom";
+  const KEY = "en-checklist";
+  const root = $("[data-checklist]");
+  if (root) {
+    const boxes = $$<HTMLInputElement>("[data-check]", root);
+    let saved: Record<string, boolean> = {};
+    try {
+      saved = JSON.parse(localStorage.getItem(KEY) ?? "{}") ?? {};
+    } catch {
+      saved = {};
+    }
+    boxes.forEach((b) => {
+      b.checked = !!saved[b.dataset.check ?? ""];
+      b.addEventListener("change", () => {
+        saved[b.dataset.check ?? ""] = b.checked;
+        try {
+          localStorage.setItem(KEY, JSON.stringify(saved));
+        } catch {
+          /* sin almacenamiento: la lista funciona igual */
+        }
+      });
+    });
+  }
+</script>

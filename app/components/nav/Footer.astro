@@ -1,0 +1,39 @@
+---
+import { NAV, SITE } from "../../data/site";
+import { AREAS, areaHref } from "../../data/areas";
+import { SEDES } from "../../data/sedes";
+import { waAttrs } from "../../lib/whatsapp";
+const wa = waAttrs({ origen: "pie" });
+---
+
+<footer class="en-footer">
+  <div class="wrap">
+    <div class="stack" style="gap:var(--space-4)">
+      <a class="wordmark" href="/" aria-label="Dra. Edith Noriega. Ir al inicio"><b><span>Dra.</span> Edith Noriega</b><small>Ortodoncista</small></a>
+      <p>{SITE.descripcionCorta}</p>
+    </div>
+    <nav aria-label="Sitio">
+      <h2>Sitio</h2>
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+      </ul>
+    </nav>
+    <nav aria-label="Tratamientos">
+      <h2>Tratamientos</h2>
+      <ul>{AREAS.map((a) => <li><a href={areaHref(a.id)}>{a.name}</a></li>)}</ul>
+    </nav>
+    <div>
+      <h2>Contacto</h2>
+      <ul>
+        <li>WhatsApp: <a {...wa}>{SITE.whatsappTexto}</a></li>
+        <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        <li><a href={SITE.instagram} target="_blank" rel="noopener">Instagram</a> · <a href={SITE.facebook} target="_blank" rel="noopener">Facebook</a></li>
+        {SEDES.map((s) => <li>{s.nombre} · {s.calle}</li>)}
+      </ul>
+    </div>
+    <div class="en-footer__legal">
+      <span>© 2026 Dra. Edith Noriega. La información es orientativa y no reemplaza una consulta profesional.</span>
+    </div>
+  </div>
+</footer>

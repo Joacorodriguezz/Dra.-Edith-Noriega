@@ -1,0 +1,43 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHead from "../components/ui/PageHead.astro";
+import Button from "../components/ui/Button.astro";
+import TodayStatus from "../components/contacto/TodayStatus.astro";
+import SedeCard from "../components/contacto/SedeCard.astro";
+import WhatsAppForm from "../components/contacto/WhatsAppForm.astro";
+import { SITE, SITE_URL, pageTitle } from "../data/site";
+import { SEDES } from "../data/sedes";
+import { breadcrumbList } from "../lib/schema";
+
+const crumbs = [{ label: "Inicio", href: "/" }, { label: "Contacto y turnos" }];
+---
+
+<Base
+  title={pageTitle("Contacto")}
+  description="Pedí tu turno con la Dra. Edith Noriega por WhatsApp. Consultorios en La Plata (calle 49) y Quilmes (Hipólito Yrigoyen 439), con horarios habituales."
+  schema={[breadcrumbList(SITE_URL, crumbs, `${SITE_URL}/contacto/`)]}
+>
+  <PageHead crumbs={crumbs} eyebrow="Contacto" title="Pedí tu turno" lead="Los turnos se coordinan por WhatsApp. También podés dejar tu consulta indicando el área que te interesa.">
+    <TodayStatus />
+  </PageHead>
+  <section class="section" style="padding-top:var(--space-7)">
+    <div class="wrap stack" style="gap:var(--space-6)">
+      <div class="en-cta" style="flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <span class="en-quarter" aria-hidden="true"></span>
+        <div class="stack" style="gap:var(--space-2);position:relative;z-index:1">
+          <p class="eyebrow" style="color:var(--white)">Canal oficial de turnos</p>
+          <h2 class="h2">WhatsApp {SITE.whatsappTexto}</h2>
+          <p>Contanos tu nombre, el motivo de consulta y el consultorio que preferís.</p>
+        </div>
+        <div class="en-cta__actions" style="margin-top:0">
+          <Button variant="aqua" wa={{ origen: "contacto" }}>Escribir por WhatsApp</Button>
+          <Button variant="ghost-white" data-copy={SITE.whatsappTexto}>Copiar número</Button>
+        </div>
+      </div>
+      <div class="en-contact">
+        {SEDES.map((s) => <SedeCard sede={s} />)}
+      </div>
+    </div>
+  </section>
+  <WhatsAppForm />
+</Base>

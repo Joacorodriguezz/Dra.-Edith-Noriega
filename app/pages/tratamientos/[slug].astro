@@ -1,0 +1,44 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/ui/PageHead.astro";
+import Cta from "../../components/ui/Cta.astro";
+import NextNav from "../../components/ui/NextNav.astro";
+import General from "../../components/areas/General.astro";
+import Orto from "../../components/areas/Orto.astro";
+import Laser from "../../components/areas/Laser.astro";
+import Atm from "../../components/areas/Atm.astro";
+import Qx from "../../components/areas/Qx.astro";
+import { AREAS, type Area } from "../../data/areas";
+import { SITE_URL, pageTitle } from "../../data/site";
+import { breadcrumbList, medicalWebPage } from "../../lib/schema";
+
+export function getStaticPaths() {
+  return AREAS.map((area) => ({ params: { slug: area.slug }, props: { area } }));
+}
+
+interface Props { area: Area }
+const { area } = Astro.props;
+
+const ctas: Record<string, { title: string; text: string }> = {
+  "odontologia-general": { title: "Pedí una consulta general", text: "Es el mejor punto de partida si no sabés qué tratamiento necesitás." },
+  ortodoncia: { title: "Pedí una evaluación ortodóncica", text: "Contanos que consultás por ortodoncia o dejá tu consulta con el área ya elegida." },
+  laser: { title: "Consultá por el láser", text: "Contanos qué aplicación te interesa y la Dra. te explica si corresponde a tu caso." },
+  atm: { title: "Consultá por molestias mandibulares o dolor facial", text: "Contanos desde cuándo aparecen y en qué momentos. La evaluación orienta el diagnóstico." },
+  "ortodoncia-quirurgica": { title: "Consultá por un caso complejo", text: "Llevá los estudios e informes de otros profesionales que te hayan atendido." }
+};
+const cta = ctas[area.id];
+const url = `${SITE_URL}/tratamientos/${area.slug}/`;
+const crumbs = [{ label: "Inicio", href: "/" }, { label: "Tratamientos", href: "/tratamientos/" }, { label: area.name }];
+const schema = [medicalWebPage(SITE_URL, area, url, area.metaDescription), breadcrumbList(SITE_URL, crumbs, url)];
+---
+
+<Base title={pageTitle(area.name)} description={area.metaDescription} schema={schema}>
+  <PageHead crumbs={crumbs} eyebrow="Tratamientos" title={area.name} lead={area.lead} facts={area.facts} shape={area.id} />
+  {area.id === "odontologia-general" && <General />}
+  {area.id === "ortodoncia" && <Orto />}
+  {area.id === "laser" && <Laser />}
+  {area.id === "atm" && <Atm />}
+  {area.id === "ortodoncia-quirurgica" && <Qx />}
+  <Cta title={cta.title} text={cta.text} area={area.id} />
+  <NextNav id={area.id} />
+</Base>

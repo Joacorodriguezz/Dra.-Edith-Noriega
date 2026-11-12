@@ -1,0 +1,12 @@
+---
+interface Props { href?: string; label?: string }
+const { href, label = "Dra. Edith Noriega. Ir al inicio" } = Astro.props;
+const Tag = href ? "a" : "span";
+---
+
+<Tag class="wordmark" href={href} aria-label={href ? label : undefined}>
+  <span class="brand-mark">
+    <span class="brand-icon"><img src="/brand/dental-icon.jpeg" alt="" width="1600" height="1600" loading="eager" decoding="async" /></span>
+    <b><span>Dra.</span> Edith Noriega</b>
+  </span>
+</Tag>

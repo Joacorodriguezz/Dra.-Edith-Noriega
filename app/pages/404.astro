@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import Button from "../components/ui/Button.astro";
+import { pageTitle } from "../data/site";
+---
+
+<Base title={pageTitle("Página no encontrada")} description="No encontramos la página que buscabas. Volvé al inicio o pedí tu turno por WhatsApp con la Dra. Edith Noriega." noindex>
+  <section class="section">
+    <div class="wrap stack" style="gap:var(--space-5);align-items:flex-start">
+      <p class="eyebrow">Error 404</p>
+      <h1 class="h1">No encontramos esa página</h1>
+      <p class="lead">Puede que el enlace haya cambiado. Volvé al inicio o escribinos por WhatsApp.</p>
+      <div class="en-hero__actions">
+        <Button href="/">Volver al inicio</Button>
+        <Button variant="aqua" wa={{ origen: "404" }}>Pedí tu turno por WhatsApp</Button>
+      </div>
+    </div>
+  </section>
+</Base>

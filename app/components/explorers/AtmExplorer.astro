@@ -1,0 +1,87 @@
+---
+import { PARTS, ATM_MOVE } from "../../data/explorers";
+
+const DEFAULT = PARTS[0];
+const nombre = (id: string) => PARTS.find((p) => p.id === id)!.n;
+const upper = Array.from({ length: 10 }, (_, i) => 96 + i * 21);
+const lower = Array.from({ length: 10 }, (_, i) => 100 + i * 21);
+const on = (id: string) => id === DEFAULT.id;
+---
+
+<div data-atm>
+  <div class="head-row">
+    <slot />
+    <div class="seg" role="group" aria-label="Posición de la boca">
+      <button type="button" data-atm-open="0" aria-pressed="true">Boca cerrada</button>
+      <button type="button" data-atm-open="1" aria-pressed="false">Boca abierta</button>
+    </div>
+  </div>
+  <div class="split-illus">
+    <div>
+      <svg class="illus atm sel" id="atmSvg" viewBox="0 0 520 430" role="group" aria-label="Esquema lateral de la articulación temporomandibular y la mandíbula">
+        <path class="bone" d="M40 40 H480 V104 C452 104 432 102 418 92 C410 86 404 74 394 70 C380 64 366 66 356 76 C346 86 338 104 326 110 C318 114 306 112 296 106 C270 96 200 96 150 100 L40 104 Z"></path>
+        <path class="bone" d="M150 108 C190 104 250 104 300 112 L298 126 C250 120 190 120 152 124 Z"></path>
+        <path class="bone" d="M70 120 C66 160 70 196 84 214 L312 214 C306 180 296 150 290 130 L150 126 C120 122 92 118 70 120 Z"></path>
+        {upper.map((x) => <rect class="atooth" x={x} y="214" width="18" height="30" rx="5"></rect>)}
+        <path class:list={["mus", "hl", "hit", { on: on("masetero") }]} data-part="masetero" tabindex="0" role="button" aria-label={nombre("masetero")} d="M168 124 C210 120 262 122 296 128 L368 300 C340 318 300 320 270 312 Z"></path>
+        <path class:list={["hl", "hit", { on: on("fosa") }]} data-part="fosa" tabindex="0" role="button" aria-label={nombre("fosa")} fill="none" stroke="transparent" stroke-width="22" d="M310 106 C330 104 344 74 372 66 C392 64 404 80 414 94"></path>
+        <path class:list={["nerve", "hl", { on: on("nervio") }]} data-part="nervio" d="M300 60 C260 80 200 110 120 136"></path>
+        <circle cx="300" cy="60" r="5" fill="var(--brand)"></circle>
+        <g class="mand">
+          <path class="bone" d="M384 94 C396 160 404 230 400 292 C398 314 382 326 358 326 L160 326 C128 326 104 316 98 300 C94 290 94 282 100 272 L318 272 C318 230 312 170 306 132 C314 124 322 128 326 138 C334 154 344 152 352 132 C356 118 356 104 358 94 Z"></path>
+          <g class:list={["hl", "hit", { on: on("oclusion") }]} data-part="oclusion" tabindex="0" role="button" aria-label={nombre("oclusion")}>
+            {lower.map((x) => <rect class="atooth" x={x} y="246" width="18" height="30" rx="5"></rect>)}
+          </g>
+          <ellipse class:list={["bone", "hl", "hit", { on: on("condilo") }]} data-part="condilo" tabindex="0" role="button" aria-label={nombre("condilo")} cx="370" cy="86" rx="17" ry="13"></ellipse>
+          <path class:list={["disc", "hl", "hit", { on: on("disco") }]} data-part="disco" tabindex="0" role="button" aria-label={nombre("disco")} d="M350 80 C356 60 386 58 392 76 L388 79 C382 70 362 68 354 83 Z"></path>
+          <path class:list={["nerve", "nerve-in", "hl", { on: on("nervio") }]} data-part="nervio" d="M300 60 C318 90 344 112 372 112 C372 180 356 250 326 292 C290 306 220 304 140 298"></path>
+        </g>
+        <path class="hit" data-part="nervio" tabindex="0" role="button" aria-label={nombre("nervio")} fill="none" stroke="transparent" stroke-width="16" d="M300 60 C260 80 200 110 120 136"></path>
+        <text x="40" y="30">Hueso temporal</text>
+        <text x="56" y="142">Maxilar</text>
+        <text x="410" y="140">Rama</text>
+      </svg>
+      <p class="small" id="atmMove" style="margin-top:var(--space-3)">{ATM_MOVE.closed}</p>
+    </div>
+    <div class="side">
+      <div class="list-btns" role="group" aria-label="Estructuras">
+        {PARTS.map((p, i) => <button type="button" data-part-btn={p.id} aria-pressed={String(p === DEFAULT) as "true" | "false"}><span class="k">{i + 1}</span>{p.n}</button>)}
+      </div>
+      <div class="en-card" aria-live="polite">
+        {PARTS.map((p) => (
+          <div class="stack" style="gap:var(--space-3)" data-part-panel={p.id} hidden={p !== DEFAULT}>
+            <p class="eyebrow">Estructura</p>
+            <h3 class="h3">{p.n}</h3>
+            <p class="muted">{p.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { $, $$, onActivate } from "../../lib/dom";
+  import { ATM_MOVE } from "../../data/explorers";
+  $$("[data-atm]").forEach((root) => {
+    const svg = $("#atmSvg", root)!;
+    const btns = $$<HTMLButtonElement>("[data-part-btn]", root);
+    const selectPart = (id: string) => {
+      btns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.partBtn === id)));
+      $$("[data-part-panel]", root).forEach((p) => (p.hidden = p.dataset.partPanel !== id));
+      $$(".hl", svg).forEach((e) => e.classList.toggle("on", e.dataset.part === id));
+    };
+    btns.forEach((b) => b.addEventListener("click", () => selectPart(b.dataset.partBtn ?? "")));
+    onActivate(svg as unknown as Element, "[data-part].hit", (el) => selectPart((el as SVGElement).dataset.part ?? ""));
+
+    const toggles = $$<HTMLButtonElement>("[data-atm-open]", root);
+    toggles.forEach((b) =>
+      b.addEventListener("click", () => {
+        const open = b.dataset.atmOpen === "1";
+        toggles.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        svg.classList.toggle("open", open);
+        $("#atmMove", root)!.textContent = open ? ATM_MOVE.open : ATM_MOVE.closed;
+      })
+    );
+  });
+</script>
