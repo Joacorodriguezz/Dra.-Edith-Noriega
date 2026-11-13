@@ -1,0 +1,231 @@
+---
+// Versión móvil del inicio (diseño "Sitio Movil" de Claude Design).
+// Se muestra solo en pantallas de hasta 760 px; el escritorio sigue con sus secciones.
+import { Image } from "astro:assets";
+import Button from "../ui/Button.astro";
+import TodayStatus from "../contacto/TodayStatus.astro";
+import { AREAS, areaHref, areaPorId, consultaHref } from "../../data/areas";
+import { ICONS } from "../../data/icons";
+import { NEEDS } from "../../data/needs";
+import { CASES } from "../../data/cases";
+import { SEDES } from "../../data/sedes";
+import { FAQ_HOME } from "../../data/faqs";
+import { SITE } from "../../data/site";
+import retrato from "../../assets/retrato/retrato-dra-noriega.webp";
+
+const primeraHref = "/primera-consulta/";
+const lugarLectura = (to: string) => (areaPorId(to) ? areaHref(to) : primeraHref);
+---
+
+<section class="mv" aria-label="Inicio">
+  <div class="mv__status"><TodayStatus /></div>
+
+  <div class="mv__pad mv__hero">
+    <p class="mv__eyebrow">La Plata y Quilmes</p>
+    <!-- role/aria-level: el escritorio ya tiene un título de nivel 1 en el mismo documento (ver index.astro). -->
+    <p class="mv__h1" role="heading" aria-level="1">Experiencia, tecnología y calidez para cuidar tu sonrisa.</p>
+    <p class="mv__lead">Odontóloga especialista jerarquizada en ortodoncia y diplomada en tecnología láser.</p>
+    <div class="mv__ctas">
+      <Button wa={{ origen: "inicio-movil-hero" }} class="mv__btn">Pedí tu turno por WhatsApp</Button>
+      <a class="mv__btn mv__btn--outline" href="#necesidades">¿Qué te trae a la consulta?</a>
+    </div>
+    <div class="mv__phone">
+      <span>WhatsApp {SITE.whatsappTexto}</span>
+      <button type="button" class="mv__copy" data-copy={SITE.whatsappTexto}>Copiar número</button>
+    </div>
+  </div>
+
+  <div class="mv__portrait" aria-hidden="false">
+    <span class="mv__shape mv__shape--aqua"></span>
+    <span class="mv__shape mv__shape--violet"></span>
+    <Image src={retrato} alt="Retrato de la Dra. Edith Noriega con ambo blanco" class="mv__img" widths={[448]} sizes="224px" />
+  </div>
+
+  <section id="necesidades" class="mv__band" aria-labelledby="mv-needs">
+    <p class="mv__eyebrow">Empezá por lo que te pasa</p>
+    <h2 id="mv-needs" class="mv__h2">¿Qué te trae a la consulta?</h2>
+    <p class="mv__text">Elegí la opción más cercana a tu situación y te mostramos qué leer y qué llevar. No es un diagnóstico.</p>
+    <ul class="mv__list">
+      {NEEDS.map((n) => (
+        <li>
+          <details class="mv__need">
+            <summary>
+              <span>{n.t}</span>
+              <span class="mv__plus" aria-hidden="true"></span>
+            </summary>
+            <div class="mv__need-body">
+              <p class="mv__text">{n.text}</p>
+              <dl>
+                <div>
+                  <dt>Para leer</dt>
+                  <dd><a href={lugarLectura(n.to)}>{n.read}</a></dd>
+                </div>
+                <div>
+                  <dt>Para llevar</dt>
+                  <dd>{n.bring}</dd>
+                </div>
+              </dl>
+              <a class="mv__btn" href={consultaHref(n.areas[0])}>Consultar por este tema</a>
+            </div>
+          </details>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mv__pad mv__block" aria-labelledby="mv-trat">
+    <p class="mv__eyebrow">Tratamientos</p>
+    <h2 id="mv-trat" class="mv__h2">Para todas las etapas, desde una temprana edad</h2>
+    <ul class="mv__areas">
+      {AREAS.map((a) => (
+        <li>
+          <a href={areaHref(a.id)}>
+            <span class="mv__icon" set:html={`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[a.id] ?? ""}</svg>`}></span>
+            <span class="mv__area-txt">
+              <strong>{a.name}</strong>
+              <span>{a.line}</span>
+            </span>
+            <svg class="mv__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mv__band mv__band--grey" aria-labelledby="mv-casos">
+    <div class="mv__pad">
+      <p class="mv__eyebrow">Casos reales</p>
+      <h2 id="mv-casos" class="mv__h2">Cada tratamiento, etapa por etapa</h2>
+      <p class="mv__small">Deslizá para ver los tres casos.</p>
+    </div>
+    <ul class="mv__track" tabindex="0" aria-label="Casos clínicos, lista deslizable">
+      {CASES.map((c) => (
+        <li class="mv__story">
+          <Image src={c.stages[0].img} alt={c.stages[0].alt} class="mv__story-img" widths={[572]} sizes="286px" />
+          <div class="mv__story-txt">
+            <p class="mv__tag">{c.label}</p>
+            <h3>{c.title}</h3>
+            <p class="mv__text">{c.summary}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+    <div class="mv__pad">
+      <a class="mv__btn mv__btn--outline" href="/casos/">Ver los casos completos</a>
+    </div>
+  </section>
+
+  <section class="mv__pad mv__block" aria-labelledby="mv-sedes">
+    <p class="mv__eyebrow">Consultorios</p>
+    <h2 id="mv-sedes" class="mv__h2">Dónde atiende</h2>
+    {SEDES.map((s) => (
+      <article class="mv__sede" aria-labelledby={`mv-sede-${s.id}`}>
+        <h3 id={`mv-sede-${s.id}`}>{s.nombre}</h3>
+        <p class="mv__text">
+          {s.direccion}
+          {s.referencia && <><br /><span class="mv__muted">{s.referencia}</span></>}
+        </p>
+        <dl class="mv__horarios">
+          {s.horarios.map((h) => (
+            <div>
+              <dt>{h.dia}</dt>
+              <dd>{h.texto}</dd>
+            </div>
+          ))}
+        </dl>
+        <div class="mv__sede-ctas">
+          <a class="mv__btn mv__btn--outline mv__btn--sm" href={s.mapsUrl} target="_blank" rel="noopener">Cómo llegar<span class="sr">a {s.nombre} (se abre en Google Maps)</span></a>
+          <Button wa={{ origen: "inicio-movil-sede", sede: s.id }} class="mv__btn--sm">Turno acá<span class="sr">en {s.nombre} (se abre en WhatsApp)</span></Button>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section class="mv__pad mv__block" aria-labelledby="mv-faq">
+    <h2 id="mv-faq" class="mv__h2">Preguntas frecuentes</h2>
+    {FAQ_HOME.map((f) => (
+      <details class="mv__faq">
+        <summary>{f.q}<span class="mv__plus" aria-hidden="true"></span></summary>
+        <p class="mv__text">{f.a}</p>
+      </details>
+    ))}
+  </section>
+</section>
+
+<style>
+  .mv { display: none; background: var(--paper); color: var(--ink); }
+  .mv__pad { padding: 0 20px; }
+  .mv__eyebrow { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase; color: var(--brand); }
+  .mv__h1 { margin: 0; font-size: 32px; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
+  .mv__h2 { margin: 0; font-size: 26px; line-height: 1.2; font-weight: 700; text-wrap: balance; }
+  .mv__text { margin: 0; font-size: 16px; line-height: 1.55; color: var(--ink-muted); }
+  .mv__small { margin: 8px 0 0; font-size: 14px; color: var(--ink-muted); }
+  .mv__muted { color: var(--ink-muted); }
+  .mv__hero { padding-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+  .mv__lead { margin: 0; font-size: 17px; line-height: 1.55; color: var(--ink-muted); }
+  .mv__ctas { display: flex; flex-direction: column; gap: 12px; }
+  .mv__btn { display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 24px; border-radius: var(--radius-pill); background: var(--brand); color: var(--on-brand); text-decoration: none; font-family: inherit; font-weight: 700; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; border: 2px solid var(--brand); cursor: pointer; }
+  .mv__btn:hover { background: var(--brand-hover); border-color: var(--brand-hover); color: var(--on-brand); }
+  .mv__btn--outline { background: transparent; color: var(--brand); }
+  .mv__btn--outline:hover { background: var(--surface-tint); color: var(--brand); }
+  .mv__btn--sm { min-height: 48px; font-size: 13px; padding: 0 12px; }
+  .mv__phone { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 15px; color: var(--ink-muted); }
+  .mv__copy { min-height: 44px; padding: 0 4px; background: none; border: 0; font-family: inherit; font-size: 15px; font-weight: 600; color: var(--brand); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .mv__portrait { position: relative; margin: 8px -20px 0; height: 300px; overflow: hidden; background: var(--surface-tint); }
+  .mv__shape { position: absolute; }
+  .mv__shape--aqua { right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 0 0 0 220px; background: var(--aqua-soft); }
+  .mv__shape--violet { left: -40px; bottom: -40px; width: 140px; height: 140px; border-radius: 50%; background: var(--brand); }
+  .mv__img { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); height: 280px; width: 224px; object-fit: cover; border-radius: 0 96px 0 0; }
+  .mv__band { margin-top: 40px; padding: 40px 20px; background: var(--surface-tint); display: flex; flex-direction: column; gap: 16px; }
+  .mv__band--grey { background: var(--surface); padding-left: 0; padding-right: 0; gap: 16px; }
+  .mv__block { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
+  .mv__list { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--line-strong); }
+  .mv__list > li { border-bottom: 1px solid var(--line-strong); }
+  .mv__need summary { list-style: none; min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; font-size: 16px; line-height: 1.35; font-weight: 600; cursor: pointer; }
+  .mv__need summary::-webkit-details-marker { display: none; }
+  .mv__plus { position: relative; flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--surface); }
+  .mv__plus::before, .mv__plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 2.5px; background: var(--brand); transform: translate(-50%, -50%); border-radius: 2px; }
+  .mv__plus::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform var(--duration-fast, 120ms) ease; }
+  .mv__need[open] .mv__plus { background: var(--brand); }
+  .mv__need[open] .mv__plus::before, .mv__need[open] .mv__plus::after { background: var(--on-brand); }
+  .mv__need[open] .mv__plus::after { transform: translate(-50%, -50%) rotate(0deg); }
+  .mv__faq { border-bottom: 1px solid var(--line); }
+  .mv__faq summary { list-style: none; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; font-size: 16px; font-weight: 600; line-height: 1.35; cursor: pointer; }
+  .mv__faq summary::-webkit-details-marker { display: none; }
+  .mv__faq p { margin: 0 0 18px; }
+  .mv__need-body { padding: 0 0 24px; display: flex; flex-direction: column; gap: 16px; }
+  .mv__need-body dl { margin: 0; display: grid; gap: 14px; }
+  .mv__need-body dl > div { display: grid; gap: 4px; }
+  .mv__need-body dt, .mv__horarios dt { font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-muted); }
+  .mv__need-body dd { margin: 0; font-size: 16px; line-height: 1.5; }
+  .mv__need-body dd a { color: var(--brand); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .mv__areas { list-style: none; margin: 0; padding: 0; }
+  .mv__areas li { border-bottom: 1px solid var(--line); }
+  .mv__areas a { min-height: 76px; display: flex; align-items: center; gap: 14px; padding: 14px 0; color: var(--ink); text-decoration: none; }
+  .mv__icon { flex: none; width: 40px; height: 40px; color: var(--brand); }
+  .mv__icon svg { width: 40px; height: 40px; }
+  .mv__area-txt { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .mv__area-txt strong { font-size: 17px; line-height: 1.25; }
+  .mv__area-txt span { font-size: 14px; line-height: 1.45; color: var(--ink-muted); }
+  .mv__chev { flex: none; width: 20px; height: 20px; color: var(--brand); }
+  .mv__track { list-style: none; margin: 16px 0; padding: 4px 20px 8px; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 20px; }
+  .mv__track:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .mv__story { flex: none; width: 286px; scroll-snap-align: start; background: var(--surface); border: 1px solid var(--line); border-radius: 0 var(--radius-md) 0 0; overflow: hidden; display: flex; flex-direction: column; }
+  .mv__story-img { width: 100%; height: 180px; object-fit: cover; display: block; }
+  .mv__story-txt { padding: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .mv__tag { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brand); }
+  .mv__story-txt h3 { margin: 0; font-size: 18px; line-height: 1.3; font-weight: 700; }
+  .mv__sede { border: 1px solid var(--line); border-radius: 0 var(--radius-md) 0 0; padding: 24px 20px; display: flex; flex-direction: column; gap: 14px; }
+  .mv__sede h3 { margin: 0; font-size: 20px; font-weight: 700; }
+  .mv__sede p { margin: 0; }
+  .mv__horarios { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-size: 15px; }
+  .mv__horarios dt { text-transform: capitalize; letter-spacing: 0; font-size: 15px; font-weight: 600; color: var(--ink); }
+  .mv__horarios dd { margin: 0; color: var(--ink-muted); }
+  .mv__sede-ctas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .mv__sede-ctas .mv__btn { min-height: 48px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  @media (max-width: 760px) {
+    .mv { display: block; }
+  }
+</style>

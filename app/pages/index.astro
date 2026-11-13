@@ -10,6 +10,7 @@ import VoiceCarousel from "../components/casos/VoiceCarousel.astro";
 import SectionHeader from "../components/ui/SectionHeader.astro";
 import Steps from "../components/ui/Steps.astro";
 import Faq from "../components/ui/Faq.astro";
+import InicioMovil from "../components/home/InicioMovil.astro";
 import TodayStatus from "../components/contacto/TodayStatus.astro";
 import SedeCard from "../components/contacto/SedeCard.astro";
 import { SITE } from "../data/site";
@@ -39,6 +40,9 @@ const pasos = [
     window.addEventListener("hashchange", irARutaNueva);
   </script>
 
+  <InicioMovil />
+
+  <div class="escritorio">
   <Hero home eyebrow="Odontóloga · Ortodoncista" title="Ortodoncia y atención odontológica en La Plata y Quilmes." lead="Dra. Edith Noriega, especialista en ortodoncia. Evaluación, tratamiento y seguimiento en ambos consultorios." />
   <Creds />
   <NeedsGuide />
@@ -81,4 +85,11 @@ const pasos = [
       </div>
     </div>
   </section>
+  </div>
 </Base>
+
+<style>
+  @media (max-width: 760px) {
+    .escritorio { display: none; }
+  }
+</style>
