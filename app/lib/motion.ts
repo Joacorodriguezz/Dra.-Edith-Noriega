@@ -1,11 +1,11 @@
-import { $, $$, reducedMotion } from "./dom";
+import { $, $$ } from "./dom";
 
 /**
  * Entradas al hacer scroll. Los estilos están en app/styles/motion.css.
  *
  * Cada grupo es un contenedor que se observa; cuando entra en pantalla se marca con .is-in
  * junto con sus ítems, que llegan escalonados. Lo que ya está a la vista al cargar no se toca,
- * así nada parpadea. Con prefers-reduced-motion o sin IntersectionObserver no hace nada.
+ * así nada parpadea. Sin IntersectionObserver no hace nada (y nada queda oculto).
  */
 type Kind = "rise" | "fade" | "slide" | "line";
 
@@ -50,7 +50,8 @@ const FALLBACK = "main .section > .wrap > *";
 
 export function initMotion() {
   initNavShadow();
-  if (reducedMotion() || !("IntersectionObserver" in window)) return;
+  // Con "reducir movimiento" también corre: motion.css cambia las entradas por fundidos sin desplazamiento
+  if (!("IntersectionObserver" in window)) return;
 
   const claimed: Element[] = [];
   const members = new Map<Element, HTMLElement[]>();
