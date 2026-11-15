@@ -1,5 +1,6 @@
 ---
 import "../styles/site.css";
+import "../styles/motion.css";
 import Seo from "../components/seo/Seo.astro";
 import NavBar from "../components/nav/NavBar.astro";
 import MobileMenu from "../components/nav/MobileMenu.astro";
@@ -52,6 +53,9 @@ const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined;
     <script>
       import { track } from "../lib/track";
       import { $ } from "../lib/dom";
+      import { initMotion } from "../lib/motion";
+
+      initMotion();
 
       document.addEventListener("click", (e) => {
         const target = e.target as Element;
