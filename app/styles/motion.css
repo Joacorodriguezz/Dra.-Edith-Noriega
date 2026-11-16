@@ -1,7 +1,8 @@
 /* Movimiento del sitio.
    Criterio: las cosas llegan una sola vez, con desaceleración larga, y después quedan quietas.
    Sin bucles, sin rebotes, sin parallax. Desplazamientos de 14 px como máximo.
-   Todo vive dentro de prefers-reduced-motion:no-preference: quien pide menos movimiento ve el sitio estático.
+   Quien pide menos movimiento (lo activan el ahorro de batería y "Quitar animaciones" en muchos Android)
+   ve solo fundidos, sin desplazamiento, escala ni desenfoque: ver el bloque prefers-reduced-motion:reduce al final.
    Las entradas al hacer scroll las activa app/lib/motion.ts (data-reveal + .is-in); sin JS nada queda oculto. */
 :root{--ease-out:cubic-bezier(.16,1,.3,1);--ease-in-out:cubic-bezier(.65,0,.35,1)}
 
@@ -80,4 +81,20 @@
   /* Cambio de página: fundido corto (navegadores con View Transitions) */
   @view-transition{navigation:auto}
   ::view-transition-old(root),::view-transition-new(root){animation-duration:.22s}
+}
+
+/* ---------- Movimiento reducido: los mismos momentos, solo con fundidos ----------
+   site.css acorta todas las animaciones a .01ms en este modo; acá se devuelve la duración solo a estos fundidos. */
+@media (prefers-reduced-motion:reduce){
+  .en-hero__copy>*,.pagehead .copy-col>*,.tx-hero__copy>*,.mv__hero>*{animation:m-fade ease-out both;animation-duration:.6s!important}
+  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(2){animation-delay:70ms}
+  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(3){animation-delay:140ms}
+  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(4){animation-delay:210ms}
+  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(n+5){animation-delay:280ms}
+
+  [data-reveal]:not(.is-in){opacity:0}
+  [data-reveal].is-in{animation:m-fade ease-out both;animation-delay:calc(var(--i,0) * var(--step,70ms));animation-duration:.6s!important}
+
+  @view-transition{navigation:auto}
+  ::view-transition-old(root),::view-transition-new(root){animation-duration:.22s!important}
 }
