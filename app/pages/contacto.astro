@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import PageHead from "../components/ui/PageHead.astro";
 import Button from "../components/ui/Button.astro";
+import Deco from "../components/ui/Deco.astro";
 import TodayStatus from "../components/contacto/TodayStatus.astro";
 import SedeCard from "../components/contacto/SedeCard.astro";
 import WhatsAppForm from "../components/contacto/WhatsAppForm.astro";
@@ -20,10 +21,12 @@ const crumbs = [{ label: "Inicio", href: "/" }, { label: "Contacto y turnos" }];
   <PageHead crumbs={crumbs} eyebrow="Contacto" title="Pedí tu turno" lead="Los turnos se coordinan por WhatsApp. También podés dejar tu consulta indicando el área que te interesa.">
     <TodayStatus />
   </PageHead>
-  <section class="section" style="padding-top:var(--space-7)">
+  <section class="section mo-host" style="padding-top:var(--space-7)">
+    <Deco kind="blob" size={420} shape="var(--surface-tint)" opacity={0.8} pos="left:-180px;bottom:-140px" loop="mo-b2" />
+    <Deco kind="ring" size={90} shape="var(--brand)" opacity={0.16} pos="right:4%;bottom:60px" loop="mo-f1" />
     <div class="wrap stack" style="gap:var(--space-6)">
       <div class="en-cta" style="flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between">
-        <span class="en-quarter" aria-hidden="true"></span>
+        <span class="en-quarter mo-loop mo-in1" aria-hidden="true" style="--x:12px;--y:-12px;--s:1"></span>
         <div class="stack" style="gap:var(--space-2);position:relative;z-index:1">
           <p class="eyebrow" style="color:var(--white)">Canal oficial de turnos</p>
           <h2 class="h2">WhatsApp {SITE.whatsappTexto}</h2>

@@ -2,6 +2,7 @@
 import { Picture } from "astro:assets";
 import retrato from "../../assets/retrato/retrato-dra-noriega.webp";
 import Button from "../ui/Button.astro";
+import Deco from "../ui/Deco.astro";
 import { SITE } from "../../data/site";
 
 interface Props {
@@ -15,10 +16,22 @@ interface Props {
 const { eyebrow, title, lead, home = false, alt = "Retrato de la Dra. Edith Noriega con ambo blanco" } = Astro.props;
 ---
 
-<section>
+<section class="mo-host">
+  {home ? (
+    <>
+      <Deco kind="blob" size={560} opacity={0.55} pos="right:-150px;top:-140px" loop="mo-b1" />
+      <Deco kind="blob" size={440} shape="var(--brand)" opacity={0.13} pos="left:-170px;bottom:-190px" loop="mo-b2" />
+      <Deco kind="ring" size={72} opacity={0.45} pos="right:4%;top:9%" loop="mo-f5" delay="-3s" />
+    </>
+  ) : (
+    <>
+      <Deco kind="blob" size={420} opacity={0.45} pos="right:-140px;top:-120px" loop="mo-b1" />
+      <Deco kind="ring" size={64} opacity={0.4} pos="right:6%;top:14%" loop="mo-f5" delay="-3s" />
+    </>
+  )}
   <div class="wrap">
-    <div class="en-hero">
-      <div class="en-hero__copy">
+    <div class:list={["en-hero", { "mo-hero": home }]}>
+      <div class="en-hero__copy mo-copy">
         <slot name="before" />
         <p class="eyebrow">{eyebrow}</p>
         {home ? <h1 class="display">{title}</h1> : <h1 class="h1">{title}</h1>}
@@ -38,13 +51,13 @@ const { eyebrow, title, lead, home = false, alt = "Retrato de la Dra. Edith Nori
         )}
       </div>
       <div class="en-hero__stage">
-        <span class="en-quarter" aria-hidden="true"></span>
-        <div class="en-portrait">
+        <span class="en-quarter mo-shape mo-f2" aria-hidden="true"></span>
+        <div class="en-portrait mo-ring">
           <div class="en-portrait__slot">
             <Picture src={retrato} alt={alt} formats={["avif"]} fallbackFormat="webp" widths={[300, 400, 600]} sizes="(max-width: 860px) 280px, 400px" loading="eager" fetchpriority="high" />
           </div>
         </div>
-        <span class="en-star" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="en-star mo-shape mo-spin" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       </div>
     </div>
   </div>

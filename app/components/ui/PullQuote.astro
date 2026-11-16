@@ -1,10 +1,10 @@
 ---
-interface Props { quote: string; author?: string }
-const { quote, author = "Dra. Edith Noriega" } = Astro.props;
+interface Props { quote: string; author?: string; /** Forma con bucle lento (opt-in, para el inicio) */ animada?: boolean }
+const { quote, author = "Dra. Edith Noriega", animada = false } = Astro.props;
 ---
 
 <div class="en-quote">
-  <span class="en-quarter" aria-hidden="true"></span>
+  <span class:list={["en-quarter", { "mo-loop mo-in1": animada }]} aria-hidden="true"></span>
   <blockquote>{quote}</blockquote>
   <cite>{author}</cite>
 </div>

@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import PageHead from "../components/ui/PageHead.astro";
 import CaseCard from "../components/casos/CaseCard.astro";
 import VoiceCarousel from "../components/casos/VoiceCarousel.astro";
+import Deco from "../components/ui/Deco.astro";
 import { CASES } from "../data/cases";
 import { SITE_URL, pageTitle } from "../data/site";
 import { breadcrumbList } from "../lib/schema";
@@ -16,7 +17,9 @@ const crumbs = [{ label: "Inicio", href: "/" }, { label: "Casos clínicos" }];
   schema={[breadcrumbList(SITE_URL, crumbs, `${SITE_URL}/casos/`)]}
 >
   <PageHead crumbs={crumbs} eyebrow="Investigación y actualización constante" title="Casos reales para entender cada abordaje" lead="Tres tratamientos documentados etapa por etapa. Tocá una imagen para verla completa. Cada caso es individual y no anticipa el resultado de otro tratamiento." />
-  <section class="section" style="padding-top:var(--space-7)">
+  <section class="section mo-host" style="padding-top:var(--space-7)">
+    <Deco kind="blob" size={440} shape="var(--surface-tint)" opacity={0.8} pos="right:-180px;top:12%" loop="mo-b1" />
+    <Deco kind="ring" size={100} shape="var(--brand)" opacity={0.16} pos="left:-34px;bottom:90px" loop="mo-f2" />
     <div class="wrap">
       <div class="case-grid">
         {CASES.map((c) => <CaseCard item={c} />)}
@@ -24,5 +27,5 @@ const crumbs = [{ label: "Inicio", href: "/" }, { label: "Casos clínicos" }];
       <p class="small" style="margin-top:var(--space-6)">Las imágenes fueron publicadas con autorización. Cada tratamiento se indica luego de una evaluación individual y sus tiempos y resultados pueden variar.</p>
     </div>
   </section>
-  <VoiceCarousel />
+  <VoiceCarousel deco />
 </Base>

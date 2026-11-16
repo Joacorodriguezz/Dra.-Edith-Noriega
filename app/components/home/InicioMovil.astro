@@ -3,6 +3,7 @@
 // Se muestra solo en pantallas de hasta 760 px; el escritorio sigue con sus secciones.
 import { Image } from "astro:assets";
 import Button from "../ui/Button.astro";
+import Deco from "../ui/Deco.astro";
 import TodayStatus from "../contacto/TodayStatus.astro";
 import { AREAS, areaHref, areaPorId, consultaHref } from "../../data/areas";
 import { ICONS } from "../../data/icons";
@@ -17,10 +18,12 @@ const primeraHref = "/primera-consulta/";
 const lugarLectura = (to: string) => (areaPorId(to) ? areaHref(to) : primeraHref);
 ---
 
-<section class="mv" aria-label="Inicio">
+<section class="mv mo-home" aria-label="Inicio">
   <div class="mv__status"><TodayStatus /></div>
 
-  <div class="mv__pad mv__hero">
+  <div class="mv__pad mv__hero mo-copy mo-host">
+    <Deco kind="blob" size={300} opacity={0.5} pos="right:-120px;top:-40px" loop="mo-b1" />
+    <Deco kind="ring" size={64} opacity={0.45} pos="right:30px;top:150px" loop="mo-f5" />
     <p class="mv__eyebrow">La Plata y Quilmes</p>
     <!-- role/aria-level: el escritorio ya tiene un título de nivel 1 en el mismo documento (ver index.astro). -->
     <p class="mv__h1" role="heading" aria-level="1">Experiencia, tecnología y calidez para cuidar tu sonrisa.</p>
@@ -36,12 +39,16 @@ const lugarLectura = (to: string) => (areaPorId(to) ? areaHref(to) : primeraHref
   </div>
 
   <div class="mv__portrait" aria-hidden="false">
-    <span class="mv__shape mv__shape--aqua"></span>
-    <span class="mv__shape mv__shape--violet"></span>
+    <span class="mv__shape mv__shape--aqua mo-shape mo-f4"></span>
+    <span class="mv__shape mv__shape--violet mo-shape mo-f3"></span>
+    <span class="mv__ring mo-shape mo-f1" aria-hidden="true"></span>
+    <span class="en-star mv__star mo-shape mo-spin" style="--size:44px;--shape:var(--aqua)" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
     <Image src={retrato} alt="Retrato de la Dra. Edith Noriega con ambo blanco" class="mv__img" widths={[448]} sizes="224px" />
   </div>
 
-  <section id="necesidades" class="mv__band" aria-labelledby="mv-needs">
+  <section id="necesidades" class="mv__band mo-host" aria-labelledby="mv-needs">
+    <Deco size={120} pos="right:-34px;top:-34px" loop="mo-f2" />
+    <Deco kind="blob" size={280} opacity={0.5} pos="left:-110px;bottom:-100px" loop="mo-b2" />
     <p class="mv__eyebrow">Empezá por lo que te pasa</p>
     <h2 id="mv-needs" class="mv__h2">¿Qué te trae a la consulta?</h2>
     <p class="mv__text">Elegí la opción más cercana a tu situación y te mostramos qué leer y qué llevar. No es un diagnóstico.</p>
@@ -73,7 +80,9 @@ const lugarLectura = (to: string) => (areaPorId(to) ? areaHref(to) : primeraHref
     </ul>
   </section>
 
-  <section class="mv__pad mv__block" aria-labelledby="mv-trat">
+  <section class="mv__pad mv__block mo-host" aria-labelledby="mv-trat">
+    <Deco kind="blob" size={300} shape="var(--surface-tint)" pos="right:-130px;top:-40px" loop="mo-b1" />
+    <Deco kind="ring" size={80} shape="var(--brand)" opacity={0.2} pos="left:-26px;top:55%" loop="mo-f3" />
     <p class="mv__eyebrow">Tratamientos</p>
     <h2 id="mv-trat" class="mv__h2">Para todas las etapas, desde una temprana edad</h2>
     <ul class="mv__areas">
@@ -92,7 +101,11 @@ const lugarLectura = (to: string) => (areaPorId(to) ? areaHref(to) : primeraHref
     </ul>
   </section>
 
-  <section class="mv__band mv__band--grey" aria-labelledby="mv-casos">
+  <section class="mv__band mv__band--grey mo-host" aria-labelledby="mv-casos">
+    <Deco shape="var(--surface-tint)" size={130} pos="right:-40px;top:-40px;transform:rotate(180deg)" loop="mo-f5" delay="-6s" />
+    <Deco kind="blob" size={300} shape="var(--surface)" opacity={0.8} pos="left:-120px;bottom:-100px" loop="mo-b1" />
+    <Deco kind="ring" size={90} shape="var(--brand)" opacity={0.2} pos="left:30px;top:34%" loop="mo-f3" />
+    <Deco kind="disc" size={46} opacity={0.6} pos="right:16px;bottom:22%" loop="mo-f5" />
     <div class="mv__pad">
       <p class="mv__eyebrow">Casos reales</p>
       <h2 id="mv-casos" class="mv__h2">Cada tratamiento, etapa por etapa</h2>
@@ -115,7 +128,11 @@ const lugarLectura = (to: string) => (areaPorId(to) ? areaHref(to) : primeraHref
     </div>
   </section>
 
-  <section class="mv__pad mv__block" aria-labelledby="mv-sedes">
+  <section class="mv__pad mv__block mo-host" aria-labelledby="mv-sedes">
+    <Deco size={110} pos="right:-30px;top:-30px" loop="mo-f1" delay="-9s" />
+    <Deco kind="blob" size={300} opacity={0.3} pos="left:-130px;bottom:-110px" loop="mo-b2" />
+    <Deco kind="ring" size={90} shape="var(--brand)" opacity={0.2} pos="right:20px;bottom:30%" loop="mo-f4" />
+    <Deco kind="disc" size={40} opacity={0.6} pos="left:14px;top:34%" loop="mo-f3" />
     <p class="mv__eyebrow">Consultorios</p>
     <h2 id="mv-sedes" class="mv__h2">Dónde atiende</h2>
     {SEDES.map((s) => (
@@ -141,7 +158,11 @@ const lugarLectura = (to: string) => (areaPorId(to) ? areaHref(to) : primeraHref
     ))}
   </section>
 
-  <section class="mv__pad mv__block" aria-labelledby="mv-faq">
+  <section class="mv__pad mv__block mo-host" aria-labelledby="mv-faq">
+    <Deco size={120} pos="right:-34px;bottom:-34px;transform:rotate(180deg)" loop="mo-f3" delay="-2s" />
+    <Deco kind="blob" size={280} shape="var(--surface-tint)" pos="left:-120px;top:-60px" loop="mo-b1" />
+    <Deco kind="ring" size={80} shape="var(--brand)" opacity={0.2} pos="right:30px;top:40%" loop="mo-f2" />
+    <Deco kind="disc" size={40} opacity={0.6} pos="left:12px;bottom:18%" loop="mo-f4" />
     <h2 id="mv-faq" class="mv__h2">Preguntas frecuentes</h2>
     {FAQ_HOME.map((f) => (
       <details class="mv__faq">

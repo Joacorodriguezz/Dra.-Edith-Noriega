@@ -10,6 +10,7 @@ import VoiceCarousel from "../components/casos/VoiceCarousel.astro";
 import SectionHeader from "../components/ui/SectionHeader.astro";
 import Steps from "../components/ui/Steps.astro";
 import Faq from "../components/ui/Faq.astro";
+import Deco from "../components/ui/Deco.astro";
 import InicioMovil from "../components/home/InicioMovil.astro";
 import TodayStatus from "../components/contacto/TodayStatus.astro";
 import SedeCard from "../components/contacto/SedeCard.astro";
@@ -42,16 +43,24 @@ const pasos = [
 
   <InicioMovil />
 
-  <div class="escritorio">
+  <div class="escritorio mo-home">
   <Hero home eyebrow="Odontóloga · Ortodoncista" title="Ortodoncia y atención odontológica en La Plata y Quilmes." lead="Dra. Edith Noriega, especialista en ortodoncia. Evaluación, tratamiento y seguimiento en ambos consultorios." />
   <Creds />
   <NeedsGuide />
   <ServicesBento />
   <CaseStories />
-  <VoiceCarousel tone="paper" />
+  <div class="mo-host">
+    <Deco size={170} pos="left:-60px;top:30px" loop="mo-f2" />
+    <Deco kind="blob" size={440} shape="var(--surface-tint)" pos="right:-150px;bottom:-120px" loop="mo-b2" />
+    <Deco kind="ring" size={120} shape="var(--brand)" opacity={0.2} pos="right:14%;top:20px" loop="mo-f1" delay="-5s" />
+    <VoiceCarousel tone="paper" />
+  </div>
   <TrainingTimeline />
 
-  <section class="section section--surface">
+  <section class="section section--surface mo-host">
+    <Deco size={200} pos="right:-60px;bottom:-60px;transform:rotate(180deg)" loop="mo-f2" delay="-11s" />
+    <Deco kind="blob" size={400} shape="var(--surface-tint)" pos="left:-140px;top:-120px" loop="mo-b2" />
+    <Deco kind="ring" size={100} opacity={0.5} pos="right:22%;top:30px" loop="mo-f4" />
     <div class="wrap">
       <div class="head-row">
         <SectionHeader eyebrow="Tu primera consulta" title="Qué pasa cuando pedís un turno" text="No hace falta saber de antemano qué tratamiento necesitás." />
@@ -61,14 +70,20 @@ const pasos = [
     </div>
   </section>
 
-  <section class="section section--tint">
+  <section class="section section--tint mo-host">
+    <Deco size={210} pos="right:-70px;bottom:-70px;transform:rotate(180deg)" loop="mo-f1" delay="-3s" />
+    <Deco kind="blob" size={420} shape="var(--surface)" opacity={0.8} pos="left:-160px;top:-120px" loop="mo-b1" />
+    <Deco kind="disc" size={70} shape="var(--brand)" opacity={0.15} pos="left:8%;bottom:30px" loop="mo-f3" />
     <div class="wrap split">
       <SectionHeader eyebrow="Preguntas frecuentes" title="Dudas antes de consultar" text="Si tu pregunta no está acá, escribinos por WhatsApp." />
       <Faq items={FAQ_HOME} />
     </div>
   </section>
 
-  <section class="section">
+  <section class="section mo-host">
+    <Deco shape="var(--surface-tint)" size={220} pos="left:-80px;top:-80px;transform:rotate(180deg)" loop="mo-f5" delay="-4s" />
+    <Deco kind="blob" size={420} opacity={0.35} pos="right:-150px;bottom:-150px" loop="mo-b1" />
+    <Deco kind="ring" size={120} shape="var(--brand)" opacity={0.2} pos="right:30%;top:-30px" loop="mo-f2" />
     <div class="wrap">
       <div class="head-row">
         <SectionHeader eyebrow="Contacto" title="Pedí tu turno" text="Los turnos se coordinan por WhatsApp. Elegí el consultorio que te quede más cómodo." />

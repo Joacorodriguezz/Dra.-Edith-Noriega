@@ -4,6 +4,7 @@ import PageHead from "../components/ui/PageHead.astro";
 import SectionHeader from "../components/ui/SectionHeader.astro";
 import Faq from "../components/ui/Faq.astro";
 import Cta from "../components/ui/Cta.astro";
+import Deco from "../components/ui/Deco.astro";
 import FirstVisitJourney from "../components/explorers/FirstVisitJourney.astro";
 import Checklist from "../components/explorers/Checklist.astro";
 import { FAQ_PRIMERA } from "../data/faqs";
@@ -19,18 +20,22 @@ const crumbs = [{ label: "Inicio", href: "/" }, { label: "Primera consulta" }];
   schema={[breadcrumbList(SITE_URL, crumbs, `${SITE_URL}/primera-consulta/`)]}
 >
   <PageHead crumbs={crumbs} eyebrow="Tu primera consulta" title="Qué pasa desde que pedís el turno hasta que tenés un plan" lead="Para que llegues sabiendo qué esperar. No hace falta saber de antemano qué tratamiento necesitás." />
-  <section class="section section--tint">
+  <section class="section section--tint mo-host">
+    <Deco kind="blob" size={420} shape="var(--surface)" opacity={0.7} pos="right:-170px;top:-130px" loop="mo-b1" />
+    <Deco kind="ring" size={90} shape="var(--brand)" opacity={0.18} pos="left:-24px;bottom:60px" loop="mo-f3" />
     <div class="wrap">
       <FirstVisitJourney />
     </div>
   </section>
-  <section class="section">
+  <section class="section mo-host">
+    <Deco kind="disc" size={70} opacity={0.5} pos="right:6%;top:36px" loop="mo-f5" />
     <div class="wrap split">
       <SectionHeader eyebrow="Para llevar" title="Qué información puede ser útil" text="Marcá lo que ya tenés listo. La lista queda guardada solo en este dispositivo." />
       <Checklist />
     </div>
   </section>
-  <section class="section section--surface">
+  <section class="section section--surface mo-host">
+    <Deco size={180} shape="var(--surface-tint)" pos="left:-60px;bottom:-60px;transform:scaleX(-1)" loop="mo-f4" />
     <div class="wrap split">
       <SectionHeader eyebrow="Preguntas frecuentes" title="Antes de tu primera consulta" />
       <Faq items={FAQ_PRIMERA} />

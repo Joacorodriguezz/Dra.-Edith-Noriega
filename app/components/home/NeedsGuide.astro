@@ -1,11 +1,15 @@
 ---
 import SectionHeader from "../ui/SectionHeader.astro";
 import Button from "../ui/Button.astro";
+import Deco from "../ui/Deco.astro";
 import { NEEDS } from "../../data/needs";
 import { areaPorId, areaHref, consultaHref } from "../../data/areas";
 ---
 
-<section class="section section--tint" id="necesidades">
+<section class="section section--tint mo-host" id="necesidades">
+  <Deco size={230} pos="right:-70px;top:-70px" loop="mo-f4" />
+  <Deco kind="blob" size={480} opacity={0.5} pos="left:-170px;bottom:-200px" loop="mo-b2" />
+  <Deco kind="ring" size={110} shape="var(--brand)" opacity={0.22} pos="left:40%;top:-50px" loop="mo-f3" delay="-5s" />
   <div class="wrap">
     <div class="head-row">
       <SectionHeader eyebrow="Empezá por lo que te pasa" title="¿Qué te trae a la consulta?" text="Elegí la opción más cercana a tu situación y te mostramos qué leer y qué llevar. No es un diagnóstico." />

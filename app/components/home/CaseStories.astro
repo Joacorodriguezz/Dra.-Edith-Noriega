@@ -1,10 +1,16 @@
 ---
 import { Image } from "astro:assets";
+import Deco from "../ui/Deco.astro";
 import Button from "../ui/Button.astro";
 import { STORIES } from "../../data/cases";
 ---
 
-<section class="section section--aqua">
+<section class="section section--aqua mo-host">
+  <Deco shape="var(--surface-tint)" size={200} pos="left:-70px;bottom:-70px;transform:scaleX(-1)" loop="mo-f3" delay="-7s" />
+  <Deco kind="blob" size={460} shape="var(--surface)" opacity={0.7} pos="right:-150px;top:-110px" loop="mo-b1" />
+  <Deco kind="disc" size={80} opacity={0.7} pos="right:20%;bottom:-30px" loop="mo-f5" />
+  <Deco kind="ring" size={130} shape="var(--brand)" opacity={0.2} pos="left:34%;top:30px" loop="mo-f2" delay="-5s" />
+  <Deco kind="disc" size={56} shape="var(--aqua)" opacity={0.5} pos="left:6%;top:46%" loop="mo-f3" delay="-2s" />
   <div class="wrap">
     <div class="case-stories" data-stories>
       <div class="case-stories__head">

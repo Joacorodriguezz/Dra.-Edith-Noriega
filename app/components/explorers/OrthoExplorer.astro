@@ -39,10 +39,12 @@ const wire = (P: [number, number][]) => "M" + P.map((p) => `${f(p[0])} ${f(p[1])
         {[...U.rects, ...L.rects].map((r) => <rect class="t" x={f(r.x)} y={f(r.y)} width={r.w} height={r.h} rx={f(r.rx)}></rect>)}
         <g class="lay l-up-brk brk">
           <path class="wire" d={wire(U.pts)}></path>
+          <path class="wire-glint" pathLength="1000" d={wire(U.pts)}></path>
           {U.pts.map((p) => <rect x={f(p[0] - 7)} y={f(p[1] - 6)} width="14" height="12" rx="2.5"></rect>)}
         </g>
         <g class="lay l-lo-brk brk">
           <path class="wire" d={wire(L.pts)}></path>
+          <path class="wire-glint" pathLength="1000" d={wire(L.pts)}></path>
           {L.pts.map((p) => <rect x={f(p[0] - 7)} y={f(p[1] - 6)} width="14" height="12" rx="2.5"></rect>)}
         </g>
         <g class="lay l-up-al"><path class="al" d="M56 74 Q260 66 464 74 L462 144 Q260 164 58 144 Z"></path></g>

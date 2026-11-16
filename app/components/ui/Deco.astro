@@ -1,0 +1,10 @@
+---
+// Forma decorativa sobria con bucle lento. La sección debe llevar la clase mo-host (recorta y apila detrás del contenido).
+// kind: quarter (cuarto de círculo), disc (círculo), blob (mancha difusa), ring (aro).
+interface Props { kind?: "quarter" | "disc" | "blob" | "ring"; shape?: string; size?: number; pos: string; loop?: string; delay?: string; opacity?: number }
+const { kind = "quarter", shape = "var(--aqua-soft)", size = 180, pos, loop = "mo-f1", delay = "0s", opacity } = Astro.props;
+const base = kind === "quarter" ? "en-quarter" : kind === "ring" ? "mo-aro" : `mo-${kind}`;
+const op = opacity === undefined ? "" : `opacity:${opacity};`;
+---
+
+<span class={`${base} mo-deco mo-loop ${loop}`} aria-hidden="true" style={`--size:${size}px;--shape:${shape};--mo-d:${delay};${op}${pos}`}></span>
