@@ -5,8 +5,8 @@
 /* ---------- Base (bundle.css del DS) ---------- */
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
-html{background:var(--paper)}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:26px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html{background:var(--paper);overflow-x:hidden;overflow-x:clip;max-width:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:26px;-webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-x:clip;max-width:100%}
 h1,h2,h3,h4,p,ul,ol,dl,dd,figure,blockquote{margin:0}
 ul,ol{padding:0;list-style:none}
 h1,h2,h3{text-wrap:balance}
@@ -107,6 +107,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .en-nav__links a:hover{color:var(--brand)}
 .en-nav__links a[aria-current="page"]{border-bottom-color:var(--aqua)}
 .menu-btn{display:none;align-items:center;min-height:44px;padding:10px 20px;border:2px solid var(--brand);border-radius:var(--radius-pill);background:transparent;color:var(--brand);font:600 14px/20px var(--font-display);cursor:pointer}
+.menu-btn:focus,.menu-btn:focus-visible{outline:none}
+.menu-btn:focus-visible{background:var(--surface-tint)}
+.menu-btn:active{background:var(--surface-tint);-webkit-tap-highlight-color:transparent}
 @media (max-width:1180px){.en-nav__links{gap:var(--space-4)}.en-nav__links a{font-size:14px}}
 @media (max-width:980px){.en-nav__links,.en-nav .en-btn{display:none}.menu-btn{display:inline-flex}}
 @media (max-width:420px){.wordmark b{font-size:16px;letter-spacing:.02em}.wordmark small{letter-spacing:.38em}}
