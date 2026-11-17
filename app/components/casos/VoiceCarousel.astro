@@ -1,13 +1,21 @@
 ---
 import { Image } from "astro:assets";
+import Deco from "../ui/Deco.astro";
 import { TESTIMONIOS } from "../../data/testimonios";
 
-interface Props { tone?: "aqua" | "paper" }
-const { tone = "aqua" } = Astro.props;
+interface Props { tone?: "aqua" | "paper"; /** Formas decorativas detrás (opt-in; el inicio las pone desde afuera) */ deco?: boolean }
+const { tone = "aqua", deco = false } = Astro.props;
 const total = TESTIMONIOS.length;
 ---
 
-<section class:list={["section", { "section--aqua": tone === "aqua" }]}>
+<section class:list={["section", { "section--aqua": tone === "aqua", "mo-host": deco }]}>
+  {deco && (
+    <>
+      <Deco kind="blob" size={400} shape="var(--surface)" opacity={0.7} pos="right:-140px;top:-110px" loop="mo-b1" />
+      <Deco size={150} shape="var(--surface-tint)" pos="left:-50px;bottom:-50px;transform:scaleX(-1)" loop="mo-f3" delay="-4s" />
+      <Deco kind="ring" size={96} shape="var(--brand)" opacity={0.18} pos="right:12%;bottom:30px" loop="mo-f2" />
+    </>
+  )}
   <div class="wrap">
     <div class="voice-carousel" data-voices role="region" aria-roledescription="carrusel" aria-label="La voz de mis pacientes">
       <h2 class="eyebrow">La voz de mis pacientes</h2>

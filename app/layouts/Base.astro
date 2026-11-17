@@ -16,6 +16,8 @@ interface Props {
 }
 const { title, description, schema, noindex } = Astro.props;
 const current = Astro.url.pathname;
+// .mo: todo el sitio (movimiento por defecto, aun con prefers-reduced-motion). .mo-int: páginas internas (intensidad menor que el inicio).
+const esInicio = current === "/";
 const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined;
 ---
 
@@ -33,7 +35,7 @@ const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined;
     <Seo title={title} description={description} schema={schema} noindex={noindex} />
     {plausible && <script is:inline defer data-domain={plausible} src="https://plausible.io/js/script.js"></script>}
   </head>
-  <body>
+  <body class:list={["mo", { "mo-int": !esInicio }]}>
     <a class="skip" href="#main">Saltar al contenido</a>
     <div class="topbar">
       <div class="wrap">
@@ -53,9 +55,9 @@ const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined;
     <script>
       import { track } from "../lib/track";
       import { $ } from "../lib/dom";
-      import { initMotion } from "../lib/motion";
+      import { iniciarMovimiento } from "../lib/motion";
 
-      initMotion();
+      iniciarMovimiento();
 
       document.addEventListener("click", (e) => {
         const target = e.target as Element;

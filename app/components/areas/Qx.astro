@@ -1,5 +1,6 @@
 ---
 import SectionHeader from "../ui/SectionHeader.astro";
+import Deco from "../ui/Deco.astro";
 import SurgeryLanes from "../explorers/SurgeryLanes.astro";
 
 const publico = [
@@ -10,7 +11,9 @@ const publico = [
 ];
 ---
 
-<section class="section section--tint">
+<section class="section section--tint mo-host">
+  <Deco kind="blob" size={400} shape="var(--surface)" opacity={0.7} pos="right:-160px;top:-130px" loop="mo-b1" />
+  <Deco kind="ring" size={90} shape="var(--brand)" opacity={0.18} pos="left:-24px;bottom:50px" loop="mo-f3" />
   <div class="wrap">
     <div class="head-row">
       <SectionHeader eyebrow="Planificación de casos complejos" title="Cómo se planifica un caso complejo" text="Recorré las etapas para ver qué pasa en cada una y quién participa." />
@@ -19,7 +22,8 @@ const publico = [
   </div>
 </section>
 
-<section class="section">
+<section class="section mo-host">
+  <Deco size={180} shape="var(--surface-tint)" pos="right:-60px;bottom:-60px;transform:rotate(180deg)" loop="mo-f2" />
   <div class="wrap split">
     <SectionHeader eyebrow="Para quién" title="Pacientes que pueden requerir este abordaje" text="Cada caso se evalúa de forma individual, sin anticipar un tratamiento." />
     <ul class="dotlist">{publico.map((t) => <li>{t}</li>)}</ul>

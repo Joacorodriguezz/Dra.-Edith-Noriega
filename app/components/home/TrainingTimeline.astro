@@ -1,11 +1,15 @@
 ---
 import PullQuote from "../ui/PullQuote.astro";
+import Deco from "../ui/Deco.astro";
 import { TRAYECTORIA } from "../../data/formacion";
 ---
 
-<section class="section">
+<section class="section mo-host">
+  <Deco kind="blob" size={440} opacity={0.4} pos="left:-190px;bottom:-150px" loop="mo-b1" />
+  <Deco kind="ring" size={140} shape="var(--brand)" opacity={0.2} pos="right:-30px;top:40%" loop="mo-f3" delay="-4s" />
+  <Deco kind="disc" size={120} shape="var(--surface-tint)" pos="right:10%;bottom:30px" loop="mo-f5" />
   <div class="wrap stack" style="gap:var(--space-8)">
-    <PullQuote quote="Un buen diagnóstico integral es la clave para el éxito de todos los tratamientos." />
+    <PullQuote animada quote="Un buen diagnóstico integral es la clave para el éxito de todos los tratamientos." />
     <div class="split">
       <div class="en-section-head">
         <p class="eyebrow">Trayectoria</p>

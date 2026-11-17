@@ -7,6 +7,7 @@ import Breadcrumbs from "../../components/nav/Breadcrumbs.astro";
 import Button from "../../components/ui/Button.astro";
 import Cta from "../../components/ui/Cta.astro";
 import Faq from "../../components/ui/Faq.astro";
+import Deco from "../../components/ui/Deco.astro";
 import { AREAS, areaHref, consultaHref } from "../../data/areas";
 import { FAQ_HOME } from "../../data/faqs";
 import { SITE_URL, pageTitle } from "../../data/site";
@@ -114,7 +115,7 @@ const faq = [
 >
   <header class="tx-hero">
     <div class="wrap tx-hero__in">
-      <div class="tx-hero__copy">
+      <div class="tx-hero__copy mo-copy">
         <Breadcrumbs items={crumbs} />
         <p class="eyebrow">Tratamientos</p>
         <h1>El tratamiento que necesitás para cada etapa de tu vida</h1>
@@ -125,11 +126,11 @@ const faq = [
         </div>
       </div>
       <div class="tx-hero__art">
-        <div class="tx-disc" aria-hidden="true" style="left:9%;top:2%;width:80%;background:var(--surface-aqua)"></div>
-        <div class="tx-ring" aria-hidden="true" style="left:13%;top:-2%;width:80%;border-color:var(--aqua)"></div>
-        <span class="en-star" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <div class="tx-disc mo-loop mo-r2" aria-hidden="true" style="left:9%;top:2%;width:80%;background:var(--surface-aqua)"></div>
+        <div class="tx-ring mo-loop mo-r1" aria-hidden="true" style="left:13%;top:-2%;width:80%;border-color:var(--aqua)"></div>
+        <span class="en-star mo-shape mo-spin" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <Image class="tx-hero__main" src={brackets} alt="Arcadas con brackets metálicos" widths={[480, 760, 1023]} sizes="(max-width: 860px) 92vw, 560px" loading="eager" fetchpriority="high" />
-        <Image class="tx-hero__implant" src={implante} alt="Implante con pilar y corona" width={260} loading="eager" />
+        <Image class="tx-hero__implant mo-loop mo-float" src={implante} alt="Implante con pilar y corona" width={260} loading="eager" />
       </div>
     </div>
   </header>
@@ -152,7 +153,7 @@ const faq = [
         <div class="tx-band__art">
           <div class:list={["tx-band__stage", b.variants.length > 1 && "tx-band__stage--multi"]}>
             <div class="tx-disc" aria-hidden="true" style={`left:12%;top:0;width:74%;background:${b.disc}`}></div>
-            <div class="tx-ring" aria-hidden="true" style={`left:15%;top:-3%;width:74%;border-color:${b.ring}`}></div>
+            <div class="tx-ring mo-loop mo-r1" aria-hidden="true" style={`left:15%;top:-3%;width:74%;border-color:${b.ring}`}></div>
             {b.variants.map((v, j) => (
               <Image class="tx-band__img" src={v.img} alt={v.alt} widths={[480, 760, v.img.width]} sizes="(max-width: 860px) 92vw, 560px" loading="lazy" hidden={j !== 0} data-variant={j} />
             ))}
@@ -194,17 +195,19 @@ const faq = [
     </section>
   ))}
 
-  <section id="consulta" class="tx-steps">
+  <section id="consulta" class="tx-steps mo-host">
+    <Deco kind="blob" size={420} shape="var(--surface)" opacity={0.7} pos="right:-170px;top:-130px" loop="mo-b1" />
+    <Deco kind="ring" size={90} shape="var(--brand)" opacity={0.18} pos="left:-24px;bottom:50px" loop="mo-f3" />
     <div class="wrap tx-steps__in">
       <div class="tx-head">
         <p class="eyebrow">Tu primera consulta</p>
         <h2>Qué pasa cuando pedís un turno</h2>
         <p>No hace falta saber de antemano qué tratamiento necesitás. <a href="/primera-consulta/">Ver cómo es una primera consulta</a>.</p>
       </div>
-      <ol class="tx-steps__list">
+      <ol class="tx-steps__list" style={`--n:${steps.length}`}>
         {steps.map((s, i) => (
           <li>
-            <span class="tx-steps__n" aria-hidden="true">{i + 1}</span>
+            <span class="tx-steps__n mo-lit-n" aria-hidden="true">{i + 1}</span>
             <h3>{s.t}</h3>
             <p>{s.d}</p>
           </li>
@@ -213,7 +216,8 @@ const faq = [
     </div>
   </section>
 
-  <section class="tx-faq">
+  <section class="tx-faq mo-host">
+    <Deco size={170} shape="var(--surface-tint)" pos="right:-50px;bottom:-50px;transform:rotate(180deg)" loop="mo-f2" />
     <div class="wrap tx-faq__in">
       <div class="tx-head tx-faq__head">
         <p class="eyebrow">Preguntas frecuentes</p>

@@ -7,7 +7,7 @@ h1,h2,h3{text-wrap:balance}
 .eyebrow{text-transform:uppercase}
 .en-stage{padding:var(--space-5);display:flex;flex-wrap:wrap;gap:var(--space-5);align-items:center}
 :focus-visible{outline:3px solid var(--focus);outline-offset:3px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* Sin regla prefers-reduced-motion:reduce: el sitio mantiene sus transiciones (ver motion.css). */
 
 /* Botones */
 .en-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:48px;padding:12px 28px;border-radius:var(--radius-pill);border:2px solid transparent;font:600 15px/20px var(--font-display);letter-spacing:.01em;text-decoration:none;cursor:pointer;transition:background .18s,color .18s,border-color .18s}

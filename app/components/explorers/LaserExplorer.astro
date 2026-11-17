@@ -33,7 +33,7 @@ const DEFAULT = LAPPS[0];
       <path class="zone z-pulpa" fill="var(--aqua)" d="M200 96 C200 86 228 86 228 96 L226 170 C224 250 220 330 215 395 C214 398 212 398 212 395 C208 330 204 250 202 170 Z"></path>
       <path class="zone z-bolsa bolsa" fill="none" stroke-linecap="round" d="M178 182 L186 222 M250 182 L242 222"></path>
       <rect x="14" y="14" width="40" height="16" rx="4" fill="var(--ink-muted)" transform="rotate(35 34 22)"></rect>
-      <path class="beam-glow" id="beamGlow" d={`M50 34 L${DEFAULT.at[0]} ${DEFAULT.at[1]}`}></path>
+      <g class="beam-pulse"><path class="beam-glow" id="beamGlow" d={`M50 34 L${DEFAULT.at[0]} ${DEFAULT.at[1]}`}></path></g>
       <path class="beam" id="beam" d={`M50 34 L${DEFAULT.at[0]} ${DEFAULT.at[1]}`}></path>
       <path class="ld" d="M222 128 L292 150"></path>
       <text x="290" y="60">Esmalte</text>

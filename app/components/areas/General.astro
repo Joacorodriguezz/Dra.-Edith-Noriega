@@ -1,12 +1,15 @@
 ---
 import SectionHeader from "../ui/SectionHeader.astro";
 import Steps from "../ui/Steps.astro";
+import Deco from "../ui/Deco.astro";
 import Odontogram from "../explorers/Odontogram.astro";
 import { areaPorId } from "../../data/areas";
 const area = areaPorId("odontologia-general")!;
 ---
 
-<section class="section section--tint">
+<section class="section section--tint mo-host">
+  <Deco kind="blob" size={400} shape="var(--surface)" opacity={0.7} pos="right:-160px;top:-120px" loop="mo-b1" />
+  <Deco kind="ring" size={90} shape="var(--brand)" opacity={0.18} pos="left:-24px;bottom:50px" loop="mo-f3" />
   <div class="wrap">
     <div class="head-row">
       <SectionHeader eyebrow="Explorá" title="Conocé tu boca, pieza por pieza" text="Cada diente tiene un número. Tocá una pieza para saber cuál es y qué función cumple." />
@@ -15,7 +18,8 @@ const area = areaPorId("odontologia-general")!;
   </div>
 </section>
 
-<section class="section">
+<section class="section mo-host">
+  <Deco size={170} shape="var(--surface-tint)" pos="right:-50px;bottom:-50px;transform:rotate(180deg)" loop="mo-f2" />
   <div class="wrap">
     <div class="head-row">
       <SectionHeader eyebrow="Continuidad de la atención" title="Una atención que continúa" text="Los controles permiten detectar cambios a tiempo y cuidar lo logrado." />
@@ -24,7 +28,8 @@ const area = areaPorId("odontologia-general")!;
   </div>
 </section>
 
-<section class="section section--surface">
+<section class="section section--surface mo-host">
+  <Deco kind="disc" size={64} opacity={0.5} pos="right:6%;top:30px" loop="mo-f5" />
   <div class="wrap">
     <div class="head-row">
       <SectionHeader eyebrow="Qué incluye" title="Prevención, diagnóstico y rehabilitación" />

@@ -1,100 +1,305 @@
-/* Movimiento del sitio.
-   Criterio: las cosas llegan una sola vez, con desaceleración larga, y después quedan quietas.
-   Sin bucles, sin rebotes, sin parallax. Desplazamientos de 14 px como máximo.
-   Quien pide menos movimiento (lo activan el ahorro de batería y "Quitar animaciones" en muchos Android)
-   ve solo fundidos, sin desplazamiento, escala ni desenfoque: ver el bloque prefers-reduced-motion:reduce al final.
-   Las entradas al hacer scroll las activa app/lib/motion.ts (data-reveal + .is-in); sin JS nada queda oculto. */
-:root{--ease-out:cubic-bezier(.16,1,.3,1);--ease-in-out:cubic-bezier(.65,0,.35,1)}
-
-@keyframes m-rise{from{opacity:0;transform:translateY(14px)}}
-@keyframes m-rise-s{from{opacity:0;transform:translateY(6px)}}
-@keyframes m-slide{from{opacity:0;transform:translateX(-12px)}}
-@keyframes m-fade{from{opacity:0}}
-@keyframes m-focus{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:none}}
-@keyframes m-settle{from{transform:scale(.96)}}
-@keyframes m-ring{from{opacity:0;transform:scale(1.05)}}
-@keyframes m-grow{from{transform:scale(0)}}
-@keyframes m-pop{from{opacity:0;transform:scale(.85)}}
-@keyframes m-turn{from{opacity:0;transform:rotate(-90deg) scale(.7)}}
-@keyframes m-line{from{background-size:2px 0}to{background-size:2px 100%}}
-@keyframes m-sheet{from{opacity:0;transform:translateY(-8px)}}
-@keyframes m-toast{from{opacity:0;transform:translate(-50%,8px)}}
-
-@media (prefers-reduced-motion:no-preference){
-  /* ---------- 1. Portadas: entrada al cargar (solo CSS) ---------- */
-  .en-hero__copy>*,.pagehead .copy-col>*,.tx-hero__copy>*,.mv__hero>*{animation:m-rise .7s var(--ease-out) both}
-  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(2){animation-delay:70ms}
-  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(3){animation-delay:140ms}
-  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(4){animation-delay:210ms}
-  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(5){animation-delay:280ms}
-  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(n+6){animation-delay:350ms}
-  /* El título no se desliza: entra en foco y queda quieto */
-  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy)>h1{animation-name:m-focus;animation-duration:.8s}
-
-  /* Retrato y formas del inicio. La foto no se oculta nunca (es el elemento más grande de la portada). */
-  .en-portrait{animation:m-settle .9s var(--ease-out) both}
-  .en-portrait::after{animation:m-ring .9s var(--ease-out) .1s both}
-  .en-hero__stage .en-quarter{transform-origin:0 0;animation:m-grow .8s var(--ease-out) .25s both}
-  .en-hero__stage .en-star{animation:m-turn 1s var(--ease-out) .4s both}
-
-  /* Formas de las portadas internas y de Tratamientos */
-  .shapes>*,.tx-hero__art .tx-disc,.tx-hero__art .tx-ring{animation:m-pop .8s var(--ease-out) .15s both}
-  .shapes>:nth-child(2),.tx-hero__art .tx-ring{animation-delay:.3s}
-  .tx-hero__art .en-star{animation:m-turn 1s var(--ease-out) .4s both}
-  .tx-hero__art .tx-hero__implant{animation:m-rise .8s var(--ease-out) .45s both}
-
-  /* ---------- 2. Entradas al hacer scroll ---------- */
-  [data-reveal]:not(.is-in){opacity:0}
-  [data-reveal].is-in{animation:m-rise .75s var(--ease-out) both;animation-delay:calc(var(--i,0) * var(--step,70ms))}
-  [data-reveal="fade"].is-in{animation-name:m-fade}
-  [data-reveal="slide"].is-in{animation-name:m-slide}
-
-  /* Trayectoria: la línea se dibuja y los hitos aparecen sobre ella */
-  .timeline[data-reveal="line"]{opacity:1;border-left-color:transparent;background:linear-gradient(var(--line),var(--line)) 0 0/2px 0 no-repeat border-box}
-  .timeline[data-reveal="line"].is-in{animation:m-line 1.1s var(--ease-in-out) both}
-  .timeline>li.is-in::before{animation:m-grow .5s var(--ease-out) both;animation-delay:calc(var(--i,0) * var(--step,70ms) + .12s)}
-
-  /* Pasos: el número llega un instante después que su texto */
-  .step.is-in .step__n,.tx-steps__list>li.is-in .tx-steps__n{animation:m-pop .5s var(--ease-out) both;animation-delay:calc(var(--i,0) * var(--step,70ms) + .15s)}
-
-  /* Formas que acompañan a un bloque: crecen desde su esquina */
-  .en-quote.is-in .en-quarter,.en-cta.is-in .en-quarter,.mv__portrait.is-in .mv__shape--aqua{transform-origin:100% 0;animation:m-grow .9s var(--ease-out) .15s both}
-  .mv__portrait.is-in .mv__shape--violet{animation:m-pop .8s var(--ease-out) .25s both}
-  .tx-band__art.is-in .tx-disc{animation:m-pop .9s var(--ease-out) both}
-  .tx-band__art.is-in .tx-ring{animation:m-pop .9s var(--ease-out) .12s both}
-
-  /* ---------- 3. Respuestas a la interacción ---------- */
-  .en-btn{transition:background .18s,color .18s,border-color .18s,transform .18s var(--ease-out)}
-  .en-btn:active:not([disabled]){transform:scale(.98)}
-  .en-nav__links a{transition:color .18s,border-color .25s}
-  .navbar{transition:box-shadow .3s}
-  .navbar[data-scrolled]{box-shadow:0 8px 24px color-mix(in srgb,var(--brand) 9%,transparent)}
-  .en-icon-chip{transition:transform .3s var(--ease-out)}
-  .en-card.hover:hover .en-icon-chip{transform:scale(1.06)}
-
-  /* Contenido que se abre o cambia: aparece con una entrada corta */
-  .faq details[open] .a,.mv__faq[open]>p,.mv__need[open] .mv__need-body,.guide>[data-guide]:not([hidden]){animation:m-rise-s .35s var(--ease-out)}
-  .tx-band__img:not([hidden]){animation:m-fade .35s ease-out}
-  dialog.sheet[open]{animation:m-sheet .32s var(--ease-out)}
-  .toast:not([hidden]){animation:m-toast .3s var(--ease-out)}
-
-  /* Cambio de página: fundido corto (navegadores con View Transitions) */
-  @view-transition{navigation:auto}
-  ::view-transition-old(root),::view-transition-new(root){animation-duration:.22s}
+/* Movimiento del sitio. Con prefers-reduced-motion: reduce no se apaga todo: queda lo chico y se quita lo grande
+   (ver el bloque MOVIMIENTO REDUCIDO al final). Por eso site.css y design-system.css no tienen regla general de reduce.
+   Alcance: body.mo = todo el sitio (barra, menú, pie); body.mo-int = páginas internas (intensidad menor); .mo-home = el inicio (escritorio y móvil, intensidad mayor).
+   Solo transform / translate / rotate / scale, opacity y, con moderación, clip-path y background-position.
+   Los bucles usan las propiedades individuales (translate, rotate, scale) para componerse con los `transform` de hover y de entrada. */
+:root{
+  --mo-ease-out:cubic-bezier(.22,.61,.36,1);   /* desaceleración suave, sin rebote */
+  --mo-ease-soft:cubic-bezier(.45,.05,.55,.95); /* bucles: ida y vuelta pareja */
+  --mo-dur-in:720ms;
+  --mo-step:90ms;
 }
 
-/* ---------- Movimiento reducido: los mismos momentos, solo con fundidos ----------
-   site.css acorta todas las animaciones a .01ms en este modo; acá se devuelve la duración solo a estos fundidos. */
+/* ---------- Entrada al cargar (portada: .mo-copy / .mo-shape; franja de credenciales) ---------- */
+@keyframes mo-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes mo-in-shape{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+.mo-copy>*{animation:mo-in var(--mo-dur-in) var(--mo-ease-out) backwards}
+.mo-copy>:nth-child(2){animation-delay:calc(var(--mo-step)*1)}
+.mo-copy>:nth-child(3){animation-delay:calc(var(--mo-step)*2)}
+.mo-copy>:nth-child(4){animation-delay:calc(var(--mo-step)*3)}
+.mo-copy>:nth-child(5){animation-delay:calc(var(--mo-step)*4)}
+.mo-copy>:nth-child(n+6){animation-delay:calc(var(--mo-step)*5)}
+.mo-home .creds li{animation:mo-in var(--mo-dur-in) var(--mo-ease-out) calc(.4s + var(--i,0)*var(--mo-step)) backwards}
+
+/* ---------- Entradas al hacer scroll (las marca motion.ts con .mo-rv; sin JS no se oculta nada) ---------- */
+@keyframes mo-rv-up{from{opacity:0;translate:0 30px}}
+@keyframes mo-rv-left{from{opacity:0;translate:-44px 0}}
+@keyframes mo-rv-right{from{opacity:0;translate:44px 0}}
+@keyframes mo-rv-scale{from{opacity:0;scale:.9;translate:0 16px}}
+@keyframes mo-rv-mask{from{opacity:0;clip-path:inset(-40px 100% -40px -40px)}to{opacity:1;clip-path:inset(-40px -40px -40px -40px)}}
+.mo-rv:not(.mo-visto){opacity:0}
+.mo-rv--up{--mo-rv:mo-rv-up}
+.mo-rv--left{--mo-rv:mo-rv-left}
+.mo-rv--right{--mo-rv:mo-rv-right}
+.mo-rv--scale{--mo-rv:mo-rv-scale}
+.mo-rv--mask{--mo-rv:mo-rv-mask}
+.mo-rv.mo-visto{animation:var(--mo-rv) 900ms var(--mo-ease-out) var(--mo-rd,0ms) backwards}
+.mo-rv--mask.mo-visto{animation-duration:1100ms}
+
+/* ---------- Bucles de formas: recorrido 20-40 px, giro 8-15°, escala 6-10 %, 7-14 s por tramo ---------- */
+@keyframes mo-drift{from{translate:0 0;rotate:0deg;scale:1}to{translate:var(--x,24px) var(--y,-20px);rotate:var(--r,10deg);scale:var(--s,1.08)}}
+@keyframes mo-spin{0%{rotate:0deg;translate:0 0}50%{translate:12px -16px}100%{rotate:90deg;translate:0 0}} /* simetría de 90°: el giro cierra sin salto */
+.mo-f1{--x:26px;--y:-22px;--r:-10deg;--s:1.08;--mo-t:11s}
+.mo-f2{--x:-30px;--y:20px;--r:12deg;--s:.93;--mo-t:13s}
+.mo-f3{--x:22px;--y:28px;--r:8deg;--s:1.1;--mo-t:9s}
+.mo-f4{--x:-24px;--y:-26px;--r:-12deg;--s:1.07;--mo-t:14s}
+.mo-f5{--x:34px;--y:14px;--r:15deg;--s:.92;--mo-t:7s}
+.mo-in1{--x:-28px;--y:24px;--r:0deg;--s:1.1;--mo-t:10s}   /* formas ancladas a una esquina: se mueven hacia adentro */
+.mo-b1{--x:44px;--y:-32px;--r:0deg;--s:1.12;--mo-t:13s}   /* manchas difusas: recorridos largos y lentos */
+.mo-b2{--x:-48px;--y:28px;--r:0deg;--s:1.1;--mo-t:12s}
+.mo-spin{--mo-loop:mo-spin;--mo-t:9s;--mo-tf:ease-in-out;--mo-dir:normal}
+.mo-loop{animation:var(--mo-loop,mo-drift) var(--mo-t,10s) var(--mo-tf,var(--mo-ease-soft)) var(--mo-d,0s) infinite var(--mo-dir,alternate)}
+/* Forma con entrada + bucle: el delay de la entrada no retrasa el bucle */
+.mo-shape{animation:mo-in-shape calc(var(--mo-dur-in)*1.4) var(--mo-ease-out) calc(var(--mo-step)*3) backwards,var(--mo-loop,mo-drift) var(--mo-t,10s) var(--mo-tf,var(--mo-ease-soft)) var(--mo-d,0s) infinite var(--mo-dir,alternate)}
+
+/* Retrato de la portada: la foto no se mueve; el aro orbita (rota alrededor de un punto desplazado 12 px) y respira */
+@keyframes mo-orbit{to{rotate:360deg}}
+@keyframes mo-breathe{from{scale:1}to{scale:1.045}}
+.mo-ring::after{transform-origin:calc(50% + 12px) 50%;animation:mo-orbit 12s linear infinite,mo-breathe 6s var(--mo-ease-soft) infinite alternate}
+
+/* Formas decorativas (Deco.astro) */
+.mo-host{position:relative;overflow:hidden;isolation:isolate}
+.mo-deco{position:absolute;z-index:-1;pointer-events:none}
+.mo-disc{width:var(--size,100px);aspect-ratio:1;border-radius:50%;background:var(--shape)}
+.mo-aro{width:var(--size,100px);aspect-ratio:1;border-radius:50%;border:3px solid var(--shape)}
+.mo-blob{width:var(--size,300px);aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--shape) 75%,transparent),transparent)}
+
+/* ---------- Pausa fuera de pantalla (la marca motion.ts) ---------- */
+.mo-pausa,.mo-pausa *,.mo-pausa::before,.mo-pausa::after,.mo-pausa *::before,.mo-pausa *::after{animation-play-state:paused!important}
+/* Las entradas no se pausan nunca: si quedaran frenadas en su primer cuadro, el contenido seguiría invisible */
+.mo-rv.mo-visto,.mo-pausa .mo-rv.mo-visto,.mo-copy>*{animation-play-state:running!important}
+
+/* ---------- Líneas de acento que se dibujan en bucle ---------- */
+@keyframes mo-draw{0%{scale:0 1;opacity:1}18%{scale:1 1}62%{scale:1 1;opacity:1}78%{scale:1 1;opacity:0}100%{scale:0 1;opacity:0}}
+.mo-home .en-section-head .eyebrow::after,.mo-home .case-stories__head .eyebrow::after,.mo-home .voice-carousel>.eyebrow::after,.mo-home .mv__eyebrow::after{
+  content:"";display:block;width:44px;height:3px;margin-top:10px;border-radius:2px;background:var(--aqua);transform-origin:left;animation:mo-draw 7s var(--mo-ease-soft) infinite}
+.mo-home .creds li{position:relative}
+.mo-home .creds li::after{content:"";position:absolute;left:0;top:0;width:52px;height:3px;border-radius:2px;background:var(--aqua);transform-origin:left;animation:mo-draw 10s var(--mo-ease-soft) calc(var(--i,0)*1.6s) infinite}
+.mo-home .creds li+li::after{left:var(--space-5)}
+@media (max-width:760px){.mo-home .creds li+li::after{left:0}}
+.mo-home .creds li:nth-child(2),.mo-home .steps li:nth-child(2){--i:1}
+.mo-home .creds li:nth-child(3),.mo-home .steps li:nth-child(3){--i:2}
+.mo-home .creds li:nth-child(4),.mo-home .steps li:nth-child(4){--i:3}
+
+/* ---------- Servicios: íconos que flotan con desfase y brillo sobre la tarjeta destacada ---------- */
+@keyframes mo-bob{from{translate:0 0;scale:1}to{translate:0 -9px;scale:1.07}}
+.mo-home .en-icon-chip,.mo-home .mv__icon{animation:mo-bob 6s var(--mo-ease-soft) infinite alternate}
+.mo-home .bento>:nth-child(2) .en-icon-chip,.mo-home .mv__areas>:nth-child(2) .mv__icon{animation-duration:7.2s;animation-delay:-2s}
+.mo-home .bento>:nth-child(3) .en-icon-chip,.mo-home .mv__areas>:nth-child(3) .mv__icon{animation-duration:5.4s;animation-delay:-3.5s}
+.mo-home .bento>:nth-child(4) .en-icon-chip,.mo-home .mv__areas>:nth-child(4) .mv__icon{animation-duration:6.6s;animation-delay:-1s}
+.mo-home .bento>:nth-child(5) .en-icon-chip,.mo-home .mv__areas>:nth-child(5) .mv__icon{animation-duration:7.8s;animation-delay:-4.5s}
+@keyframes mo-shine{0%{translate:-140% 0}45%,100%{translate:380% 0}}
+.mo-home .en-card--brand{position:relative;overflow:hidden;isolation:isolate}
+.mo-home .en-card--brand::after{content:"";position:absolute;top:-20%;bottom:-20%;left:0;width:36%;pointer-events:none;background:linear-gradient(105deg,transparent,rgb(255 255 255/.13),transparent);animation:mo-shine 10s var(--mo-ease-soft) infinite}
+
+/* ---------- Flechas con vaivén corto ---------- */
+@keyframes mo-nudge{from{translate:0 0}to{translate:6px 0}}
+.mo-home .need[aria-pressed="true"] svg,.mo-home .case-stories__controls [data-stories-next],.mo-home .voice-carousel__arrows [data-voice-next]:not(:disabled),.mo-home .mv__chev{animation:mo-nudge 2.6s var(--mo-ease-soft) infinite alternate}
+.mo-home .mv__areas>:nth-child(2n) .mv__chev{animation-delay:-1.3s}
+
+/* ---------- Pulsos en anillo: estado de hoy y hito actual de la trayectoria ---------- */
+@keyframes mo-pulse{from{scale:1;opacity:.7}to{scale:2.8;opacity:0}}
+.mo-home .today i{position:relative}
+.mo-home .today i::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--aqua-ink);animation:mo-pulse 2.6s ease-out infinite}
+.mo-home .timeline>li.now::after{content:"";position:absolute;left:-9px;top:0;width:16px;height:16px;border-radius:50%;border:2px solid var(--aqua);animation:mo-pulse 2.8s ease-out infinite}
+/* Un trazo de luz recorre la línea de la trayectoria */
+@keyframes mo-travel{from{background-position:0 0}to{background-position:0 100%}}
+.mo-home .timeline{position:relative;isolation:isolate}
+.mo-home .timeline::after{content:"";position:absolute;z-index:-1;left:-2px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--aqua) 50%,transparent) no-repeat;background-size:100% 24%;animation:mo-travel 8s var(--mo-ease-soft) infinite}
+
+/* ---------- Pasos: los números se encienden en secuencia (1, 2, 3, 4 y vuelve) ---------- */
+@keyframes mo-lit{0%{scale:1}7%{scale:1.22}22%{scale:1.22}32%,100%{scale:1}}
+@keyframes mo-lit-ring{0%{scale:1;opacity:0}6%{scale:1;opacity:.9}32%{scale:1.9;opacity:0}100%{scale:1.9;opacity:0}}
+@keyframes mo-lit-line{0%{scale:0 1;opacity:1}9%{scale:1 1}26%{scale:1 1;opacity:1}36%,100%{scale:1 1;opacity:0}}
+.mo-home .step__n{animation:mo-lit 12s var(--mo-ease-soft) calc(var(--i,0)*3s) infinite}
+.mo-home .step__n::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--aqua);animation:mo-lit-ring 12s ease-out calc(var(--i,0)*3s) infinite}
+.mo-home .step::before{content:"";position:absolute;left:0;right:0;top:-2px;height:2px;background:var(--aqua);transform-origin:left;opacity:0;animation:mo-lit-line 12s var(--mo-ease-soft) calc(var(--i,0)*3s) infinite}
+
+/* ---------- Cita con círculo que deriva ---------- */
+.mo-home .en-quote::before{content:"";position:absolute;left:-40px;bottom:-50px;width:150px;aspect-ratio:1;border-radius:50%;background:var(--aqua-soft);opacity:.4;--x:36px;--y:-26px;--r:0deg;--s:1.12;animation:mo-drift 12s var(--mo-ease-soft) infinite alternate}
+
+/* ---------- Móvil: aro y estrella del retrato ---------- */
+.mv__ring{position:absolute;left:22px;top:26px;width:96px;aspect-ratio:1;border:3px solid var(--aqua);border-radius:50%}
+.mv__star{position:absolute;right:26px;bottom:36px}
+
+
+/* =====================================================================================================
+   TODO EL SITIO (body.mo): barra, menú, pie. Solo transiciones y entradas de una vez, sin bucles.
+   ===================================================================================================== */
+
+/* ---------- Barra de navegación: sombra al bajar (opacidad de un pseudo-elemento) y subrayado que crece ---------- */
+.navbar::after{content:"";position:absolute;left:0;right:0;top:100%;height:12px;pointer-events:none;background:linear-gradient(to bottom,color-mix(in srgb,var(--ink) 9%,transparent),transparent);opacity:0;transition:opacity .25s}
+.navbar.mo-scroll::after{opacity:1}
+.mo .en-nav__links a{position:relative}
+.mo .en-nav__links a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:var(--aqua);scale:0 1;transform-origin:left;transition:scale .28s var(--mo-ease-out)}
+.mo .en-nav__links a:hover::after,.mo .en-nav__links a:focus-visible::after{scale:1 1}
+.mo .en-nav__links a[aria-current="page"]::after{display:none}
+.mo .en-nav .en-btn{transition:background .18s,color .18s,border-color .18s,translate .2s var(--mo-ease-out)}
+.mo .en-nav .en-btn:hover{translate:0 -1px}
+.mo .menu-btn{transition:background .18s,color .18s}
+.mo .menu-btn:hover{background:var(--surface-tint)}
+
+/* ---------- Menú móvil: abre con un fundido corto y los enlaces entran escalonados ---------- */
+@keyframes mo-sheet-in{from{opacity:0;translate:0 14px}}
+dialog.sheet[open]{animation:mo-sheet-in .32s var(--mo-ease-out)}
+.sheet[open] nav>a{animation:mo-in 460ms var(--mo-ease-out) backwards}
+.sheet[open] nav>a:nth-child(2){animation-delay:60ms}
+.sheet[open] nav>a:nth-child(3){animation-delay:120ms}
+.sheet[open] nav>a:nth-child(4){animation-delay:180ms}
+.sheet[open] nav>a:nth-child(5){animation-delay:240ms}
+.sheet[open] nav>a:nth-child(n+6){animation-delay:300ms}
+.sheet nav a{transition:color .2s,translate .25s var(--mo-ease-out)}
+.sheet nav a:hover{translate:4px 0}
+
+/* ---------- Pie: los enlaces cambian de color de subrayado; ventana de imagen ampliada con fundido ---------- */
+.mo .en-footer a{transition:text-decoration-color .2s}
+.mo .en-footer a:hover{text-decoration-color:var(--white)}
+@keyframes mo-pop{from{opacity:0;scale:.97}}
+.case-lightbox[open]{animation:mo-pop .3s var(--mo-ease-out)}
+
+/* =====================================================================================================
+   PÁGINAS INTERNAS (body.mo-int): más sutil que el inicio. 2 a 4 cosas por pantalla, recorridos de 14-28 px, giros de hasta 10°, ciclos de 8-16 s.
+   ===================================================================================================== */
+
+/* ---------- Formas: mismos nombres que el inicio con recorridos más cortos. La estrella no gira: se mece ---------- */
+.mo-int .mo-f1{--x:18px;--y:-16px;--r:-7deg;--s:1.05;--mo-t:12s}
+.mo-int .mo-f2{--x:-20px;--y:14px;--r:8deg;--s:.96;--mo-t:14s}
+.mo-int .mo-f3{--x:16px;--y:20px;--r:6deg;--s:1.06;--mo-t:10s}
+.mo-int .mo-f4{--x:-16px;--y:-18px;--r:-8deg;--s:1.05;--mo-t:15s}
+.mo-int .mo-f5{--x:22px;--y:12px;--r:10deg;--s:.95;--mo-t:9s}
+.mo-int .mo-in1{--x:-18px;--y:16px;--r:0deg;--s:1.06;--mo-t:11s}
+.mo-int .mo-b1{--x:28px;--y:-20px;--s:1.07;--mo-t:15s}
+.mo-int .mo-b2{--x:-28px;--y:18px;--s:1.06;--mo-t:14s}
+.mo-int .mo-spin{--mo-loop:mo-drift;--mo-tf:var(--mo-ease-soft);--mo-dir:alternate;--x:14px;--y:-16px;--r:8deg;--s:1.05;--mo-t:12s}
+.mo-r1{--x:12px;--y:-10px;--r:0deg;--s:1.02;--mo-t:11s}   /* aros y discos del índice de tratamientos: el aro se desplaza respecto del disco */
+.mo-r2{--x:-10px;--y:8px;--r:0deg;--s:1.02;--mo-t:13s}
+@keyframes mo-float-k{from{translate:0 0}to{translate:0 -9px}}
+.mo-float{--mo-loop:mo-float-k;--mo-t:7s}
+/* Retrato de la doctora: el aro solo respira (no orbita) */
+.mo-int .mo-ring::after{transform-origin:50% 50%;animation:mo-breathe 6s var(--mo-ease-soft) infinite alternate}
+
+/* ---------- Líneas de acento bajo los rótulos de sección ---------- */
+.mo-int .pagehead .eyebrow::after,.mo-int .en-section-head .eyebrow::after,.mo-int .tx-head .eyebrow::after,.mo-int .voice-carousel>.eyebrow::after{
+  content:"";display:block;width:44px;height:3px;margin-top:10px;border-radius:2px;background:var(--aqua);transform-origin:left;animation:mo-draw 8s var(--mo-ease-soft) infinite}
+
+/* ---------- Pasos: el número activo se enciende en secuencia (ciclo = 3 s por paso) ---------- */
+@keyframes mo-lit-s{0%{scale:1}7%{scale:1.14}22%{scale:1.14}32%,100%{scale:1}}
+@keyframes mo-lit-ring-s{0%{scale:1;opacity:0}6%{scale:1;opacity:.8}32%{scale:1.6;opacity:0}100%{scale:1.6;opacity:0}}
+.mo-int :is(.steps,.tx-steps__list)>li:nth-child(2){--i:1}
+.mo-int :is(.steps,.tx-steps__list)>li:nth-child(3){--i:2}
+.mo-int :is(.steps,.tx-steps__list)>li:nth-child(4){--i:3}
+.mo-int :is(.steps,.tx-steps__list)>li:nth-child(5){--i:4}
+.mo-int :is(.steps,.tx-steps__list)>li:nth-child(6){--i:5}
+.mo-int .tx-steps__n{position:relative}
+.mo-int :is(.step__n,.tx-steps__n){animation:mo-lit-s calc(var(--n,4)*3s) var(--mo-ease-soft) calc(var(--i,0)*3s) infinite}
+.mo-int :is(.step__n,.tx-steps__n)::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--aqua);animation:mo-lit-ring-s calc(var(--n,4)*3s) ease-out calc(var(--i,0)*3s) infinite}
+.mo-int .step::before{content:"";position:absolute;left:0;right:0;top:-2px;height:2px;background:var(--aqua);transform-origin:left;opacity:0;animation:mo-lit-line calc(var(--n,4)*3s) var(--mo-ease-soft) calc(var(--i,0)*3s) infinite}
+
+/* ---------- Íconos que flotan, punto de estado, brillo en la tarjeta destacada ---------- */
+@keyframes mo-bob-s{from{translate:0 0;scale:1}to{translate:0 -6px;scale:1.05}}
+.mo-int .bento .en-icon-chip{animation:mo-bob-s 7s var(--mo-ease-soft) infinite alternate}
+.mo-int .bento>:nth-child(2) .en-icon-chip{animation-duration:8.2s;animation-delay:-2s}
+.mo-int .bento>:nth-child(3) .en-icon-chip{animation-duration:6.6s;animation-delay:-3.5s}
+.mo-int .bento>:nth-child(4) .en-icon-chip{animation-duration:7.6s;animation-delay:-1s}
+.mo-int .today i{position:relative}
+.mo-int .today i::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--aqua-ink);animation:mo-pulse 2.8s ease-out infinite}
+.mo-int .en-cta::after{content:"";position:absolute;top:-20%;bottom:-20%;left:0;width:36%;pointer-events:none;background:linear-gradient(105deg,transparent,rgb(255 255 255/.1),transparent);animation:mo-shine 12s var(--mo-ease-soft) infinite}
+
+/* ---------- Flechas con vaivén corto ---------- */
+@keyframes mo-nudge-l{from{translate:0 0}to{translate:-6px 0}}
+.mo-int .nextnav a:first-child .eyebrow::before{content:"←" / "";display:inline-block;margin-right:.6em;animation:mo-nudge-l 2.8s var(--mo-ease-soft) infinite alternate}
+.mo-int .nextnav a:last-child .eyebrow::after{content:"→" / "";display:inline-block;margin-left:.6em;animation:mo-nudge 2.8s var(--mo-ease-soft) infinite alternate}
+.mo-int .voice-carousel__arrows [data-voice-next]:not(:disabled){animation:mo-nudge 2.6s var(--mo-ease-soft) infinite alternate}
+
+/* ---------- Línea de tiempo de la doctora: un trazo de luz recorre la línea y cada fila tiene su punto ---------- */
+.mo-int .training-list{position:relative}
+.mo-int .training-list::before,.mo-int .training-list::after{content:"";position:absolute;left:-14px;top:0;bottom:0;width:2px}
+.mo-int .training-list::before{background:var(--line)}
+.mo-int .training-list::after{background:linear-gradient(to bottom,transparent,var(--aqua) 50%,transparent) no-repeat;background-size:100% 24%;animation:mo-travel 9s var(--mo-ease-soft) infinite}
+.mo-int .training-list li{position:relative}
+.mo-int .training-list li::before{content:"";position:absolute;left:-18px;top:24px;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--brand)}
+@media (max-width:760px){.mo-int .training-list::before,.mo-int .training-list::after{left:-10px}.mo-int .training-list li::before{left:-14px}}
+
+/* ---------- Tarjetas, enlaces y botones: elevación suave al pasar el mouse o enfocar ---------- */
+.mo-int .en-card{transition:box-shadow .2s,transform .2s,translate .25s var(--mo-ease-out)}
+.mo-int :is(.case-card,.en-sede,.tx-steps__list li){transition:translate .25s var(--mo-ease-out),box-shadow .25s}
+.mo-int :is(.bento,.en-cards,.ages,.vs)>.en-card:not(.en-card--tint,.en-card--soon):hover,.mo-int :is(.case-card,.en-sede,.tx-steps__list li):hover{translate:0 -3px;box-shadow:var(--shadow-lift)}
+.mo-int .en-btn{transition:background .18s,color .18s,border-color .18s,translate .2s var(--mo-ease-out),scale .2s var(--mo-ease-out)}
+.mo-int .en-btn:not([disabled]):hover{translate:0 -2px}
+.mo-int .en-btn:not([disabled]):active{translate:0 0;scale:.98}
+.mo-int .rel,.mo-int .tx-jump a{transition:background .18s,color .18s,translate .2s var(--mo-ease-out)}
+.mo-int .rel:hover,.mo-int .tx-jump a:hover{translate:0 -2px}
+.mo-int .voice-carousel__arrows button,.mo-int .case-card__stages button,.mo-int .case-stories__controls button{transition:background .18s,color .18s,border-color .18s,scale .2s var(--mo-ease-out)}
+.mo-int .voice-carousel__arrows button:not(:disabled):hover{background:var(--brand);color:var(--on-brand);scale:1.06}
+.mo-int .case-card__stages button:hover{border-color:var(--brand);color:var(--brand)}
+.mo-int .case-card__stages button[aria-pressed="true"]:hover{color:var(--on-brand)}
+.mo-int .tx-variants button{transition:border-color .18s,translate .2s var(--mo-ease-out)}
+.mo-int .tx-variants button:hover{translate:0 -2px}
+.mo-int .training-more summary,.mo-int .case-card summary,.mo-int .patient-voice__full summary{transition:color .18s}
+
+/* ---------- Acordeones y paneles: el contenido entra con un fundido corto (la altura no se anima) ---------- */
+@keyframes mo-open{from{opacity:0;translate:0 -6px}}
+@keyframes mo-panel{from{opacity:0;translate:0 8px}}
+.mo-int details[open]>:not(summary){animation:mo-open .35s var(--mo-ease-out)}
+.mo-int :is([data-part-panel],[data-laser-panel],[data-ox-panel],[data-j-panel],[data-qx-panel],[data-tx-panel],.tx-band__img):not([hidden]){animation:mo-panel .38s var(--mo-ease-out)}
+
+/* ---------- Formulario y avisos: transiciones suaves; nada se mueve mientras se escribe ---------- */
+.mo-int .en-field :is(input,textarea,select){transition:border-color .2s}
+.mo-int .radios label{transition:border-color .2s,background .2s}
+.mo-int .en-field--error .en-field__help,.mo-int #formMsg:not(:empty),.mo-int .notice{animation:mo-open .3s var(--mo-ease-out)}
+.mo-int .checklist span{transition:color .3s}
+
+/* ---------- Pie y barra móvil: gesto discreto y muy espaciado en el WhatsApp ---------- */
+@keyframes mo-ping{0%{scale:1;opacity:.8}14%{scale:2.8;opacity:0}100%{scale:2.8;opacity:0}}
+@keyframes mo-shine-bar{0%{translate:-160% 0}30%,100%{translate:420% 0}}
+.mo-int .en-footer a[href^="https://wa.me/"]{position:relative}
+.mo-int .en-footer a[href^="https://wa.me/"]::before{content:"";display:inline-block;width:8px;height:8px;margin-right:8px;border-radius:50%;background:var(--aqua-soft);vertical-align:middle}
+.mo-int .en-footer a[href^="https://wa.me/"]::after{content:"";position:absolute;left:0;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--aqua-soft);animation:mo-ping 11s ease-out infinite}
+.mo-int .mobilebar .en-btn{position:relative;overflow:hidden;isolation:isolate}
+.mo-int .mobilebar .en-btn::after{content:"";position:absolute;top:-20%;bottom:-20%;left:0;width:30%;pointer-events:none;background:linear-gradient(105deg,transparent,rgb(255 255 255/.22),transparent);animation:mo-shine-bar 13s var(--mo-ease-soft) infinite}
+
+/* ---------- Primera consulta: etapa actual con anillo que respira y barra de avance con brillo ---------- */
+@keyframes mo-ring-s{from{scale:1;opacity:.8}to{scale:1.7;opacity:0}}
+@keyframes mo-sheen{from{background-position:100% 0}to{background-position:0 0}}
+.mo-int .j-step{transition:border-color .2s,color .2s}
+.mo-int .j-step .k{position:relative;transition:background .25s,color .25s}
+.mo-int .j-step[aria-current="step"] .k::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--aqua);animation:mo-ring-s 2.8s ease-out infinite}
+.mo-int .progress i{background:linear-gradient(90deg,var(--aqua) 0 40%,color-mix(in srgb,var(--white) 55%,var(--aqua)) 50%,var(--aqua) 60% 100%) 0 0/250% 100%;animation:mo-sheen 3.6s linear infinite}
+
+/* ---------- Ilustraciones y exploradores: cada movimiento explica algo ---------- */
+/* Odontograma: la pieza elegida respira */
+@keyframes mo-tooth{from{scale:1}to{scale:1.07}}
+.mo-int .odo .tooth.on rect:not(.hit-area){transform-box:fill-box;transform-origin:center;animation:mo-tooth 2.4s var(--mo-ease-soft) infinite alternate}
+/* ATM: la señal recorre el nervio */
+@keyframes mo-march{to{stroke-dashoffset:-14}}
+.mo-int .atm .nerve{animation:mo-march 2.6s linear infinite}
+/* Ortodoncia: un destello recorre el arco y marca por dónde trabaja el alambre */
+@keyframes mo-glint{to{stroke-dashoffset:-1000}}
+.mo-int .ox .wire-glint{fill:none;stroke:var(--aqua);stroke-width:3;stroke-linecap:round;stroke-dasharray:34 966;animation:mo-glint 5.5s linear infinite}
+.mo-int .ox .l-lo-brk .wire-glint{animation-delay:-2.7s}
+/* Láser: el haz late y la zona elegida respira; en la escala, un aro marca los 980 nm */
+@keyframes mo-beat{from{opacity:.45}to{opacity:1}}
+@keyframes mo-zone{from{opacity:.78}to{opacity:1}}
+@keyframes mo-ping-l{0%{scale:1;opacity:.8}60%,100%{scale:2.6;opacity:0}}
+.mo-int .xsec .beam-pulse{animation:mo-beat 1.8s var(--mo-ease-soft) infinite alternate}
+.mo-int .xsec .zone.on{animation:mo-zone 2.6s var(--mo-ease-soft) infinite alternate}
+.mo-int .scale .ping{transform-box:fill-box;transform-origin:center;animation:mo-ping-l 3.2s ease-out infinite}
+/* Planificación quirúrgica: la barra de la etapa elegida crece desde la izquierda */
+@keyframes mo-grow{from{scale:0 1}}
+.mo-int .lanes .cell.on .bar{transform-origin:left;animation:mo-grow .6s var(--mo-ease-out) backwards}
+.mo-int :is(.lanes .ph-h,.lanes .cell,.cmp td,.cmp th){transition:background .25s,color .25s}
+
+/* ==========================================================================
+   MOVIMIENTO REDUCIDO (prefers-reduced-motion: reduce): punto medio.
+   Quien pidió menos movimiento conserva lo chico (pulsos, líneas de acento, íconos que flotan, flechas, hovers)
+   y pierde lo grande: las formas dejan de derivar y girar, los brillos no cruzan las tarjetas, y las entradas
+   (al cargar y al scrollear) pasan a ser un fundido sin desplazamiento.
+   ========================================================================== */
+@keyframes mo-fade{from{opacity:0}}
 @media (prefers-reduced-motion:reduce){
-  .en-hero__copy>*,.pagehead .copy-col>*,.tx-hero__copy>*,.mv__hero>*{animation:m-fade ease-out both;animation-duration:.6s!important}
-  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(2){animation-delay:70ms}
-  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(3){animation-delay:140ms}
-  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(4){animation-delay:210ms}
-  :is(.en-hero__copy,.pagehead .copy-col,.tx-hero__copy,.mv__hero)>:nth-child(n+5){animation-delay:280ms}
-
-  [data-reveal]:not(.is-in){opacity:0}
-  [data-reveal].is-in{animation:m-fade ease-out both;animation-delay:calc(var(--i,0) * var(--step,70ms));animation-duration:.6s!important}
-
-  @view-transition{navigation:auto}
-  ::view-transition-old(root),::view-transition-new(root){animation-duration:.22s!important}
+  .mo-loop:not(.mo-float),.mo-home .en-quote::before{animation:none!important}
+  .mo-shape{animation:mo-fade calc(var(--mo-dur-in)*1.4) var(--mo-ease-out) calc(var(--mo-step)*3) backwards!important}
+  .mo-ring::after{animation:mo-breathe 6s var(--mo-ease-soft) infinite alternate!important}
+  .mo-copy>*,.mo-home .creds li,.sheet[open] nav>a,.mo-rv.mo-visto{animation-name:mo-fade!important}
+  .mo-home .en-card--brand::after,.mo-int .en-cta::after,.mo-int .mobilebar .en-btn::after{display:none}
 }

@@ -2,12 +2,15 @@
 import SectionHeader from "../ui/SectionHeader.astro";
 import Steps from "../ui/Steps.astro";
 import Badge from "../ui/Badge.astro";
+import Deco from "../ui/Deco.astro";
 import AtmExplorer from "../explorers/AtmExplorer.astro";
 import { areaPorId } from "../../data/areas";
 const area = areaPorId("atm")!;
 ---
 
-<section class="section section--tint">
+<section class="section section--tint mo-host">
+  <Deco kind="blob" size={400} shape="var(--surface)" opacity={0.7} pos="right:-160px;top:-130px" loop="mo-b1" />
+  <Deco kind="ring" size={90} shape="var(--brand)" opacity={0.18} pos="left:-24px;bottom:50px" loop="mo-f3" />
   <div class="wrap">
     <AtmExplorer>
       <SectionHeader eyebrow="Explorador anatómico" title="Cómo funciona la articulación" text="Un esquema educativo para entender de qué se habla en la consulta. Tocá cada estructura y probá abrir la boca." />
@@ -15,7 +18,9 @@ const area = areaPorId("atm")!;
   </div>
 </section>
 
-<section class="section">
+<section class="section mo-host">
+  <Deco kind="disc" size={64} opacity={0.5} pos="right:6%;top:30px" loop="mo-f5" />
+  <Deco size={170} shape="var(--surface-tint)" pos="left:-60px;bottom:-60px;transform:scaleX(-1)" loop="mo-f4" />
   <div class="wrap">
     <div class="head-row">
       <SectionHeader eyebrow="Diagnóstico diferencial" title="Dos condiciones distintas" text="Por eso el primer paso es una evaluación detallada, sin suponer la causa." />
@@ -35,7 +40,8 @@ const area = areaPorId("atm")!;
   </div>
 </section>
 
-<section class="section section--surface">
+<section class="section section--surface mo-host">
+  <Deco kind="blob" size={360} shape="var(--surface-tint)" pos="right:-150px;bottom:-130px" loop="mo-b2" />
   <div class="wrap">
     <div class="head-row">
       <SectionHeader eyebrow="Recorrido de atención" title="Cómo se aborda" text="Cada caso se evalúa de forma individual. Esta información no sirve para autodiagnosticarse." />

@@ -6,6 +6,7 @@ import SectionHeader from "../components/ui/SectionHeader.astro";
 import PullQuote from "../components/ui/PullQuote.astro";
 import IconChip from "../components/ui/IconChip.astro";
 import Badge from "../components/ui/Badge.astro";
+import Deco from "../components/ui/Deco.astro";
 import { SITE_URL, pageTitle } from "../data/site";
 import { FORMACION, EJES, CIENCIA } from "../data/formacion";
 import { breadcrumbList } from "../lib/schema";
@@ -27,9 +28,11 @@ const equipo = [
     <Breadcrumbs slot="before" items={crumbs} />
   </Hero>
 
-  <section class="section section--surface">
+  <section class="section section--surface mo-host">
+    <Deco kind="blob" size={380} shape="var(--surface-tint)" pos="left:-150px;bottom:-150px" loop="mo-b2" />
+    <Deco kind="disc" size={64} opacity={0.55} pos="right:7%;bottom:36px" loop="mo-f3" />
     <div class="wrap split">
-      <PullQuote quote="La ortodoncia es para todos y para todas las edades." />
+      <PullQuote animada quote="La ortodoncia es para todos y para todas las edades." />
       <div class="stack measure" style="gap:var(--space-4)">
         <p class="eyebrow">Filosofía de atención</p>
         <p>Me formé en la Universidad Nacional de La Plata y en el Hospital San Martín, en el sector de Odontología. Hice mi posgrado en Ortodoncia en la UNLP y completé mi especialización en el Hospital Piñero de Buenos Aires.</p>
@@ -39,7 +42,9 @@ const equipo = [
     </div>
   </section>
 
-  <section class="section section--tint">
+  <section class="section section--tint mo-host">
+    <Deco size={190} pos="right:-60px;bottom:-60px;transform:rotate(180deg)" loop="mo-f2" />
+    <Deco kind="ring" size={90} shape="var(--brand)" opacity={0.18} pos="left:46%;top:24px" loop="mo-f4" />
     <div class="wrap">
       <div class="head-row"><SectionHeader eyebrow="Ejes de mi práctica" title="Cada área se apoya en una formación concreta" /></div>
       <div class="bento">
@@ -56,7 +61,9 @@ const equipo = [
     </div>
   </section>
 
-  <section class="section">
+  <section class="section mo-host">
+    <Deco kind="blob" size={380} shape="var(--surface-tint)" opacity={0.7} pos="right:-170px;top:10%" loop="mo-b1" />
+    <Deco kind="ring" size={110} shape="var(--brand)" opacity={0.16} pos="right:6%;bottom:40px" loop="mo-f1" />
     <div class="wrap">
       <div class="head-row"><SectionHeader eyebrow="Formación" title="Formación académica" text="Títulos y especializaciones, en orden cronológico." /></div>
       <ul class="training-list">
@@ -70,7 +77,9 @@ const equipo = [
     </div>
   </section>
 
-  <section class="section section--aqua">
+  <section class="section section--aqua mo-host">
+    <Deco kind="blob" size={420} shape="var(--surface)" opacity={0.7} pos="left:-170px;top:-140px" loop="mo-b2" />
+    <Deco kind="disc" size={70} opacity={0.6} pos="right:5%;top:30px" loop="mo-f5" />
     <div class="wrap">
       <div class="head-row"><SectionHeader eyebrow="Investigación y actualización constante" title="Actividad científica" text="Publicaciones y ponencias sobre tecnología láser aplicada a la ortodoncia y la cirugía." /></div>
       <div class="en-cards">
@@ -85,7 +94,8 @@ const equipo = [
     </div>
   </section>
 
-  <section class="section">
+  <section class="section mo-host">
+    <Deco size={170} shape="var(--surface-tint)" pos="right:-50px;bottom:-50px;transform:rotate(180deg)" loop="mo-f4" />
     <div class="wrap split">
       <SectionHeader eyebrow="Equipo" title="Un equipo de trabajo multidisciplinario" text="Trabajo junto a profesionales comprometidos con tratamientos integrales e interdisciplinarios." />
       <ul class="dotlist">{equipo.map((t) => <li>{t}</li>)}</ul>

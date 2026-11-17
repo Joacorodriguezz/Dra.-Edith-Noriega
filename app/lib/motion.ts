@@ -1,110 +1,112 @@
 import { $, $$ } from "./dom";
 
-/**
- * Entradas al hacer scroll. Los estilos están en app/styles/motion.css.
- *
- * Cada grupo es un contenedor que se observa; cuando entra en pantalla se marca con .is-in
- * junto con sus ítems, que llegan escalonados. Lo que ya está a la vista al cargar no se toca,
- * así nada parpadea. Sin IntersectionObserver no hace nada (y nada queda oculto).
- */
-type Kind = "rise" | "fade" | "slide" | "line";
-
-interface Group {
-  /** Contenedor que se observa */
-  sel: string;
-  /** Entrada del contenedor entero */
-  kind?: Kind;
-  /** Hijos que entran escalonados (selector relativo al contenedor) */
-  items?: string;
-  itemKind?: Kind;
-  /** Milisegundos entre un ítem y el siguiente */
-  step?: number;
-  /** Tope del escalonado, para que las listas largas no tarden */
-  max?: number;
-}
-
-const GROUPS: Group[] = [
-  // Encabezados de sección: antetítulo, título y texto, en ese orden
-  { sel: ".en-section-head, .tx-head, .case-stories__head > div", items: ":scope > *" },
-  { sel: ".head-row", items: ":scope > :not(.en-section-head)", itemKind: "fade", step: 200 },
-  // Grillas de tarjetas
-  { sel: ".bento, .en-cards, .case-grid, .en-contact, .nextnav, .needs", items: ":scope > *", step: 80 },
-  { sel: ".case-stories__track", items: ":scope > *", step: 80, max: 3 },
-  // Listas
-  { sel: ".creds ul", items: ":scope > li", itemKind: "fade", step: 90 },
-  { sel: ".steps, .tx-steps__list", items: ":scope > li", step: 90 },
-  { sel: ".timeline", kind: "line", items: ":scope > li", itemKind: "slide", step: 90 },
-  { sel: ".training-list", items: ":scope > li", itemKind: "fade", step: 50, max: 8 },
-  // Bloques sueltos
-  { sel: ".en-quote, .en-cta, .faq, .voice-carousel", kind: "rise" },
-  // Tratamientos
-  { sel: ".tx-band__art", kind: "fade" },
-  { sel: ".tx-band__copy", items: ":scope > *", step: 60, max: 5 },
-  // Inicio móvil
-  { sel: ".mv__portrait", kind: "fade" },
-  { sel: ".mv__band, .mv__block", items: ":scope > *", step: 60, max: 4 }
+/** Elementos con bucles: se pausan mientras están fuera de pantalla (.mo-pausa frena la animación del elemento, sus pseudo-elementos y descendientes). */
+const BUCLES = [
+  ".mo-loop", ".mo-shape", ".mo-ring",
+  // Inicio
+  ".creds", ".steps", ".bento", ".timeline", ".today", ".en-quote", ".en-section-head", ".case-stories__head",
+  ".case-stories__controls", ".voice-carousel__arrows", ".voice-carousel > .eyebrow", ".needs",
+  ".mv__areas", ".mv__portrait", ".mv__eyebrow", ".mv__status",
+  // Páginas internas
+  ".pagehead .eyebrow", ".en-cta", ".nextnav", ".training-list", ".j-steps", ".progress", ".illus", ".lanes-wrap",
+  ".tx-hero__art", ".tx-band__art", ".tx-steps__list", ".en-footer"
 ];
 
-/** Lo que no entra en ningún grupo: cada bloque de una sección sube entero. */
-const FALLBACK = "main .section > .wrap > *";
+/** Entradas al hacer scroll: [selector, variante, retardo entre hermanos en ms]. Se marcan por JS: sin JS (o sin IntersectionObserver) nada queda oculto. */
+const ENTRADAS: [string, string, number][] = [
+  [".escritorio .needs > ul > li", "left", 60],
+  [".escritorio .needs > .guide", "right", 0],
+  [".escritorio .bento > article", "scale", 110],
+  [".escritorio .case-stories__head", "mask", 0],
+  [".escritorio .case-story", "up", 120],
+  [".escritorio .voice-carousel", "scale", 0],
+  [".escritorio .timeline > li", "left", 110],
+  [".escritorio .step", "mask", 130],
+  [".escritorio .faq details", "right", 70],
+  [".escritorio .en-contact > *", "up", 120],
+  [".escritorio .en-section-head", "mask", 0],
+  [".mv__areas > li", "left", 80],
+  [".mv__story", "scale", 110],
+  [".mv__sede", "up", 120],
+  [".mv__faq", "right", 70]
+];
 
-export function initMotion() {
-  initNavShadow();
-  // Con "reducir movimiento" también corre: motion.css cambia las entradas por fundidos sin desplazamiento
+/** Páginas internas (body.mo-int): mismas variantes, recorridos más cortos (ver motion.css). Nada de lo que vive dentro de un panel [hidden] se marca. */
+const ENTRADAS_INT: [string, string, number][] = [
+  [".en-section-head", "mask", 0],
+  [".tx-head", "mask", 0],
+  [".bento > article", "scale", 110],
+  [".en-cards > .en-card", "up", 100],
+  [".ages > .en-card", "scale", 110],
+  [".vs > .en-card:nth-child(odd)", "left", 0],
+  [".vs > .en-card:nth-child(even)", "right", 0],
+  [".split > .dotlist > li", "left", 70],
+  [".steps > .step", "mask", 120],
+  [".training-list > li", "left", 60],
+  [".faq details", "right", 70],
+  [".en-quote", "left", 0],
+  [".case-grid > .case-card", "up", 120],
+  [".voice-carousel", "scale", 0],
+  [".en-contact > .en-sede", "up", 120],
+  [".en-form", "right", 0],
+  [".en-cta", "scale", 0],
+  [".nextnav > a:first-child", "left", 0],
+  [".nextnav > a:last-child", "right", 0],
+  [".notice", "up", 0],
+  [".j-steps", "left", 0],
+  [".journey > .en-card", "right", 0],
+  [".split-illus .illus", "scale", 0],
+  [".cmp-wrap, .lanes-wrap", "up", 0],
+  [".tx-band__art", "scale", 0],
+  [".tx-band__copy", "up", 0],
+  [".tx-steps__list > li", "up", 110],
+  [".tx-jump", "up", 0]
+];
+
+export function iniciarMovimiento() {
+  iniciarSombraBarra();
   if (!("IntersectionObserver" in window)) return;
 
-  const claimed: Element[] = [];
-  const members = new Map<Element, HTMLElement[]>();
-
-  const mark = (el: HTMLElement, kind: Kind, i = 0, step?: number) => {
-    el.dataset.reveal = kind;
-    if (i) el.style.setProperty("--i", String(i));
-    if (step) el.style.setProperty("--step", `${step}ms`);
-    // Al terminar se quita la marca para que la animación no pise hover ni transiciones propias
-    el.addEventListener("animationend", function done(e) {
-      if (e.target !== el) return;
-      el.removeEventListener("animationend", done);
-      delete el.dataset.reveal;
-      el.style.removeProperty("--i");
-      el.style.removeProperty("--step");
-    });
-  };
-
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        io.unobserve(entry.target);
-        entry.target.classList.add("is-in");
-        for (const m of members.get(entry.target) ?? []) m.classList.add("is-in");
-      }
-    },
-    { rootMargin: "0px 0px -10% 0px" }
+  const pausa = new IntersectionObserver(
+    (es) => es.forEach((e) => e.target.classList.toggle("mo-pausa", !e.isIntersecting)),
+    { rootMargin: "40px" }
   );
+  $$(BUCLES.join(",")).forEach((el) => pausa.observe(el));
 
-  const add = (box: HTMLElement, g: Omit<Group, "sel">) => {
-    if (claimed.some((c) => c === box || c.contains(box))) return;
-    claimed.push(box);
-    // Ya visible (o ya pasado) al cargar: queda como está
-    if (box.getBoundingClientRect().top < window.innerHeight) return;
-    const items = g.items ? $$(g.items, box) : [];
-    items.forEach((it, i) => mark(it, g.itemKind ?? "rise", Math.min(i, g.max ?? 6), g.step));
-    if (g.kind) mark(box, g.kind);
-    members.set(box, items);
-    io.observe(box);
-  };
-
-  for (const g of GROUPS) for (const box of $$(g.sel)) add(box, g);
-  for (const box of $$(FALLBACK)) {
-    if (claimed.some((c) => box.contains(c))) continue;
-    add(box, { kind: "rise" });
-  }
+  const entrada = new IntersectionObserver(
+    (es) =>
+      es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("mo-visto");
+        entrada.unobserve(e.target);
+      }),
+    { rootMargin: "0px 0px -6% 0px", threshold: 0.08 }
+  );
+  const interna = document.body.classList.contains("mo-int");
+  const marcar = (lista: [string, string, number][]) =>
+    lista.forEach(([sel, variante, paso]) => {
+      let n = 0;
+      $$(sel).forEach((el) => {
+        if (el.classList.contains("mo-rv")) return;
+        // En las internas lo que ya se ve al cargar no se oculta de nuevo: el encabezado entra con su propia secuencia.
+        if (interna && el.getBoundingClientRect().top < window.innerHeight * 0.85) return;
+        el.classList.add("mo-rv", `mo-rv--${variante}`);
+        el.style.setProperty("--mo-rd", `${n++ * paso}ms`);
+        entrada.observe(el);
+      });
+    });
+  marcar(interna ? ENTRADAS_INT : ENTRADAS);
 }
 
-/** La barra gana una sombra suave cuando la página ya se desplazó. */
-function initNavShadow() {
-  const nav = $(".navbar");
-  const top = $(".topbar");
-  if (!nav || !top || !("IntersectionObserver" in window)) return;
-  new IntersectionObserver(([e]) => nav.toggleAttribute("data-scrolled", !e.isIntersecting)).observe(top);
+/** Sombra suave bajo la barra de navegación al bajar (se anima la opacidad de un pseudo-elemento, no la sombra). */
+function iniciarSombraBarra() {
+  const barra = $(".navbar");
+  if (!barra) return;
+  let marco = 0;
+  const leer = () => {
+    marco = 0;
+    barra.classList.toggle("mo-scroll", window.scrollY > 8);
+  };
+  window.addEventListener("scroll", () => { if (!marco) marco = requestAnimationFrame(leer); }, { passive: true });
+  leer();
 }

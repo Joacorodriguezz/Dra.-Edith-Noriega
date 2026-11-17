@@ -1,12 +1,16 @@
 ---
 import Base from "../layouts/Base.astro";
 import Button from "../components/ui/Button.astro";
+import Deco from "../components/ui/Deco.astro";
 import { pageTitle } from "../data/site";
 ---
 
 <Base title={pageTitle("Página no encontrada")} description="No encontramos la página que buscabas. Volvé al inicio o pedí tu turno por WhatsApp con la Dra. Edith Noriega." noindex>
-  <section class="section">
-    <div class="wrap stack" style="gap:var(--space-5);align-items:flex-start">
+  <section class="section mo-host">
+    <Deco size={220} pos="right:-60px;top:-50px" loop="mo-f2" />
+    <Deco kind="blob" size={420} shape="var(--surface-tint)" opacity={0.8} pos="right:12%;bottom:-200px" loop="mo-b1" />
+    <Deco kind="ring" size={96} shape="var(--brand)" opacity={0.2} pos="right:22%;top:18%" loop="mo-f4" />
+    <div class="wrap stack mo-copy" style="gap:var(--space-5);align-items:flex-start">
       <p class="eyebrow">Error 404</p>
       <h1 class="h1">No encontramos esa página</h1>
       <p class="lead">Puede que el enlace haya cambiado. Volvé al inicio o escribinos por WhatsApp.</p>
